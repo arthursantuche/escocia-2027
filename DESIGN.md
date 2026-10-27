@@ -21,4 +21,4 @@ Fonte da verdade: `x/Documentação/Identidade Visual - iPhone Duo.md` (vault Ar
 - `prefers-reduced-motion: reduce` desliga todo o movimento.
 
 ## Exceções conhecidas
-Dimensões de layout sem token no documento (largura dos cards da galeria, altura mínima dos gráficos, espessura da linha do roteiro, ponto de quebra de 834px) usam valores diretos.
+Dimensões de layout sem token no documento (largura dos cards da galeria, altura mínima dos gráficos, espessura da linha do roteiro, ponto de quebra de 834px) e o raio de 4px das barras do Chart.js usam valores diretos. O ícone do app usa Helvetica Neue, substituta prevista no documento.
