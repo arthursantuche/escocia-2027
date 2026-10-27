@@ -1,0 +1,1200 @@
+{
+  "geradoEm": "2026-10-27T17:05:21.909Z",
+  "fonte": "amostra",
+  "abas": {
+    "Viagem": [
+      {
+        "Chave": "nome_portal",
+        "Valor": "Escócia 2027",
+        "Observação": "Nome e ícone da tela inicial do celular"
+      },
+      {
+        "Chave": "inicio",
+        "Valor": "2027-02-23",
+        "Observação": "Embarque no Brasil (voo 11:05)"
+      },
+      {
+        "Chave": "chegada_escocia",
+        "Valor": "2027-02-24",
+        "Observação": "Chegada a Edimburgo 12:00, horário local"
+      },
+      {
+        "Chave": "saida_escocia",
+        "Valor": "2027-03-08",
+        "Observação": "Voo de volta 17:30"
+      },
+      {
+        "Chave": "fim",
+        "Valor": "2027-03-09",
+        "Observação": "Chegada ao Brasil 10:20"
+      },
+      {
+        "Chave": "noites",
+        "Valor": 12,
+        "Observação": "Soma das hospedagens"
+      },
+      {
+        "Chave": "viajantes",
+        "Valor": "Arthur, Arlon e Luciane",
+        "Observação": "3 adultos"
+      },
+      {
+        "Chave": "cotacao_gbp_brl",
+        "Valor": 7,
+        "Observação": "Manual: R$ por £1. Atualize perto da viagem"
+      },
+      {
+        "Chave": "data_verificacao",
+        "Valor": "2026-10-18",
+        "Observação": "Data da pesquisa dos dados voláteis (preços, horários)"
+      },
+      {
+        "Chave": "fuso",
+        "Valor": "GMT (Brasília + 3 h)",
+        "Observação": "Horário de verão britânico só começa em 28/03/2027"
+      }
+    ],
+    "Roteiro": [
+      {
+        "Ordem": 1,
+        "Data": "2027-02-24",
+        "Cidade visitada": "Edimburgo",
+        "Dormida em": "Edimburgo",
+        "Deslocamento": "Avião",
+        "Distância": "",
+        "Tempo": "",
+        "Observações": "Chegada 12:00 ao aeroporto (EDI). Hospedagem de 24 a 27/02",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Edinburgh"
+      },
+      {
+        "Ordem": 2,
+        "Data": "2027-02-26",
+        "Cidade visitada": "St Andrews",
+        "Dormida em": "Edimburgo",
+        "Deslocamento": "Carro",
+        "Distância": "~80 km",
+        "Tempo": "~1 h 15",
+        "Observações": "Bate-volta com o carro do aluguel 1, devolvido em Edimburgo à noite",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Edinburgh%20to%20St%20Andrews"
+      },
+      {
+        "Ordem": 3,
+        "Data": "2027-02-27",
+        "Cidade visitada": "Glasgow",
+        "Dormida em": "Glasgow",
+        "Deslocamento": "Trem",
+        "Distância": "",
+        "Tempo": "~50 a 55 min",
+        "Observações": "Waverley → Queen Street; passagem no dia ou no app ScotRail",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Glasgow%20Queen%20Street%20station"
+      },
+      {
+        "Ordem": 4,
+        "Data": "2027-03-01",
+        "Cidade visitada": "Glencoe",
+        "Dormida em": "Fort William",
+        "Deslocamento": "Carro",
+        "Distância": "",
+        "Tempo": "~2 h",
+        "Observações": "Retirar o carro do aluguel 2 em Glasgow; A82 por Loch Lomond e Rannoch Moor; abastecer em Tyndrum",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Glasgow%20to%20Glencoe%20Visitor%20Centre"
+      },
+      {
+        "Ordem": 5,
+        "Data": "2027-03-01",
+        "Cidade visitada": "Fort William",
+        "Dormida em": "Fort William",
+        "Deslocamento": "Carro",
+        "Distância": "~25 a 40 km",
+        "Tempo": "~30 a 40 min",
+        "Observações": "Chegar ainda com luz (~16:30 a 17:00)",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Glencoe%20to%20Fort%20William"
+      },
+      {
+        "Ordem": 6,
+        "Data": "2027-03-02",
+        "Cidade visitada": "Isle of Skye",
+        "Dormida em": "Isle of Skye",
+        "Deslocamento": "Carro",
+        "Distância": "",
+        "Tempo": "",
+        "Observações": "Pela Skye Bridge (não pela balsa de Mallaig); terminar antes de escurecer (~17:50). Eilean Donan fica no caminho",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Fort%20William%20to%20Portree%20via%20Skye%20Bridge"
+      },
+      {
+        "Ordem": 7,
+        "Data": "2027-03-04",
+        "Cidade visitada": "Inverness",
+        "Dormida em": "Inverness",
+        "Deslocamento": "Carro",
+        "Distância": "~170 km",
+        "Tempo": "~2 h 45 a 3 h",
+        "Observações": "Devolver o carro do aluguel 2 em Inverness (one-way)",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Portree%20to%20Inverness"
+      },
+      {
+        "Ordem": 8,
+        "Data": "2027-03-06",
+        "Cidade visitada": "Edimburgo",
+        "Dormida em": "Edimburgo",
+        "Deslocamento": "Trem",
+        "Distância": "",
+        "Tempo": "~3 h 15 a 3 h 45",
+        "Observações": "Highland Main Line até Waverley; evitar o último trem do dia. Hospedagem de 06 a 08/03",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Inverness%20station%20to%20Edinburgh%20Waverley"
+      }
+    ],
+    "Passagens": [
+      {
+        "Trecho": "Ida",
+        "Data": "2027-02-23",
+        "Saída": "11:05",
+        "Chegada": "12:00",
+        "Status": "pago",
+        "Valor (R$)": 16000,
+        "Chegada (data)": "2027-02-24",
+        "Observações": "Valor total estimado de ida e volta (~R$ 16.000); separar por trecho se souber"
+      },
+      {
+        "Trecho": "Volta",
+        "Data": "2027-03-08",
+        "Saída": "17:30",
+        "Chegada": "10:20",
+        "Status": "pago",
+        "Valor (R$)": "",
+        "Chegada (data)": "2027-03-09",
+        "Observações": "Valor incluído na linha da ida"
+      }
+    ],
+    "Hospedagens": [
+      {
+        "ID": "H01",
+        "Cidade": "Edimburgo",
+        "Nome": "Moxy Edinburgh",
+        "Entrada": "2027-02-24",
+        "Saída": "2027-02-27",
+        "Noites": 3,
+        "Valor (R$)": 2498,
+        "Status": "pesquisando",
+        "Link": "",
+        "Observações": "Inclui o bate-volta a St Andrews (26/02). Taxa turística de 5%",
+        "Verificado em": "2026-09-15"
+      },
+      {
+        "ID": "H02",
+        "Cidade": "Glasgow",
+        "Nome": "Moxy Glasgow SEC",
+        "Entrada": "2027-02-27",
+        "Saída": "2027-03-01",
+        "Noites": 2,
+        "Valor (R$)": 1553,
+        "Status": "pesquisando",
+        "Link": "",
+        "Observações": "Sem carro no fim de semana",
+        "Verificado em": "2026-09-15"
+      },
+      {
+        "ID": "H03",
+        "Cidade": "Fort William",
+        "Nome": "Lime Tree Hotel",
+        "Entrada": "2027-03-01",
+        "Saída": "2027-03-02",
+        "Noites": 1,
+        "Valor (R$)": 1045,
+        "Status": "pesquisando",
+        "Link": "",
+        "Observações": "Inclui o Glencoe (01/03). ⚠️ Reservar cedo",
+        "Verificado em": "2026-09-15"
+      },
+      {
+        "ID": "H04",
+        "Cidade": "Isle of Skye",
+        "Nome": "A definir",
+        "Entrada": "2027-03-02",
+        "Saída": "2027-03-04",
+        "Noites": 2,
+        "Valor (R$)": 2599,
+        "Status": "pesquisando",
+        "Link": "",
+        "Observações": "⚠️ Reservar cedo: pouca oferta no inverno",
+        "Verificado em": "2026-09-15"
+      },
+      {
+        "ID": "H05",
+        "Cidade": "Inverness",
+        "Nome": "B&B HOTEL Inverness",
+        "Entrada": "2027-03-04",
+        "Saída": "2027-03-06",
+        "Noites": 2,
+        "Valor (R$)": 1423,
+        "Status": "pesquisando",
+        "Link": "",
+        "Observações": "Opção 1 (escolher entre H05 e H06; marcar a outra como descartado)",
+        "Verificado em": "2026-09-15"
+      },
+      {
+        "ID": "H06",
+        "Cidade": "Inverness",
+        "Nome": "The Royal Highland Hotel",
+        "Entrada": "2027-03-04",
+        "Saída": "2027-03-06",
+        "Noites": 2,
+        "Valor (R$)": 1899,
+        "Status": "pesquisando",
+        "Link": "",
+        "Observações": "Opção 2",
+        "Verificado em": "2026-09-15"
+      },
+      {
+        "ID": "H07",
+        "Cidade": "Edimburgo",
+        "Nome": "Moxy Edinburgh",
+        "Entrada": "2027-03-06",
+        "Saída": "2027-03-08",
+        "Noites": 2,
+        "Valor (R$)": 2217,
+        "Status": "pesquisando",
+        "Link": "",
+        "Observações": "⚠️ Rúgbi Escócia x Irlanda em 05/03: reservar logo",
+        "Verificado em": "2026-09-15"
+      }
+    ],
+    "Transportes": [
+      {
+        "ID": "T01",
+        "Tipo": "Carro",
+        "Trecho": "Aluguel 1: Edimburgo → St Andrews → Edimburgo",
+        "Data": "2027-02-26",
+        "Valor (R$)": "",
+        "Status": "pesquisando",
+        "Observações": "Retirar de manhã e devolver à noite em Edimburgo; confirmar horário da agência. Valor a cotar",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "T02",
+        "Tipo": "Trem",
+        "Trecho": "Edinburgh Waverley → Glasgow Queen Street",
+        "Data": "2027-02-27",
+        "Valor (R$)": 350,
+        "Status": "pesquisando",
+        "Observações": "A partir de ~£12 por pessoa; não precisa reservar",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "T03",
+        "Tipo": "Carro",
+        "Trecho": "Aluguel 2: Glasgow → Inverness (one-way)",
+        "Data": "2027-03-01",
+        "Valor (R$)": "",
+        "Status": "pesquisando",
+        "Observações": "Automático, porta-malas para 3 adultos; devolução 04/03 em Inverness; taxa one-way, LEZ e CNH a confirmar. Valor a cotar",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "T04",
+        "Tipo": "Trem",
+        "Trecho": "Inverness → Edinburgh Waverley",
+        "Data": "2027-03-06",
+        "Valor (R$)": 1000,
+        "Status": "pesquisando",
+        "Observações": "Venda abre ~12 semanas antes (≈ 12/12/2026); tarifa Advance a partir de ~£15",
+        "Verificado em": "2026-10-18"
+      }
+    ],
+    "Orcamento": [
+      {
+        "Categoria": "Passagens",
+        "Descrição": "Passagens aéreas",
+        "Previsto (R$)": 16000,
+        "Reservado/Pago (R$)": 16000,
+        "Real (R$)": 0
+      },
+      {
+        "Categoria": "Hospedagem",
+        "Descrição": "Hospedagens (12 noites)",
+        "Previsto (R$)": 11550,
+        "Reservado/Pago (R$)": 0,
+        "Real (R$)": 0
+      },
+      {
+        "Categoria": "Transporte - carro",
+        "Descrição": "Aluguel de carro (2 aluguéis), combustível, estacionamento",
+        "Previsto (R$)": 1650,
+        "Reservado/Pago (R$)": 0,
+        "Real (R$)": 0
+      },
+      {
+        "Categoria": "Transporte - trem",
+        "Descrição": "Trens Edimburgo/Glasgow (~350) e Inverness/Edimburgo (~1.000)",
+        "Previsto (R$)": 1350,
+        "Reservado/Pago (R$)": 0,
+        "Real (R$)": 0
+      },
+      {
+        "Categoria": "Alimentação",
+        "Descrição": "Estimativa diária",
+        "Previsto (R$)": 13000,
+        "Reservado/Pago (R$)": "",
+        "Real (R$)": 0
+      },
+      {
+        "Categoria": "Atrações e passes",
+        "Descrição": "HES Explorer Pass, ingressos (fora do orçamento original)",
+        "Previsto (R$)": "",
+        "Reservado/Pago (R$)": "",
+        "Real (R$)": 0
+      },
+      {
+        "Categoria": "Documentos",
+        "Descrição": "ETA ×3 (£20 cada) (fora do orçamento original)",
+        "Previsto (R$)": "",
+        "Reservado/Pago (R$)": "",
+        "Real (R$)": 0
+      },
+      {
+        "Categoria": "Seguro viagem",
+        "Descrição": "Seguro com cobertura médica e repatriação (fora do orçamento original)",
+        "Previsto (R$)": "",
+        "Reservado/Pago (R$)": "",
+        "Real (R$)": 0
+      },
+      {
+        "Categoria": "Compras",
+        "Descrição": "Lembranças e compras",
+        "Previsto (R$)": "",
+        "Reservado/Pago (R$)": "",
+        "Real (R$)": 0
+      },
+      {
+        "Categoria": "Outros",
+        "Descrição": "Imprevistos",
+        "Previsto (R$)": "",
+        "Reservado/Pago (R$)": "",
+        "Real (R$)": 0
+      }
+    ],
+    "Gastos": [],
+    "Cidades": [
+      {
+        "Cidade": "Edimburgo",
+        "Resumo": "Capital compacta e muito a pé: Old Town medieval (Castelo, Royal Mile) e New Town georgiana. Base de 24 a 27/02 (com bate-volta a St Andrews) e de 06 a 08/03.",
+        "Dicas": "Reservar Castelo, Holyroodhouse e Britannia. Museus gratuitos para dias de chuva. Carro atrapalha (LEZ e estacionamento caro). Rúgbi Escócia x Irlanda em 05/03 lota a cidade; Mothering Sunday em 07/03.",
+        "Clima/luz": "Máx. 6 a 8 °C, mín. 0 a 2 °C, ~15 a 18 dias de chuva. Luz de ~07:20–17:35 (23/02) a ~06:45–18:00 (08/03).",
+        "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FEdimburgo",
+        "Imagem": ""
+      },
+      {
+        "Cidade": "St Andrews",
+        "Resumo": "Cidade universitária medieval à beira do Mar do Norte, a \"casa do golfe\". Bate-volta de carro a partir de Edimburgo em 26/02.",
+        "Dicas": "A catedral fecha de terça a quinta (26/02 é sexta: aberta). Castelo mais barato online. Estacionar e fazer tudo a pé. Vento forte na costa.",
+        "Clima/luz": "Máx. ~6 °C, mín. ~0 °C, ~15 dias de chuva. Pôr do sol ~17:30 a 17:45.",
+        "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FSt%20Andrews",
+        "Imagem": ""
+      },
+      {
+        "Cidade": "Glasgow",
+        "Resumo": "Maior cidade da Escócia: arquitetura vitoriana, legado de Mackintosh, museus gratuitos e cena de pubs e música. De 27/02 a 01/03, sem carro.",
+        "Dicas": "Chegar de trem em Queen Street. Quase tudo é gratuito. LEZ 24 h. Barras no fim de semana. Atenção à noite.",
+        "Clima/luz": "Máx. ~6 °C, mín. ~0 °C, ~15 dias de chuva. Luz até ~17:50.",
+        "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FGlasgow",
+        "Imagem": ""
+      },
+      {
+        "Cidade": "Glencoe",
+        "Resumo": "Vale glacial mais cênico da A82 (Three Sisters, Buachaille Etive Mòr), palco do Massacre de 1692. Visita em 01/03, na ida de Glasgow para Fort William.",
+        "Dicas": "Centro de visitantes 09:30–16:00. Trilhas curtas (Signal Rock, Glencoe Lochan); pular o Lost Valley no inverno. Sinal de celular falho. Com chuva: mirantes de dentro do carro.",
+        "Clima/luz": "0 a 6 °C no vale; chuva, sleet, neve e vento. Pôr do sol ~17:50.",
+        "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FGlencoe",
+        "Imagem": ""
+      },
+      {
+        "Cidade": "Fort William",
+        "Resumo": "Base aos pés do Ben Nevis; 1 noite (01/03) entre Glencoe e Skye.",
+        "Dicas": "Reservar o jantar. Abastecer antes de seguir para Skye. O trem Jacobite não opera em fev/mar. Ben Nevis só com equipamento de inverno.",
+        "Clima/luz": "Uma das cidades mais chuvosas do Reino Unido: máx. 5 a 6 °C, mín. -1 a 0 °C. Luz ~07:15–17:50.",
+        "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FFort%20William",
+        "Imagem": ""
+      },
+      {
+        "Cidade": "Isle of Skye",
+        "Resumo": "Paisagem, trilhas curtas e estradas single-track. Chegada em 02/03, dia cheio em 03/03 e saída em 04/03.",
+        "Dicas": "Ir pela Skye Bridge. Priorizar Trotternish (Storr, Kilt Rock, Quiraing) ou o oeste (Fairy Pools, Talisker). Dunvegan fechado. Restaurantes fecham na baixa temporada. Abastecer em Broadford ou Portree.",
+        "Clima/luz": "Máx. 6 a 7 °C, mín. 1 a 2 °C, 19 a 23 dias de chuva, vento forte. Luz ~07:00–17:50.",
+        "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FIsle%20of%20Skye",
+        "Imagem": ""
+      },
+      {
+        "Cidade": "Inverness",
+        "Resumo": "Capital das Highlands. Base de 04 a 06/03, com dia cheio em 05/03 nos arredores (Culloden, Clava Cairns, Fort George, Loch Ness e Urquhart).",
+        "Dicas": "Quase tudo abre em março, fechando entre 16:00 e 18:00. Reservar Urquhart online. Devolver o carro antes do trem de 06/03.",
+        "Clima/luz": "~1 a 7 °C, geada pela manhã, garoa. Luz ~06:50–17:55.",
+        "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FInverness",
+        "Imagem": ""
+      }
+    ],
+    "Atracoes": [
+      {
+        "ID": "A01",
+        "Cidade": "Edimburgo",
+        "Nome": "Castelo de Edimburgo",
+        "Dia sugerido": "2027-02-24",
+        "Horário": "09:30–17:00 (última entrada 16:00)",
+        "Preço (£)": 23.5,
+        "Reserva necessária": "Sim",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Edinburgh%20Castle",
+        "Observações": "£26 na hora. Ativar o HES Explorer Pass aqui. Tiro do canhão 13:00, exceto domingo",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A02",
+        "Cidade": "Edimburgo",
+        "Nome": "Royal Mile, St Giles' e Greyfriars",
+        "Dia sugerido": "2027-02-24",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Royal%20Mile%20Edinburgh",
+        "Observações": "St Giles' aceita doação",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A03",
+        "Cidade": "Edimburgo",
+        "Nome": "Palácio de Holyroodhouse",
+        "Dia sugerido": "2027-02-25",
+        "Horário": "09:30–16:30 (última admissão 15:15)",
+        "Preço (£)": 22,
+        "Reserva necessária": "Sim",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Palace%20of%20Holyroodhouse",
+        "Observações": "Pode fechar sem aviso. Não coberto pelo Explorer Pass",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A04",
+        "Cidade": "Edimburgo",
+        "Nome": "Museu Nacional da Escócia",
+        "Dia sugerido": "2027-02-25",
+        "Horário": "10:00–17:00",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=National%20Museum%20of%20Scotland",
+        "Observações": "Ótimo plano de chuva",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A05",
+        "Cidade": "Edimburgo",
+        "Nome": "Victoria Street e Grassmarket",
+        "Dia sugerido": "2027-02-25",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Victoria%20Street%20Edinburgh",
+        "Observações": "",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A06",
+        "Cidade": "Edimburgo",
+        "Nome": "Royal Yacht Britannia",
+        "Dia sugerido": "2027-03-07",
+        "Horário": "10:00–17:00 (última entrada 15:00)",
+        "Preço (£)": 22,
+        "Reserva necessária": "Recomendado",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Royal%20Yacht%20Britannia",
+        "Observações": "£24 na hora. Em Leith",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A07",
+        "Cidade": "Edimburgo",
+        "Nome": "Dean Village e Water of Leith",
+        "Dia sugerido": "2027-03-07",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Dean%20Village%20Edinburgh",
+        "Observações": "",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A08",
+        "Cidade": "Edimburgo",
+        "Nome": "Calton Hill",
+        "Dia sugerido": "2027-03-07",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Calton%20Hill",
+        "Observações": "Bom para o pôr do sol; ventoso",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A09",
+        "Cidade": "Edimburgo",
+        "Nome": "Arthur's Seat (Holyrood Park)",
+        "Dia sugerido": "2027-03-08",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Arthur's%20Seat",
+        "Observações": "Só com tempo firme; 2 a 3 h. Confirmar status da Radical Road",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A10",
+        "Cidade": "St Andrews",
+        "Nome": "Catedral de St Andrews",
+        "Dia sugerido": "2027-02-26",
+        "Horário": "Seg, sex, sáb e dom 10:00–16:00; fechada ter–qui",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=St%20Andrews%20Cathedral",
+        "Observações": "Ruínas e tours gratuitos",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A11",
+        "Cidade": "St Andrews",
+        "Nome": "Castelo de St Andrews",
+        "Dia sugerido": "2027-02-26",
+        "Horário": "10:00–16:00 (última entrada 15:15)",
+        "Preço (£)": 10,
+        "Reserva necessária": "Recomendado",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=St%20Andrews%20Castle",
+        "Observações": "£11 no local. Coberto pelo Explorer Pass",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A12",
+        "Cidade": "St Andrews",
+        "Nome": "Old Course e Swilcan Bridge",
+        "Dia sugerido": "2027-02-26",
+        "Horário": "Livre (campo fecha aos domingos)",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Swilcan%20Bridge%20St%20Andrews",
+        "Observações": "",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A13",
+        "Cidade": "St Andrews",
+        "Nome": "West Sands",
+        "Dia sugerido": "2027-02-26",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=West%20Sands%20St%20Andrews",
+        "Observações": "Vento forte e frio",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A14",
+        "Cidade": "St Andrews",
+        "Nome": "East Sands e Pier Walk",
+        "Dia sugerido": "2027-02-26",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=St%20Andrews%20Pier",
+        "Observações": "Piso escorregadio",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A15",
+        "Cidade": "Glasgow",
+        "Nome": "Catedral de Glasgow",
+        "Dia sugerido": "2027-02-27",
+        "Horário": "Seg–sáb 10:00–16:00 (fecha 12:30–13:30); dom a partir de 13:00",
+        "Preço (£)": 0,
+        "Reserva necessária": "Recomendado",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Glasgow%20Cathedral",
+        "Observações": "Gratuita (doação)",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A16",
+        "Cidade": "Glasgow",
+        "Nome": "Necrópole",
+        "Dia sugerido": "2027-02-27",
+        "Horário": "~07:00–16:30",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Glasgow%20Necropolis",
+        "Observações": "Terreno irregular e enlameado",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A17",
+        "Cidade": "Glasgow",
+        "Nome": "Mackintosh at the Willow",
+        "Dia sugerido": "2027-02-27",
+        "Horário": "Exposição 10:00–17:00; salão de chá 11:00–17:00",
+        "Preço (£)": 10,
+        "Reserva necessária": "Sim",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Mackintosh%20at%20the%20Willow",
+        "Observações": "Visita guiada às 10:00 e 11:00, máx. 6 pessoas",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A18",
+        "Cidade": "Glasgow",
+        "Nome": "Murais do centro (Mural Trail)",
+        "Dia sugerido": "2027-02-27",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=City%20Centre%20Mural%20Trail%20Glasgow",
+        "Observações": "",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A19",
+        "Cidade": "Glasgow",
+        "Nome": "Kelvingrove Art Gallery & Museum",
+        "Dia sugerido": "2027-02-28",
+        "Horário": "Dom 11:00–17:00",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Kelvingrove%20Art%20Gallery%20and%20Museum",
+        "Observações": "Gratuito (doação)",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A20",
+        "Cidade": "Glasgow",
+        "Nome": "Riverside Museum",
+        "Dia sugerido": "2027-02-28",
+        "Horário": "Dom 11:00–17:00",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Riverside%20Museum%20Glasgow",
+        "Observações": "Gratuito",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A21",
+        "Cidade": "Glasgow",
+        "Nome": "Mercado The Barras",
+        "Dia sugerido": "2027-02-28",
+        "Horário": "Sáb e dom 10:00–16:00",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=The%20Barras%20Market%20Glasgow",
+        "Observações": "Atenção a bolsos",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A22",
+        "Cidade": "Glencoe",
+        "Nome": "Rannoch Moor e Buachaille Etive Mòr",
+        "Dia sugerido": "2027-03-01",
+        "Horário": "Mirantes da A82",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Buachaille%20Etive%20Mor%20viewpoint",
+        "Observações": "Risco de gelo e neve",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A23",
+        "Cidade": "Glencoe",
+        "Nome": "Three Sisters (mirante)",
+        "Dia sugerido": "2027-03-01",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Three%20Sisters%20viewpoint%20Glencoe",
+        "Observações": "Ao lado da Meeting of Three Waters",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A24",
+        "Cidade": "Glencoe",
+        "Nome": "Glencoe Visitor Centre (NTS)",
+        "Dia sugerido": "2027-03-01",
+        "Horário": "09:30–16:00",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Glencoe%20Visitor%20Centre",
+        "Observações": "Gratuito; filme, exposição e café",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A25",
+        "Cidade": "Glencoe",
+        "Nome": "Signal Rock ou Glencoe Lochan",
+        "Dia sugerido": "2027-03-01",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Glencoe%20Lochan",
+        "Observações": "Trilhas curtas e seguras no inverno",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A26",
+        "Cidade": "Fort William",
+        "Nome": "Neptune's Staircase",
+        "Dia sugerido": "2027-03-02",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Neptune's%20Staircase%20Banavie",
+        "Observações": "Parada rápida com vista do Ben Nevis",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A27",
+        "Cidade": "Fort William",
+        "Nome": "Glen Nevis e Steall Falls",
+        "Dia sugerido": "2027-03-02",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Steall%20Falls%20car%20park",
+        "Observações": "Só se der tempo antes de Skye; trilha escorregadia",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A28",
+        "Cidade": "Isle of Skye",
+        "Nome": "Eilean Donan Castle",
+        "Dia sugerido": "2027-03-02",
+        "Horário": "10:00–16:00 (última entrada 15:00) em 2026",
+        "Preço (£)": 13,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Eilean%20Donan%20Castle",
+        "Observações": "No caminho para a Skye Bridge; venda só no local; horário de 2027 a confirmar",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A29",
+        "Cidade": "Isle of Skye",
+        "Nome": "Sligachan",
+        "Dia sugerido": "2027-03-02",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Sligachan%20Old%20Bridge",
+        "Observações": "Vista dos Cuillins",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A30",
+        "Cidade": "Isle of Skye",
+        "Nome": "Old Man of Storr",
+        "Dia sugerido": "2027-03-03",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Old%20Man%20of%20Storr%20car%20park",
+        "Observações": "Fazer cedo; estacionamento pago",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A31",
+        "Cidade": "Isle of Skye",
+        "Nome": "Kilt Rock e Mealt Falls",
+        "Dia sugerido": "2027-03-03",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Kilt%20Rock%20viewpoint",
+        "Observações": "",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A32",
+        "Cidade": "Isle of Skye",
+        "Nome": "Quiraing",
+        "Dia sugerido": "2027-03-03",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Quiraing%20car%20park",
+        "Observações": "Estrada estreita, sujeita a gelo",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A33",
+        "Cidade": "Isle of Skye",
+        "Nome": "Fairy Glen",
+        "Dia sugerido": "2027-03-03",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Fairy%20Glen%20Uig",
+        "Observações": "",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A34",
+        "Cidade": "Isle of Skye",
+        "Nome": "Fairy Pools",
+        "Dia sugerido": "2027-03-03",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Fairy%20Pools%20car%20park",
+        "Observações": "Alternativa ao norte: escolher Trotternish ou o oeste",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A35",
+        "Cidade": "Isle of Skye",
+        "Nome": "Talisker Distillery",
+        "Dia sugerido": "2027-03-03",
+        "Horário": "10:00–16:30 (inverno; março a confirmar)",
+        "Preço (£)": 22,
+        "Reserva necessária": "Recomendado",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Talisker%20Distillery",
+        "Observações": "O motorista não bebe",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A36",
+        "Cidade": "Isle of Skye",
+        "Nome": "Portree",
+        "Dia sugerido": "2027-03-03",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Portree%20harbour",
+        "Observações": "Fim do dia",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A37",
+        "Cidade": "Inverness",
+        "Nome": "Ness Islands",
+        "Dia sugerido": "2027-03-04",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Ness%20Islands%20Inverness",
+        "Observações": "",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A38",
+        "Cidade": "Inverness",
+        "Nome": "Culloden Battlefield (NTS)",
+        "Dia sugerido": "2027-03-05",
+        "Horário": "09:00–16:00 (março a confirmar)",
+        "Preço (£)": 12.5,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Culloden%20Battlefield",
+        "Observações": "Estacionamento £5",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A39",
+        "Cidade": "Inverness",
+        "Nome": "Clava Cairns",
+        "Dia sugerido": "2027-03-05",
+        "Horário": "Livre",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Clava%20Cairns",
+        "Observações": "Ao lado de Culloden",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A40",
+        "Cidade": "Inverness",
+        "Nome": "Fort George",
+        "Dia sugerido": "2027-03-05",
+        "Horário": "10:00–16:00 (última entrada 15:00)",
+        "Preço (£)": 10,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Fort%20George%20Ardersier",
+        "Observações": "Coberto pelo Explorer Pass",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A41",
+        "Cidade": "Inverness",
+        "Nome": "Urquhart Castle (Loch Ness)",
+        "Dia sugerido": "2027-03-05",
+        "Horário": "09:30–16:30 (última entrada 15:30)",
+        "Preço (£)": 14,
+        "Reserva necessária": "Sim",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Urquhart%20Castle",
+        "Observações": "£16 no local; ingressos esgotam. Coberto pelo Explorer Pass",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A42",
+        "Cidade": "Inverness",
+        "Nome": "Inverness Castle Experience",
+        "Dia sugerido": "2027-03-05",
+        "Horário": "10:00–18:00 (última entrada 16:00)",
+        "Preço (£)": 20,
+        "Reserva necessária": "Recomendado",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Inverness%20Castle",
+        "Observações": "£22 no local",
+        "Verificado em": "2026-10-18"
+      },
+      {
+        "ID": "A43",
+        "Cidade": "Inverness",
+        "Nome": "Leakey's Bookshop",
+        "Dia sugerido": "2027-03-06",
+        "Horário": "A confirmar",
+        "Preço (£)": 0,
+        "Reserva necessária": "Não",
+        "Status": "planejado",
+        "Link Maps": "https://www.google.com/maps/search/?api=1&query=Leakey's%20Bookshop%20Inverness",
+        "Observações": "Antes do trem",
+        "Verificado em": "2026-10-18"
+      }
+    ],
+    "Checklist": [
+      {
+        "ID": "C01",
+        "Item": "Reservar carro automático do aluguel 2 (Glasgow 01/03 → Inverness 04/03, one-way). Janela já aberta",
+        "Categoria": "Transporte",
+        "Prazo": "2026-12-01",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Reservas e coisas a fazer",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C02",
+        "Item": "Reservar carro do aluguel 1 (Edimburgo, 26/02)",
+        "Categoria": "Transporte",
+        "Prazo": "2026-12-01",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "St Andrews › Logística do carro",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C03",
+        "Item": "Perguntar à locadora: CNH brasileira (física ou digital), PID, LEZ (Euro 4/6), taxa one-way, agências e horários",
+        "Categoria": "Transporte",
+        "Prazo": "2026-12-01",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Dirigir na Escócia",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C04",
+        "Item": "Reservar hospedagem de Edimburgo 06 a 08/03 (rúgbi na sexta 05/03)",
+        "Categoria": "Hospedagem",
+        "Prazo": "2026-11-15",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Reservas e coisas a fazer",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C05",
+        "Item": "Reservar hospedagem em Isle of Skye (02 a 04/03)",
+        "Categoria": "Hospedagem",
+        "Prazo": "2026-11-30",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Reservas e coisas a fazer",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C06",
+        "Item": "Reservar hospedagem em Fort William (01/03)",
+        "Categoria": "Hospedagem",
+        "Prazo": "2026-11-30",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Reservas e coisas a fazer",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C07",
+        "Item": "Reservar hospedagens de Edimburgo (24 a 27/02), Glasgow e Inverness (escolher entre as duas opções)",
+        "Categoria": "Hospedagem",
+        "Prazo": "2026-12-15",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Notas de hospedagem",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C08",
+        "Item": "Comprar trem Inverness → Edimburgo (06/03) quando abrir a venda (~12 semanas antes; confirmar no ScotRail)",
+        "Categoria": "Transporte",
+        "Prazo": "2026-12-12",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Reservas e coisas a fazer",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C09",
+        "Item": "Pedir os 3 ETAs só pelo gov.uk ou app oficial UK ETA (conferir regra em gov.uk/check-uk-visa)",
+        "Categoria": "Documentos",
+        "Prazo": "2027-01-15",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Entrada no Reino Unido",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C10",
+        "Item": "Tirar PID no Detran (opcional, garantia extra para a locadora)",
+        "Categoria": "Documentos",
+        "Prazo": "2027-01-31",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Dirigir na Escócia",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C11",
+        "Item": "Contratar seguro viagem (cobertura médica, repatriação, bagagem)",
+        "Categoria": "Documentos",
+        "Prazo": "2027-01-31",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Saúde, seguro e segurança",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C12",
+        "Item": "Comprar HES Explorer Pass (ativar em 24/02) e reservar horário do Castelo de Edimburgo",
+        "Categoria": "Atrações",
+        "Prazo": "2027-01-31",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Reservas e coisas a fazer",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C13",
+        "Item": "Reservar almoço ou jantar de Mothering Sunday (07/03) em Edimburgo",
+        "Categoria": "Alimentação",
+        "Prazo": "2027-01-31",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Reservas e coisas a fazer",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C14",
+        "Item": "Reservar jantares nas Highlands (Fort William, Skye, Inverness)",
+        "Categoria": "Alimentação",
+        "Prazo": "2027-01-31",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Reservas e coisas a fazer",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C15",
+        "Item": "Reservar Holyroodhouse, Urquhart, Mackintosh at the Willow e Talisker (se forem)",
+        "Categoria": "Atrações",
+        "Prazo": "2027-02-10",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Notas das cidades",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C16",
+        "Item": "Avisar o banco, conferir IOF e cartão internacional",
+        "Categoria": "Dinheiro",
+        "Prazo": "2027-02-15",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Dinheiro e custos",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C17",
+        "Item": "Escolher chip ou eSIM (confirmar suporte a eSIM nos celulares)",
+        "Categoria": "Conectividade",
+        "Prazo": "2027-02-15",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Tomada, chip e conectividade",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C18",
+        "Item": "Comprar 2 ou 3 adaptadores de tomada tipo G",
+        "Categoria": "Bagagem",
+        "Prazo": "2027-02-15",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › O que levar",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C19",
+        "Item": "Conferir previsão e alertas (Met Office, Traffic Scotland)",
+        "Categoria": "Clima",
+        "Prazo": "2027-02-13",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Clima e luz do dia",
+        "Atualizado em": ""
+      },
+      {
+        "ID": "C20",
+        "Item": "Baixar mapas offline (Highlands e Skye) e reservas",
+        "Categoria": "Conectividade",
+        "Prazo": "2027-02-20",
+        "Responsável": "Arthur",
+        "Status": "⚠️ pendente",
+        "Fonte": "Escócia 2027 › Tomada, chip e conectividade",
+        "Atualizado em": ""
+      }
+    ],
+    "Notas": []
+  }
+}

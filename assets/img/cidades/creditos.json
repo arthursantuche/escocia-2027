@@ -1,0 +1,44 @@
+{
+  "edimburgo": {
+    "titulo": "Edinburgh Skyline Panorama.jpg",
+    "autor": "Strevo",
+    "licenca": "CC BY 2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Edinburgh_Skyline_Panorama.jpg"
+  },
+  "st-andrews": {
+    "titulo": "St Andrews Cathedral, Fife - geograph.org.uk - 5496042.jpg",
+    "autor": "Jerzy Morkis",
+    "licenca": "CC BY-SA 2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:St_Andrews_Cathedral,_Fife_-_geograph.org.uk_-_5496042.jpg"
+  },
+  "glasgow": {
+    "titulo": "Kelvingrove from Glasgow University Tower.jpg",
+    "autor": "Herebedug",
+    "licenca": "CC BY-SA 3.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Kelvingrove_from_Glasgow_University_Tower.jpg"
+  },
+  "glencoe": {
+    "titulo": "Glen Coe Rainbow.jpg",
+    "autor": "Colin",
+    "licenca": "CC BY-SA 4.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Glen_Coe_Rainbow.jpg"
+  },
+  "fort-william": {
+    "titulo": "Glenfinnan Site.jpg",
+    "autor": "J. Drevet",
+    "licenca": "CC BY-SA 3.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Glenfinnan_Site.jpg"
+  },
+  "isle-of-skye": {
+    "titulo": "Quiraing, Isle of Skye, Scotland - Diliff.jpg",
+    "autor": "Diliff",
+    "licenca": "CC BY-SA 3.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Quiraing,_Isle_of_Skye,_Scotland_-_Diliff.jpg"
+  },
+  "inverness": {
+    "titulo": "Inverness Castle and the River Ness - geograph.org.uk - 2895311.jpg",
+    "autor": "Roger Davies",
+    "licenca": "CC BY-SA 2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Inverness_Castle_and_the_River_Ness_-_geograph.org.uk_-_2895311.jpg"
+  }
+}

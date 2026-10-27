@@ -1,0 +1,177 @@
+/* Navegação local flutuante (componente "Product Local Navigation") */
+.nav-local {
+  position: sticky;
+  top: var(--spacing-8);
+  z-index: 10;
+  margin: var(--spacing-8) var(--spacing-12) 0;
+  padding: var(--spacing-12) var(--spacing-20);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  background: var(--color-gallery-white);
+  border-radius: var(--radius-navigation);
+  box-shadow: var(--shadow-subtle);
+}
+.nav-local__titulo {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-product-nav-title);
+  line-height: var(--leading-product-nav-title);
+  letter-spacing: var(--tracking-product-nav-title);
+  font-weight: var(--font-weight-semibold);
+  margin-right: auto;
+  white-space: nowrap;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--spacing-40);
+  padding: 0 var(--spacing-16);
+  border-radius: var(--radius-buttons);
+  font-size: var(--text-compact-control);
+  line-height: var(--leading-compact-control);
+  letter-spacing: var(--tracking-compact-control);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-subtle-2);
+  background: transparent;
+}
+.pill--azul { background: var(--color-pricing-blue); color: var(--color-gallery-white); box-shadow: none; }
+.pill:hover { text-decoration: none; }
+
+/* Hero */
+.hero { text-align: center; padding-top: var(--spacing-64); }
+.hero .kicker { margin-bottom: var(--spacing-16); }
+.hero .display + .copy { margin-top: var(--spacing-16); }
+.roteiro .titulo, .destaques .titulo { margin-top: var(--spacing-8); }
+.roteiro .copy { margin-top: var(--spacing-12); }
+.contagem {
+  margin: var(--spacing-48) auto 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--card-padding) var(--spacing-48);
+  border-radius: var(--radius-cards);
+  background: var(--color-studio-mist);
+}
+.contagem__numero {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-hero-display);
+  line-height: var(--leading-hero-display);
+  letter-spacing: var(--tracking-hero-display);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Próximo compromisso */
+.proximo {
+  margin-top: var(--spacing-40);
+  text-align: left;
+  padding: var(--card-padding);
+  border-radius: var(--radius-cards);
+  box-shadow: var(--shadow-subtle);
+  display: grid;
+  gap: var(--spacing-8);
+}
+
+/* Destaques: galeria horizontal de cards brancos ("Highlights Stage") */
+.destaques__cabecalho {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--element-gap);
+  margin-bottom: var(--spacing-32);
+}
+.galeria {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(86vw, 420px);
+  gap: var(--element-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--spacing-20);
+  scrollbar-width: none;
+}
+.galeria::-webkit-scrollbar { display: none; }
+.card {
+  scroll-snap-align: start;
+  background: var(--color-gallery-white);
+  border-radius: var(--radius-cards);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-height: 420px;
+}
+.card__numero {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-feature-heading);
+  line-height: var(--leading-feature-heading);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+.card__grafico { position: relative; flex: 1; min-height: 220px; }
+.legenda-grafico { display: flex; flex-wrap: wrap; gap: var(--spacing-12); }
+.legenda-grafico span::before {
+  content: ''; display: inline-block; width: 10px; height: 10px; margin-right: var(--spacing-4);
+  border-radius: var(--radius-buttons); background: currentColor; vertical-align: middle;
+}
+
+/* Barra de progresso do checklist */
+.progresso { height: var(--spacing-8); border-radius: var(--radius-buttons); background: var(--color-control-gray); overflow: hidden; }
+.progresso__barra { height: 100%; background: var(--color-apple-blue); border-radius: inherit; }
+
+/* Pendências por prazo */
+.pendencias { list-style: none; margin: var(--spacing-32) 0 0; padding: 0; }
+.pendencias li {
+  display: grid;
+  grid-template-columns: var(--spacing-76) 1fr;
+  gap: var(--spacing-16);
+  padding: var(--spacing-20) 0;
+  border-top: 1px solid var(--color-hairline-silver);
+}
+.pendencias__data {
+  font-family: var(--font-sf-pro-display);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Roteiro fixado com linha que avança pela rolagem */
+.roteiro { position: relative; }
+.roteiro__palco { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.roteiro__trilha { position: relative; margin-top: var(--spacing-24); }
+.roteiro__linha {
+  position: absolute; left: 11px; top: 0; bottom: 0; width: 2px;
+  background: var(--color-control-gray);
+}
+.roteiro__progresso {
+  position: absolute; left: 11px; top: 0; width: 2px; height: 100%;
+  background: var(--color-ink); transform-origin: top;
+}
+.parada { position: relative; display: grid; grid-template-columns: var(--spacing-24) 1fr; gap: var(--spacing-16); padding: var(--spacing-4) 0; }
+.parada__ponto {
+  width: var(--spacing-24); height: var(--spacing-24); border-radius: var(--radius-buttons);
+  background: var(--color-gallery-white); box-shadow: var(--shadow-subtle-2);
+  position: relative; z-index: 1;
+}
+.parada.ativa .parada__ponto { background: var(--color-ink); box-shadow: none; }
+.parada__cidade {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-product-kicker);
+  line-height: var(--leading-product-kicker);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Cidades */
+.cidades { display: grid; gap: var(--element-gap); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: var(--spacing-40); }
+.cidade {
+  border-radius: var(--radius-cards);
+  background: var(--color-studio-mist);
+  padding: var(--card-padding);
+  display: grid; gap: var(--spacing-12); align-content: start;
+}
+
+.rodape { padding: var(--spacing-40) var(--spacing-20); background: var(--color-studio-mist); }
+
+@media (min-width: 834px) {
+  .nav-local { margin: var(--spacing-8) auto 0; max-width: 1024px; }
+  .roteiro__palco { flex-direction: row; align-items: center; gap: var(--spacing-80); }
+  .roteiro__palco > * { flex: 1; }
+  .parada { padding: var(--spacing-12) 0; }
+}

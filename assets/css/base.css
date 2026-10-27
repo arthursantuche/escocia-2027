@@ -1,0 +1,73 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--color-gallery-white);
+  color: var(--color-ink);
+  font-family: var(--font-sf-pro-text);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p { margin: 0; }
+
+a { color: var(--color-apple-blue); text-decoration: none; border-radius: var(--radius-links); }
+a:hover { text-decoration: underline; }
+
+:focus-visible { outline: 2px solid var(--color-apple-blue); outline-offset: 2px; }
+
+.secao {
+  padding: var(--section-gap) var(--spacing-20);
+}
+.secao--mist { background: var(--color-studio-mist); }
+
+.conteudo { max-width: 980px; margin: 0 auto; }
+
+/* Tipografia (papéis da escala do documento) */
+.kicker {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-product-kicker);
+  line-height: var(--leading-product-kicker);
+  letter-spacing: var(--tracking-product-kicker);
+  font-weight: var(--font-weight-semibold);
+}
+.display {
+  font-family: var(--font-sf-pro-display);
+  font-size: clamp(var(--text-feature-heading), 12vw, var(--text-hero-display));
+  line-height: var(--leading-hero-display);
+  letter-spacing: var(--tracking-hero-display);
+  font-weight: var(--font-weight-semibold);
+}
+.titulo {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-feature-heading);
+  line-height: var(--leading-feature-heading);
+  letter-spacing: var(--tracking-feature-heading);
+  font-weight: var(--font-weight-semibold);
+}
+.copy {
+  font-size: var(--text-feature-copy);
+  line-height: var(--leading-feature-copy);
+  letter-spacing: var(--tracking-feature-copy);
+}
+.legenda {
+  font-size: var(--text-body-small);
+  line-height: var(--leading-body-small);
+  letter-spacing: var(--tracking-body-small);
+  color: var(--color-slate);
+}
+.status-pendente {
+  color: var(--color-launch-orange);
+  font-size: var(--text-compact-control);
+  line-height: var(--leading-compact-control);
+  letter-spacing: var(--tracking-compact-control);
+  font-weight: var(--font-weight-semibold);
+}
+
+.oculto-leitura {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}

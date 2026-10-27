@@ -1,0 +1,7 @@
+/* Os estados iniciais das animações são definidos pelo GSAP (assets/js/movimento.js),
+   só quando não há prefers-reduced-motion. Aqui ficam apenas ajustes de movimento reduzido. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .galeria { scroll-snap-type: none; }
+  .foto img { transform: none; }
+}

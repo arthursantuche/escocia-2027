@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Portal da viagem à Escócia, 23/02 a 08/03/2027">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Escócia 2027">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Escócia 2027</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/img/icone-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/icone-180.png">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/componentes.css">
+  <link rel="stylesheet" href="assets/css/paginas.css">
+  <link rel="stylesheet" href="assets/css/movimento.css">
+</head>
+<body>
+  <header class="topo">
+    <nav class="nav-local" aria-label="Portal">
+      <a class="nav-local__titulo" href="#painel">Escócia 2027</a>
+      <a class="pill" href="#checklist">Checklist</a>
+      <a class="pill pill--azul" href="#registrar">Registrar</a>
+    </nav>
+    <nav class="nav-secoes" aria-label="Seções">
+      <a href="#painel">Painel</a>
+      <a href="#roteiro">Roteiro</a>
+      <a href="#orcamento">Orçamento</a>
+      <a href="#checklist">Checklist</a>
+      <a href="#viagem">Viagem</a>
+      <a href="#registrar">Registrar</a>
+    </nav>
+  </header>
+
+  <main id="painel">
+    <section class="secao hero">
+      <div class="conteudo">
+        <p class="kicker" id="periodo"></p>
+        <h1 class="display" data-revelar>Escócia 2027.</h1>
+        <p class="copy legenda" id="viajantes"></p>
+        <div class="contagem" data-subir>
+          <span class="contagem__numero" id="dias">–</span>
+          <span class="legenda" id="dias-legenda">dias para o embarque</span>
+        </div>
+        <a class="proximo" id="proximo" href="#checklist" data-subir aria-labelledby="proximo-titulo">
+          <span class="status-pendente">⚠️ Próximo compromisso</span>
+          <h2 class="kicker" id="proximo-titulo"></h2>
+          <p class="legenda" id="proximo-detalhe"></p>
+        </a>
+      </div>
+    </section>
+
+    <section class="secao secao--mist destaques" aria-labelledby="destaques-titulo">
+      <div class="conteudo">
+        <div class="destaques__cabecalho">
+          <h2 class="titulo" id="destaques-titulo" data-revelar>Resumo da viagem.</h2>
+          <a href="#orcamento" class="legenda">Ver orçamento</a>
+        </div>
+        <div class="galeria" tabindex="0" aria-label="Cards de resumo">
+          <a class="card" href="#orcamento" aria-labelledby="orc-titulo">
+            <p class="legenda" id="orc-titulo">Orçamento</p>
+            <p class="card__numero" id="orc-previsto"></p>
+            <p class="legenda" id="orc-detalhe"></p>
+            <div class="card__grafico"><canvas id="grafico-orcamento" aria-label="Orçamento por categoria: previsto, reservado ou pago e real" role="img"></canvas></div>
+            <p class="legenda legenda-grafico" aria-hidden="true">
+              <span class="cor-previsto">Previsto</span>
+              <span class="cor-pago">Reservado/pago</span>
+              <span class="cor-real">Real</span>
+            </p>
+          </a>
+          <a class="card" href="#checklist" aria-labelledby="chk-titulo">
+            <p class="legenda" id="chk-titulo">Checklist</p>
+            <p class="card__numero" id="chk-numero"></p>
+            <div class="progresso" role="progressbar" aria-label="Progresso do checklist" aria-valuemin="0" aria-valuemax="100" id="chk-barra-wrap"><div class="progresso__barra" id="chk-barra"></div></div>
+            <p class="legenda" id="chk-detalhe"></p>
+          </a>
+          <article class="card" aria-labelledby="noites-titulo">
+            <p class="legenda" id="noites-titulo">Noites por cidade</p>
+            <p class="card__numero" id="noites-total"></p>
+            <div class="card__grafico"><canvas id="grafico-noites" aria-label="Noites por cidade" role="img"></canvas></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao roteiro" id="roteiro" aria-labelledby="roteiro-titulo">
+      <div class="conteudo roteiro__palco">
+        <div>
+          <p class="kicker">Roteiro</p>
+          <h2 class="titulo" id="roteiro-titulo" data-revelar>De Edimburgo às Highlands, e de volta.</h2>
+          <p class="copy legenda" id="roteiro-resumo"></p>
+        </div>
+        <div class="roteiro__trilha">
+          <div class="roteiro__linha"></div>
+          <div class="roteiro__progresso" id="trilha-progresso"></div>
+          <div id="trilha-paradas"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao secao--mist" id="pendencias" aria-labelledby="pend-titulo">
+      <div class="conteudo">
+        <h2 class="titulo" id="pend-titulo" data-revelar>Pendências por prazo.</h2>
+        <ol class="pendencias" id="lista-pendencias"></ol>
+        <a class="pill espaco-topo" href="#checklist">Ver checklist completo</a>
+      </div>
+    </section>
+
+    <section class="secao" aria-labelledby="cidades-titulo">
+      <div class="conteudo">
+        <h2 class="titulo" id="cidades-titulo" data-revelar>Sete cidades.</h2>
+        <div class="cidades" id="cidades"></div>
+      </div>
+    </section>
+  </main>
+
+  <main id="pagina" hidden></main>
+
+  <footer class="rodape">
+    <div class="conteudo">
+      <p class="legenda" id="rodape"></p>
+      <p class="legenda" id="estado" role="status"></p>
+    </div>
+  </footer>
+
+  <p class="aviso" id="aviso" role="status" aria-live="polite" hidden></p>
+
+  <dialog class="acesso" id="acesso" aria-labelledby="acesso-titulo">
+    <form id="acesso-form" class="formulario">
+      <p class="kicker" id="acesso-titulo">Escócia 2027</p>
+      <label class="rotulo"><span>Código de acesso</span>
+        <input class="campo" id="acesso-codigo" inputmode="numeric" autocomplete="off" required>
+      </label>
+      <p class="status-pendente" id="acesso-erro"></p>
+      <button class="pill pill--azul" type="submit">Entrar</button>
+    </form>
+  </dialog>
+
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/chart.umd.min.js" defer></script>
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
