@@ -1,16 +1,17 @@
 // Service worker: guarda os arquivos do portal para abrir sem sinal.
 // Os dados da planilha ficam no localStorage (assets/js/dados.js), não aqui.
 // Ao mudar qualquer arquivo listado, suba a VERSAO para os aparelhos baixarem de novo.
-const VERSAO = 'escocia2027-v1';
+const VERSAO = 'escocia2027-v2';
 const ARQUIVOS = [
   './', 'index.html', 'manifest.webmanifest', 'data/amostra.json',
   'assets/css/tokens.css', 'assets/css/base.css', 'assets/css/componentes.css', 'assets/css/paginas.css', 'assets/css/movimento.css',
-  'assets/js/app.js', 'assets/js/config.js', 'assets/js/dados.js', 'assets/js/graficos.js', 'assets/js/movimento.js', 'assets/js/util.js', 'assets/js/views.js',
+  'assets/js/app.js', 'assets/js/carrossel.js', 'assets/js/config.js', 'assets/js/dados.js', 'assets/js/graficos.js', 'assets/js/movimento.js', 'assets/js/util.js', 'assets/js/views.js',
   'assets/vendor/gsap.min.js', 'assets/vendor/ScrollTrigger.min.js', 'assets/vendor/chart.umd.min.js',
   'assets/img/icone-180.png', 'assets/img/icone-192.png', 'assets/img/icone-512.png',
   'assets/img/cidades/creditos.json',
-  'assets/img/cidades/edimburgo.jpg', 'assets/img/cidades/st-andrews.jpg', 'assets/img/cidades/glasgow.jpg', 'assets/img/cidades/glencoe.jpg',
-  'assets/img/cidades/fort-william.jpg', 'assets/img/cidades/isle-of-skye.jpg', 'assets/img/cidades/inverness.jpg',
+  // Fotos em 800 e 1600 px (as de 2400 px entram no cache quando são vistas).
+  ...['edimburgo', 'st-andrews', 'glasgow', 'glencoe', 'fort-william', 'isle-of-skye', 'inverness', 'abertura']
+    .flatMap((n) => [800, 1600].map((w) => `assets/img/cidades/${n}-${w}.webp`)),
 ];
 
 self.addEventListener('install', (e) => {

@@ -1,46 +1,34 @@
-/* Navegação local flutuante (componente "Product Local Navigation") */
-.nav-local {
-  position: sticky;
-  top: var(--spacing-8);
-  z-index: 10;
-  margin: var(--spacing-8) var(--spacing-12) 0;
-  padding: var(--spacing-12) var(--spacing-20);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-12);
-  background: var(--color-gallery-white);
-  border-radius: var(--radius-navigation);
-  box-shadow: var(--shadow-subtle);
-}
-.nav-local__titulo {
-  font-family: var(--font-sf-pro-display);
-  font-size: var(--text-product-nav-title);
-  line-height: var(--leading-product-nav-title);
-  letter-spacing: var(--tracking-product-nav-title);
-  font-weight: var(--font-weight-semibold);
-  margin-right: auto;
-  white-space: nowrap;
-}
 .pill {
   display: inline-flex;
   align-items: center;
-  min-height: var(--spacing-40);
+  justify-content: center;
+  min-height: calc(var(--spacing-40) + var(--spacing-4));
   padding: 0 var(--spacing-16);
   border-radius: var(--radius-buttons);
   font-size: var(--text-compact-control);
   line-height: var(--leading-compact-control);
   letter-spacing: var(--tracking-compact-control);
-  color: var(--color-ink);
-  box-shadow: var(--shadow-subtle-2);
+  color: var(--cor-texto);
+  box-shadow: var(--contorno-forte);
   background: transparent;
 }
-.pill--azul { background: var(--color-pricing-blue); color: var(--color-gallery-white); box-shadow: none; }
+.pill--azul { background: var(--cor-acao); color: var(--cor-sobre-acao); box-shadow: none; }
 .pill:hover { text-decoration: none; }
 
 /* Hero */
 .hero { text-align: center; padding-top: var(--spacing-64); }
 .hero .kicker { margin-bottom: var(--spacing-16); }
 .hero .display + .copy { margin-top: var(--spacing-16); }
+/* Foto de abertura sob o título ("Hero Product Stage"): sai de 1,12× para 1× com a rolagem,
+   sempre dentro da moldura. */
+.hero__foto { margin: var(--spacing-40) auto 0; max-width: 1200px; }
+.hero__moldura { position: relative; overflow: hidden; border-radius: var(--radius-images); aspect-ratio: 4 / 3; background: var(--cor-faixa); }
+.hero__moldura img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero__foto figcaption { margin-top: var(--spacing-12); }
+.hero__dados { margin-top: var(--spacing-8); }
+@media (min-width: 834px) {
+  .hero__moldura { aspect-ratio: 2 / 1; }
+}
 .roteiro .titulo, .destaques .titulo { margin-top: var(--spacing-8); }
 .roteiro .copy { margin-top: var(--spacing-12); }
 .contagem {
@@ -51,7 +39,7 @@
   gap: var(--spacing-8);
   padding: var(--card-padding) var(--spacing-48);
   border-radius: var(--radius-cards);
-  background: var(--color-studio-mist);
+  background: var(--cor-faixa);
 }
 .contagem__numero {
   font-family: var(--font-sf-pro-display);
@@ -68,30 +56,24 @@
   text-align: left;
   padding: var(--card-padding);
   border-radius: var(--radius-cards);
-  box-shadow: var(--shadow-subtle);
+  box-shadow: var(--contorno-sutil);
   display: grid;
   gap: var(--spacing-8);
 }
 
-/* Destaques: galeria horizontal de cards brancos ("Highlights Stage") */
+/* Destaques: cabeçalho com título e link ("Highlights Stage") */
 .destaques__cabecalho {
   display: flex; align-items: baseline; justify-content: space-between; gap: var(--element-gap);
   margin-bottom: var(--spacing-32);
 }
-.galeria {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min(86vw, 420px);
-  gap: var(--element-gap);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: var(--spacing-20);
-  scrollbar-width: none;
+.destaques__cabecalho a { white-space: nowrap; color: var(--cor-link); }
+/* Telas estreitas: o link vai para baixo do título em vez de espremê-lo. */
+@media (max-width: 389px) {
+  .destaques__cabecalho { flex-direction: column; align-items: flex-start; gap: var(--spacing-12); }
 }
-.galeria::-webkit-scrollbar { display: none; }
 .card {
   scroll-snap-align: start;
-  background: var(--color-gallery-white);
+  background: var(--cor-cartao);
   border-radius: var(--radius-cards);
   padding: var(--card-padding);
   display: flex;
@@ -114,8 +96,8 @@
 }
 
 /* Barra de progresso do checklist */
-.progresso { height: var(--spacing-8); border-radius: var(--radius-buttons); background: var(--color-control-gray); overflow: hidden; }
-.progresso__barra { height: 100%; background: var(--color-apple-blue); border-radius: inherit; }
+.progresso { height: var(--spacing-8); border-radius: var(--radius-buttons); background: var(--cor-trilho); overflow: hidden; }
+.progresso__barra { height: 100%; background: var(--cor-link); border-radius: inherit; }
 
 /* Pendências por prazo */
 .pendencias { list-style: none; margin: var(--spacing-32) 0 0; padding: 0; }
@@ -124,7 +106,7 @@
   grid-template-columns: var(--spacing-76) 1fr;
   gap: var(--spacing-16);
   padding: var(--spacing-20) 0;
-  border-top: 1px solid var(--color-hairline-silver);
+  border-top: 1px solid var(--cor-divisoria);
 }
 .pendencias__data {
   font-family: var(--font-sf-pro-display);
@@ -132,25 +114,23 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Roteiro fixado com linha que avança pela rolagem */
-.roteiro { position: relative; }
-.roteiro__palco { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+/* Roteiro: a linha vai do centro do 1º círculo ao centro do último (top e height
+   calculados em movimento.js) e avança com a rolagem; cada círculo enche quando ela chega. */
+.roteiro__palco { display: flex; flex-direction: column; }
 .roteiro__trilha { position: relative; margin-top: var(--spacing-24); }
-.roteiro__linha {
-  position: absolute; left: 11px; top: 0; bottom: 0; width: 2px;
-  background: var(--color-control-gray);
+.roteiro__linha, .roteiro__progresso {
+  position: absolute; left: 11px; top: 12px; bottom: 12px; width: 2px;
 }
-.roteiro__progresso {
-  position: absolute; left: 11px; top: 0; width: 2px; height: 100%;
-  background: var(--color-ink); transform-origin: top;
-}
-.parada { position: relative; display: grid; grid-template-columns: var(--spacing-24) 1fr; gap: var(--spacing-16); padding: var(--spacing-4) 0; }
+.roteiro__linha { background: var(--cor-trilho); }
+.roteiro__progresso { background: var(--cor-texto); transform-origin: top; }
+.parada { position: relative; display: grid; grid-template-columns: var(--spacing-24) 1fr; gap: var(--spacing-16); padding: var(--spacing-8) 0; }
 .parada__ponto {
   width: var(--spacing-24); height: var(--spacing-24); border-radius: var(--radius-buttons);
-  background: var(--color-gallery-white); box-shadow: var(--shadow-subtle-2);
+  background: var(--cor-fundo); box-shadow: var(--contorno-forte);
   position: relative; z-index: 1;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
-.parada.ativa .parada__ponto { background: var(--color-ink); box-shadow: none; }
+.parada.ativa .parada__ponto { background: var(--cor-texto); box-shadow: var(--cor-texto) 0 0 0 1px; }
 .parada__cidade {
   font-family: var(--font-sf-pro-display);
   font-size: var(--text-product-kicker);
@@ -158,20 +138,81 @@
   font-weight: var(--font-weight-semibold);
 }
 
-/* Cidades */
-.cidades { display: grid; gap: var(--element-gap); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: var(--spacing-40); }
-.cidade {
-  border-radius: var(--radius-cards);
-  background: var(--color-studio-mist);
-  padding: var(--card-padding);
-  display: grid; gap: var(--spacing-12); align-content: start;
+/* Cidades: carrossel horizontal ("Highlights Stage") sobre a faixa, na ordem do roteiro.
+   O trilho ocupa a largura da tela e alinha o primeiro cartão à coluna de conteúdo. */
+.faixa-carrossel { padding-left: 0; padding-right: 0; }
+.faixa-carrossel > .conteudo { padding: 0 var(--spacing-20); box-sizing: content-box; }
+.carrossel { --margem: max(var(--spacing-20), calc((100% - 980px) / 2)); }
+.carrossel__trilho {
+  display: flex; gap: var(--element-gap);
+  overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  padding: 0 var(--margem) var(--spacing-8); scroll-padding-inline: var(--margem);
+  scrollbar-width: none;
 }
+.carrossel__trilho::-webkit-scrollbar { display: none; }
+/* Cartões do Resumo da viagem dentro do carrossel. */
+.carrossel__trilho > .card { flex: 0 0 min(84vw, 400px); }
+.cartao-cidade {
+  flex: 0 0 min(84vw, 380px); scroll-snap-align: start;
+  display: flex; flex-direction: column;
+  background: var(--cor-cartao); border-radius: var(--radius-cards); overflow: hidden;
+  color: inherit;
+}
+.cartao-cidade:hover { text-decoration: none; }
+.cartao-cidade img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.cartao-cidade__texto { display: grid; gap: var(--spacing-8); align-content: start; padding: var(--spacing-24) var(--card-padding) var(--card-padding); }
+.cartao-cidade__texto .copy { margin-top: var(--spacing-4); }
 
-.rodape { padding: var(--spacing-40) var(--spacing-20); background: var(--color-studio-mist); }
+.carrossel__controles { display: flex; justify-content: center; align-items: center; gap: var(--spacing-12); margin-top: var(--spacing-24); }
+/* "Carousel Playback Control": pontos agrupados numa cápsula translúcida. */
+.carrossel__pontos {
+  display: flex; align-items: center; padding: var(--spacing-8) var(--spacing-16);
+  border-radius: var(--radius-pills); background: var(--cor-controle);
+}
+.carrossel__pontos button {
+  -webkit-appearance: none; appearance: none; border: 0; background: none; cursor: pointer;
+  padding: var(--spacing-12) var(--spacing-4); border-radius: var(--radius-buttons);
+}
+.carrossel__pontos button::before {
+  content: ''; display: block; width: var(--spacing-8); height: var(--spacing-8);
+  border-radius: var(--radius-buttons); background: var(--cor-glifo);
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.carrossel__pontos button[aria-current="true"]::before { width: var(--spacing-24); background: var(--cor-texto); }
+.carrossel__setas { display: none; gap: var(--spacing-12); }
+.carrossel__seta {
+  -webkit-appearance: none; appearance: none; border: 0; cursor: pointer;
+  width: calc(var(--spacing-40) + var(--spacing-4)); height: calc(var(--spacing-40) + var(--spacing-4));
+  border-radius: var(--radius-buttons); background: var(--cor-controle);
+  display: grid; place-items: center;
+}
+.carrossel__seta::before {
+  content: ''; width: var(--spacing-12); height: var(--spacing-8); background: var(--cor-texto);
+  transform: rotate(90deg);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.carrossel__seta--proxima::before { transform: rotate(-90deg); }
+.carrossel__seta:disabled { cursor: default; opacity: 0.4; }
+
+/* Roteiro: foto da parada atual na coluna fixa (só no computador). */
+.roteiro__midia { display: none; }
+
+.rodape { padding: var(--spacing-40) var(--spacing-20); background: var(--cor-faixa); }
 
 @media (min-width: 834px) {
-  .nav-local { margin: var(--spacing-8) auto 0; max-width: 1024px; }
-  .roteiro__palco { flex-direction: row; align-items: center; gap: var(--spacing-80); }
+  /* Coluna do título fixa enquanto a trilha rola ao lado. */
+  .roteiro__palco { flex-direction: row; align-items: flex-start; gap: var(--spacing-80); }
   .roteiro__palco > * { flex: 1; }
-  .parada { padding: var(--spacing-12) 0; }
+  .roteiro__palco > :first-child { position: sticky; top: calc(var(--altura-topo, 0px) + var(--spacing-40)); }
+  .roteiro__trilha { margin-top: 0; }
+  .roteiro__midia {
+    display: block; position: relative; margin-top: var(--spacing-40);
+    aspect-ratio: 3 / 2; border-radius: var(--radius-images); overflow: hidden; background: var(--cor-faixa);
+  }
+  .roteiro__midia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
+  .roteiro__midia img.ativa { opacity: 1; }
+  .carrossel__setas { display: flex; }
+  .carrossel__trilho > .card { flex-basis: min(60vw, 560px); }
+  .parada { padding: var(--spacing-16) 0; }
 }

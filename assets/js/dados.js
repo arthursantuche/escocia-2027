@@ -12,7 +12,9 @@ const gravar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } c
 
 export const codigo = { obter: () => ler(CHAVE_CODIGO, ''), definir: (c) => gravar(CHAVE_CODIGO, c), limpar: () => localStorage.removeItem(CHAVE_CODIGO) };
 export const pessoa = { obter: () => ler(CHAVE_PESSOA, ''), definir: (p) => gravar(CHAVE_PESSOA, p) };
-export const usaPlanilha = () => Boolean(API_URL);
+// Em localhost, ?amostra usa data/amostra.json: testa o portal sem código e sem gravar na planilha.
+const amostraLocal = ['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('amostra');
+export const usaPlanilha = () => Boolean(API_URL) && !amostraLocal;
 export const pendentesNaFila = () => ler(CHAVE_FILA, []).length;
 
 export class CodigoInvalido extends Error {}

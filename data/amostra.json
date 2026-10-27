@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-10-27T17:05:21.909Z",
+  "geradoEm": "2026-10-27T23:44:03.972Z",
   "fonte": "amostra",
   "abas": {
     "Viagem": [
@@ -52,6 +52,21 @@
         "Chave": "fuso",
         "Valor": "GMT (Brasília + 3 h)",
         "Observação": "Horário de verão britânico só começa em 28/03/2027"
+      },
+      {
+        "Chave": "emergencias",
+        "Valor": "999: polícia, bombeiros e ambulância (gratuito) · 111: saúde não urgente (NHS 24) · 101: polícia, não urgente",
+        "Observação": "Nota Escócia 2027 › Saúde, seguro e segurança"
+      },
+      {
+        "Chave": "tomadas",
+        "Valor": "Tipo G (3 pinos retangulares), 230 V / 50 Hz · Levar 2 ou 3 adaptadores",
+        "Observação": "Nota Escócia 2027 › Tomadas e celular"
+      },
+      {
+        "Chave": "eventos",
+        "Valor": "05/03, 20:10: Escócia x Irlanda (Six Nations, Murrayfield); Edimburgo cheio em 05 e 06/03 · 07/03: Mothering Sunday; reservar almoço ou jantar em Edimburgo",
+        "Observação": "Nota Escócia 2027 › Feriados e eventos"
       }
     ],
     "Roteiro": [
@@ -94,7 +109,7 @@
         "Cidade visitada": "Glencoe",
         "Dormida em": "Fort William",
         "Deslocamento": "Carro",
-        "Distância": "",
+        "Distância": "~120 a 135 km",
         "Tempo": "~2 h",
         "Observações": "Retirar o carro do aluguel 2 em Glasgow; A82 por Loch Lomond e Rannoch Moor; abastecer em Tyndrum",
         "Link Maps": "https://www.google.com/maps/search/?api=1&query=Glasgow%20to%20Glencoe%20Visitor%20Centre"
@@ -116,8 +131,8 @@
         "Cidade visitada": "Isle of Skye",
         "Dormida em": "Isle of Skye",
         "Deslocamento": "Carro",
-        "Distância": "",
-        "Tempo": "",
+        "Distância": "~140 a 165 km",
+        "Tempo": "~2 h 30",
         "Observações": "Pela Skye Bridge (não pela balsa de Mallaig); terminar antes de escurecer (~17:50). Eilean Donan fica no caminho",
         "Link Maps": "https://www.google.com/maps/search/?api=1&query=Fort%20William%20to%20Portree%20via%20Skye%20Bridge"
       },
@@ -259,6 +274,78 @@
         "Verificado em": "2026-09-15"
       }
     ],
+    "Precos": [
+      {
+        "ID": "P01",
+        "Hospedagem": "H01",
+        "Cidade": "Edimburgo",
+        "Nome": "Moxy Edinburgh",
+        "Data da consulta": "2026-09-15",
+        "Valor (R$)": 2498,
+        "Fonte": "Booking (nota do vault)",
+        "Observações": "24 a 27/02"
+      },
+      {
+        "ID": "P02",
+        "Hospedagem": "H02",
+        "Cidade": "Glasgow",
+        "Nome": "Moxy Glasgow SEC",
+        "Data da consulta": "2026-09-15",
+        "Valor (R$)": 1553,
+        "Fonte": "Booking (nota do vault)",
+        "Observações": "27/02 a 01/03"
+      },
+      {
+        "ID": "P03",
+        "Hospedagem": "H03",
+        "Cidade": "Fort William",
+        "Nome": "Lime Tree Hotel",
+        "Data da consulta": "2026-09-15",
+        "Valor (R$)": 1045,
+        "Fonte": "Booking (nota do vault)",
+        "Observações": "01 a 02/03"
+      },
+      {
+        "ID": "P04",
+        "Hospedagem": "H04",
+        "Cidade": "Isle of Skye",
+        "Nome": "A definir",
+        "Data da consulta": "2026-09-15",
+        "Valor (R$)": 2599,
+        "Fonte": "Nota do vault",
+        "Observações": "Estimativa: hotel ainda não definido"
+      },
+      {
+        "ID": "P05",
+        "Hospedagem": "H05",
+        "Cidade": "Inverness",
+        "Nome": "B&B HOTEL Inverness",
+        "Data da consulta": "2026-09-15",
+        "Valor (R$)": 1423,
+        "Fonte": "Booking (nota do vault)",
+        "Observações": "04 a 06/03"
+      },
+      {
+        "ID": "P06",
+        "Hospedagem": "H06",
+        "Cidade": "Inverness",
+        "Nome": "The Royal Highland Hotel",
+        "Data da consulta": "2026-09-15",
+        "Valor (R$)": 1899,
+        "Fonte": "Booking (nota do vault)",
+        "Observações": "04 a 06/03"
+      },
+      {
+        "ID": "P07",
+        "Hospedagem": "H07",
+        "Cidade": "Edimburgo",
+        "Nome": "Moxy Edinburgh",
+        "Data da consulta": "2026-09-15",
+        "Valor (R$)": 2217,
+        "Fonte": "Booking (nota do vault)",
+        "Observações": "06 a 08/03"
+      }
+    ],
     "Transportes": [
       {
         "ID": "T01",
@@ -306,71 +393,101 @@
         "Categoria": "Passagens",
         "Descrição": "Passagens aéreas",
         "Previsto (R$)": 16000,
-        "Reservado/Pago (R$)": 16000,
-        "Real (R$)": 0
+        "A pagar (R$)": 0,
+        "Pago antes (R$)": 16000,
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 16000,
+        "Saldo (R$)": 0
       },
       {
         "Categoria": "Hospedagem",
         "Descrição": "Hospedagens (12 noites)",
         "Previsto (R$)": 11550,
-        "Reservado/Pago (R$)": 0,
-        "Real (R$)": 0
+        "A pagar (R$)": 0,
+        "Pago antes (R$)": 0,
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 0,
+        "Saldo (R$)": 11550
       },
       {
         "Categoria": "Transporte - carro",
         "Descrição": "Aluguel de carro (2 aluguéis), combustível, estacionamento",
         "Previsto (R$)": 1650,
-        "Reservado/Pago (R$)": 0,
-        "Real (R$)": 0
+        "A pagar (R$)": 0,
+        "Pago antes (R$)": 0,
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 0,
+        "Saldo (R$)": 1650
       },
       {
         "Categoria": "Transporte - trem",
         "Descrição": "Trens Edimburgo/Glasgow (~350) e Inverness/Edimburgo (~1.000)",
         "Previsto (R$)": 1350,
-        "Reservado/Pago (R$)": 0,
-        "Real (R$)": 0
+        "A pagar (R$)": 0,
+        "Pago antes (R$)": 0,
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 0,
+        "Saldo (R$)": 1350
       },
       {
         "Categoria": "Alimentação",
         "Descrição": "Estimativa diária",
         "Previsto (R$)": 13000,
-        "Reservado/Pago (R$)": "",
-        "Real (R$)": 0
+        "A pagar (R$)": "",
+        "Pago antes (R$)": "",
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 0,
+        "Saldo (R$)": 13000
       },
       {
         "Categoria": "Atrações e passes",
         "Descrição": "HES Explorer Pass, ingressos (fora do orçamento original)",
         "Previsto (R$)": "",
-        "Reservado/Pago (R$)": "",
-        "Real (R$)": 0
+        "A pagar (R$)": "",
+        "Pago antes (R$)": "",
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 0,
+        "Saldo (R$)": ""
       },
       {
         "Categoria": "Documentos",
         "Descrição": "ETA ×3 (£20 cada) (fora do orçamento original)",
         "Previsto (R$)": "",
-        "Reservado/Pago (R$)": "",
-        "Real (R$)": 0
+        "A pagar (R$)": "",
+        "Pago antes (R$)": "",
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 0,
+        "Saldo (R$)": ""
       },
       {
         "Categoria": "Seguro viagem",
         "Descrição": "Seguro com cobertura médica e repatriação (fora do orçamento original)",
         "Previsto (R$)": "",
-        "Reservado/Pago (R$)": "",
-        "Real (R$)": 0
+        "A pagar (R$)": "",
+        "Pago antes (R$)": "",
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 0,
+        "Saldo (R$)": ""
       },
       {
         "Categoria": "Compras",
         "Descrição": "Lembranças e compras",
         "Previsto (R$)": "",
-        "Reservado/Pago (R$)": "",
-        "Real (R$)": 0
+        "A pagar (R$)": "",
+        "Pago antes (R$)": "",
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 0,
+        "Saldo (R$)": ""
       },
       {
         "Categoria": "Outros",
         "Descrição": "Imprevistos",
         "Previsto (R$)": "",
-        "Reservado/Pago (R$)": "",
-        "Real (R$)": 0
+        "A pagar (R$)": "",
+        "Pago antes (R$)": "",
+        "Na viagem (R$)": 0,
+        "Pago (R$)": 0,
+        "Saldo (R$)": ""
       }
     ],
     "Gastos": [],
@@ -381,7 +498,9 @@
         "Dicas": "Reservar Castelo, Holyroodhouse e Britannia. Museus gratuitos para dias de chuva. Carro atrapalha (LEZ e estacionamento caro). Rúgbi Escócia x Irlanda em 05/03 lota a cidade; Mothering Sunday em 07/03.",
         "Clima/luz": "Máx. 6 a 8 °C, mín. 0 a 2 °C, ~15 a 18 dias de chuva. Luz de ~07:20–17:35 (23/02) a ~06:45–18:00 (08/03).",
         "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FEdimburgo",
-        "Imagem": ""
+        "Imagem": "",
+        "Latitude": 55.9533,
+        "Longitude": -3.1883
       },
       {
         "Cidade": "St Andrews",
@@ -389,7 +508,9 @@
         "Dicas": "A catedral fecha de terça a quinta (26/02 é sexta: aberta). Castelo mais barato online. Estacionar e fazer tudo a pé. Vento forte na costa.",
         "Clima/luz": "Máx. ~6 °C, mín. ~0 °C, ~15 dias de chuva. Pôr do sol ~17:30 a 17:45.",
         "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FSt%20Andrews",
-        "Imagem": ""
+        "Imagem": "",
+        "Latitude": 56.3398,
+        "Longitude": -2.7967
       },
       {
         "Cidade": "Glasgow",
@@ -397,7 +518,9 @@
         "Dicas": "Chegar de trem em Queen Street. Quase tudo é gratuito. LEZ 24 h. Barras no fim de semana. Atenção à noite.",
         "Clima/luz": "Máx. ~6 °C, mín. ~0 °C, ~15 dias de chuva. Luz até ~17:50.",
         "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FGlasgow",
-        "Imagem": ""
+        "Imagem": "",
+        "Latitude": 55.8642,
+        "Longitude": -4.2518
       },
       {
         "Cidade": "Glencoe",
@@ -405,7 +528,9 @@
         "Dicas": "Centro de visitantes 09:30–16:00. Trilhas curtas (Signal Rock, Glencoe Lochan); pular o Lost Valley no inverno. Sinal de celular falho. Com chuva: mirantes de dentro do carro.",
         "Clima/luz": "0 a 6 °C no vale; chuva, sleet, neve e vento. Pôr do sol ~17:50.",
         "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FGlencoe",
-        "Imagem": ""
+        "Imagem": "",
+        "Latitude": 56.6826,
+        "Longitude": -5.1023
       },
       {
         "Cidade": "Fort William",
@@ -413,7 +538,9 @@
         "Dicas": "Reservar o jantar. Abastecer antes de seguir para Skye. O trem Jacobite não opera em fev/mar. Ben Nevis só com equipamento de inverno.",
         "Clima/luz": "Uma das cidades mais chuvosas do Reino Unido: máx. 5 a 6 °C, mín. -1 a 0 °C. Luz ~07:15–17:50.",
         "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FFort%20William",
-        "Imagem": ""
+        "Imagem": "",
+        "Latitude": 56.8198,
+        "Longitude": -5.1052
       },
       {
         "Cidade": "Isle of Skye",
@@ -421,7 +548,9 @@
         "Dicas": "Ir pela Skye Bridge. Priorizar Trotternish (Storr, Kilt Rock, Quiraing) ou o oeste (Fairy Pools, Talisker). Dunvegan fechado. Restaurantes fecham na baixa temporada. Abastecer em Broadford ou Portree.",
         "Clima/luz": "Máx. 6 a 7 °C, mín. 1 a 2 °C, 19 a 23 dias de chuva, vento forte. Luz ~07:00–17:50.",
         "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FIsle%20of%20Skye",
-        "Imagem": ""
+        "Imagem": "",
+        "Latitude": 57.4125,
+        "Longitude": -6.1964
       },
       {
         "Cidade": "Inverness",
@@ -429,7 +558,9 @@
         "Dicas": "Quase tudo abre em março, fechando entre 16:00 e 18:00. Reservar Urquhart online. Devolver o carro antes do trem de 06/03.",
         "Clima/luz": "~1 a 7 °C, geada pela manhã, garoa. Luz ~06:50–17:55.",
         "Link da nota no vault": "obsidian://open?vault=Arthur's%20Ideaverse&file=Efforts%2FEsc%C3%B3cia%202027%2FCidades%2FInverness",
-        "Imagem": ""
+        "Imagem": "",
+        "Latitude": 57.4778,
+        "Longitude": -4.2247
       }
     ],
     "Atracoes": [

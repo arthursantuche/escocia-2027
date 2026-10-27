@@ -94,8 +94,14 @@ def montar(ws, aba, wb):
         ws.conditional_formatting.add(faixa, CellIsRule(operator='equal', formula=['"feito"'], font=Font(color=SLATE)))
     if aba['nome'] == 'Orcamento':
         for r in range(2, ws.max_row + 1):
-            for c in 'CDE':
+            for c in 'CDEFGH':
                 ws[f'{c}{r}'].alignment = Alignment(horizontal='right', vertical='top')
+        # Saldo negativo (estouro) em laranja, como em Setup.gs.
+        ws.conditional_formatting.add(f'H2:H{ULTIMA_LINHA}', CellIsRule(operator='lessThan', formula=['0'], font=Font(color=LAUNCH_ORANGE)))
+    if aba['nome'] == 'Cidades':
+        for r in range(2, ws.max_row + 1):
+            for c in 'GH':
+                ws[f'{c}{r}'].number_format = '0.0000'
 
 
 def main(entrada, saida):

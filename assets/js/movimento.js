@@ -1,20 +1,56 @@
 // Movimento no estilo da página de referência (apple.com/iphone-duo):
-// - títulos que saem do quase transparente para o preto conforme a rolagem;
+// - títulos que saem do quase transparente para o opaco conforme a rolagem;
 // - blocos que sobem suavemente ao entrar na tela;
-// - fotos com parallax leve;
-// - roteiro fixado (pin) com a linha avançando pelas paradas (scrub).
+// - fotos com parallax leve, sempre dentro da moldura;
+// - foto de abertura que sai de 1,12× para 1× com a rolagem;
+// - roteiro com a linha avançando pelas paradas (scrub), sem fixar a seção.
 // Com prefers-reduced-motion ou sem GSAP, nada se move e tudo aparece pronto.
 let mm = null;
+
+// Linha guia do roteiro: a ponta da linha fica sempre nesta altura da tela, e cada
+// círculo enche quando o centro dele passa por ela. Assim a linha e os círculos
+// andam juntos, em qualquer altura de tela, e nada é marcado fora da vista.
+const GUIA = 'center 60%';
 
 export function iniciarMovimento() {
   const { gsap, ScrollTrigger } = window;
   if (gsap && ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+  window.addEventListener('resize', medirTrilha);
+}
+
+// Posiciona a linha do centro do primeiro círculo ao centro do último.
+function medirTrilha() {
+  const trilha = document.querySelector('.roteiro__trilha');
+  const pontos = trilha ? trilha.querySelectorAll('.parada__ponto') : [];
+  if (pontos.length < 2) return;
+  const base = trilha.getBoundingClientRect().top;
+  const centro = (p) => { const r = p.getBoundingClientRect(); return r.top + r.height / 2 - base; };
+  const topo = centro(pontos[0]);
+  const altura = centro(pontos[pontos.length - 1]) - topo;
+  trilha.querySelectorAll('.roteiro__linha, .roteiro__progresso').forEach((l) => {
+    l.style.top = topo + 'px';
+    l.style.height = altura + 'px';
+    l.style.bottom = 'auto';
+  });
+}
+
+// Mostra na coluna fixa do roteiro a foto da última parada marcada.
+function mostrarFotoDaParada() {
+  const midia = document.getElementById('roteiro-midia');
+  if (!midia) return;
+  const ativas = document.querySelectorAll('[data-parada].ativa');
+  const cidade = (ativas[ativas.length - 1] || document.querySelector('[data-parada]'))?.dataset.cidade;
+  midia.querySelectorAll('img').forEach((img) => img.classList.toggle('ativa', img.dataset.cidade === cidade));
 }
 
 // Refaz as animações para o conteúdo atual (chamado a cada troca de página).
 export function atualizarMovimento() {
+  medirTrilha();
   const { gsap, ScrollTrigger } = window;
-  if (!gsap || !ScrollTrigger) return;
+  if (!gsap || !ScrollTrigger) {
+    document.querySelectorAll('[data-parada]').forEach((p) => p.classList.add('ativa'));
+    return;
+  }
   if (mm) mm.revert();
   mm = gsap.matchMedia();
 
@@ -36,30 +72,42 @@ export function atualizarMovimento() {
       onEnter: (lote) => gsap.to(lote, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.06, overwrite: true }),
     });
 
+    // A imagem tem 12% de sobra dentro da moldura (paginas.css), então ±5% nunca a descobre.
     visiveis('[data-parallax] img').forEach((img) => {
-      gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+      gsap.fromTo(img, { yPercent: -5 }, { yPercent: 5, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
 
-    const roteiro = document.getElementById('roteiro');
-    if (roteiro && roteiro.offsetParent !== null) {
-      const paradas = gsap.utils.toArray('[data-parada]');
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: roteiro, start: () => 'top ' + document.querySelector('.topo').offsetHeight, end: () => '+=' + paradas.length * 120,
-          pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
-          onUpdate: (st) => {
-            const ativas = Math.round(st.progress * paradas.length);
-            paradas.forEach((p, i) => p.classList.toggle('ativa', i < ativas));
-          },
-        },
-      }).fromTo('#trilha-progresso', { scaleY: 0 }, { scaleY: 1, ease: 'none' });
-    }
+    visiveis('[data-zoom] img').forEach((img) => {
+      gsap.fromTo(img, { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom 40%', scrub: true } });
+    });
 
-    return () => document.documentElement.classList.remove('movimento');
+    const paradas = visiveis('[data-parada]');
+    if (paradas.length > 1) {
+      const ponto = (p) => p.querySelector('.parada__ponto');
+      paradas.forEach((p) => ScrollTrigger.create({
+        trigger: ponto(p), start: GUIA,
+        onEnter: () => { p.classList.add('ativa'); mostrarFotoDaParada(); },
+        onLeaveBack: () => { p.classList.remove('ativa'); mostrarFotoDaParada(); },
+      }));
+      // scrub sem atraso: a ponta da linha acompanha a guia exatamente.
+      gsap.fromTo('#trilha-progresso', { scaleY: 0 }, {
+        scaleY: 1, ease: 'none',
+        scrollTrigger: { trigger: ponto(paradas[0]), start: GUIA, endTrigger: ponto(paradas[paradas.length - 1]), end: GUIA, scrub: true },
+      });
+    }
+    ScrollTrigger.addEventListener('refreshInit', medirTrilha);
+
+    return () => {
+      ScrollTrigger.removeEventListener('refreshInit', medirTrilha);
+      document.documentElement.classList.remove('movimento');
+    };
   });
 
   mm.add('(prefers-reduced-motion: reduce)', () => {
     document.querySelectorAll('[data-parada]').forEach((p) => p.classList.add('ativa'));
+    // Sem movimento, a coluna fica com a foto da primeira parada.
+    const primeira = document.querySelector('[data-parada]')?.dataset.cidade;
+    document.querySelectorAll('#roteiro-midia img').forEach((img) => img.classList.toggle('ativa', img.dataset.cidade === primeira));
   });
   ScrollTrigger.refresh();
 }

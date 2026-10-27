@@ -2,6 +2,11 @@
    só quando não há prefers-reduced-motion. Aqui ficam apenas ajustes de movimento reduzido. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .galeria { scroll-snap-type: none; }
-  .foto img { transform: none; }
+  .carrossel__trilho { scroll-snap-type: none; }
+  .parada__ponto { transition: none; }
+  .roteiro__midia img, .carrossel__pontos button::before { transition: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
+
+/* Troca de página (View Transitions): esmaecimento curto; a barra fica fixa. */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.25s; }

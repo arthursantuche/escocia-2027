@@ -8,6 +8,11 @@
  *
  * O script só cria abas que ainda não existem: rodar de novo não apaga dados.
  * Para recriar uma aba do zero, apague-a na planilha e execute novamente.
+ *
+ * Planilha criada antes da revisão de 27/10/2026: execute `migrarRevisao` uma vez
+ * (pode repetir sem duplicar nada). Ela troca as colunas do Orçamento, cria a aba
+ * Precos, acrescenta Latitude e Longitude em Cidades e os essenciais em Viagem, e
+ * preenche as distâncias e tempos vazios do Roteiro.
  * Fonte dos dados: notas do vault (Efforts/Escócia 2027), pesquisa de 18/10/2026.
  */
 
@@ -43,6 +48,40 @@ function nota(cidade) {
 
 // ---------------------------------------------------------------- abas
 
+// Orçamento: de onde vêm os valores reservados e pagos de cada categoria.
+//   A pagar = itens com status "reservado" (compromisso ainda não pago);
+//   Pago antes = itens com status "pago"; Na viagem = aba Gastos da mesma categoria;
+//   Pago = Pago antes + Na viagem; Saldo = Previsto − A pagar − Pago (negativo = estouro).
+// Ao pagar uma reserva, mude o status para "pago" em vez de lançar um gasto.
+const ORIGEM_ORCAMENTO = {
+  'Passagens': { aba: 'Passagens', valor: 'F', status: 'E' },
+  'Hospedagem': { aba: 'Hospedagens', valor: 'G', status: 'H' },
+  'Transporte - carro': { tipo: 'Carro' },
+  'Transporte - trem': { tipo: 'Trem' },
+};
+
+// Primeiras consultas de preço das hospedagens (notas do vault, 15/09/2026).
+const PRECOS_INICIAIS = [
+  ['P01', 'H01', 'Edimburgo', 'Moxy Edinburgh', d(15, 9, 2026), 2498, 'Booking (nota do vault)', '24 a 27/02'],
+  ['P02', 'H02', 'Glasgow', 'Moxy Glasgow SEC', d(15, 9, 2026), 1553, 'Booking (nota do vault)', '27/02 a 01/03'],
+  ['P03', 'H03', 'Fort William', 'Lime Tree Hotel', d(15, 9, 2026), 1045, 'Booking (nota do vault)', '01 a 02/03'],
+  ['P04', 'H04', 'Isle of Skye', 'A definir', d(15, 9, 2026), 2599, 'Nota do vault', 'Estimativa: hotel ainda não definido'],
+  ['P05', 'H05', 'Inverness', 'B&B HOTEL Inverness', d(15, 9, 2026), 1423, 'Booking (nota do vault)', '04 a 06/03'],
+  ['P06', 'H06', 'Inverness', 'The Royal Highland Hotel', d(15, 9, 2026), 1899, 'Booking (nota do vault)', '04 a 06/03'],
+  ['P07', 'H07', 'Edimburgo', 'Moxy Edinburgh', d(15, 9, 2026), 2217, 'Booking (nota do vault)', '06 a 08/03'],
+];
+
+// Coordenadas do centro de cada cidade (Skye: Portree), para o nascer e o pôr do sol.
+const COORDENADAS = {
+  'Edimburgo': [55.9533, -3.1883],
+  'St Andrews': [56.3398, -2.7967],
+  'Glasgow': [55.8642, -4.2518],
+  'Glencoe': [56.6826, -5.1023],
+  'Fort William': [56.8198, -5.1052],
+  'Isle of Skye': [57.4125, -6.1964],
+  'Inverness': [57.4778, -4.2247],
+};
+
 const ABAS = [
   {
     nome: 'Viagem',
@@ -60,6 +99,10 @@ const ABAS = [
       ['cotacao_gbp_brl', 7, 'Manual: R$ por £1. Atualize perto da viagem'],
       ['data_verificacao', VERIFICADO, 'Data da pesquisa dos dados voláteis (preços, horários)'],
       ['fuso', 'GMT (Brasília + 3 h)', 'Horário de verão britânico só começa em 28/03/2027'],
+      // Essenciais (página Viagem do portal); itens separados por " · ". Fonte: nota Escócia 2027.
+      ['emergencias', '999: polícia, bombeiros e ambulância (gratuito) · 111: saúde não urgente (NHS 24) · 101: polícia, não urgente', 'Nota Escócia 2027 › Saúde, seguro e segurança'],
+      ['tomadas', 'Tipo G (3 pinos retangulares), 230 V / 50 Hz · Levar 2 ou 3 adaptadores', 'Nota Escócia 2027 › Tomadas e celular'],
+      ['eventos', '05/03, 20:10: Escócia x Irlanda (Six Nations, Murrayfield); Edimburgo cheio em 05 e 06/03 · 07/03: Mothering Sunday; reservar almoço ou jantar em Edimburgo', 'Nota Escócia 2027 › Feriados e eventos'],
     ],
     datasNaColunaB: true,
   },
@@ -72,9 +115,9 @@ const ABAS = [
       [1, d(24, 2), 'Edimburgo', 'Edimburgo', 'Avião', '', '', 'Chegada 12:00 ao aeroporto (EDI). Hospedagem de 24 a 27/02', maps('Edinburgh')],
       [2, d(26, 2), 'St Andrews', 'Edimburgo', 'Carro', '~80 km', '~1 h 15', 'Bate-volta com o carro do aluguel 1, devolvido em Edimburgo à noite', maps('Edinburgh to St Andrews')],
       [3, d(27, 2), 'Glasgow', 'Glasgow', 'Trem', '', '~50 a 55 min', 'Waverley → Queen Street; passagem no dia ou no app ScotRail', maps('Glasgow Queen Street station')],
-      [4, d(1, 3), 'Glencoe', 'Fort William', 'Carro', '', '~2 h', 'Retirar o carro do aluguel 2 em Glasgow; A82 por Loch Lomond e Rannoch Moor; abastecer em Tyndrum', maps('Glasgow to Glencoe Visitor Centre')],
+      [4, d(1, 3), 'Glencoe', 'Fort William', 'Carro', '~120 a 135 km', '~2 h', 'Retirar o carro do aluguel 2 em Glasgow; A82 por Loch Lomond e Rannoch Moor; abastecer em Tyndrum', maps('Glasgow to Glencoe Visitor Centre')],
       [5, d(1, 3), 'Fort William', 'Fort William', 'Carro', '~25 a 40 km', '~30 a 40 min', 'Chegar ainda com luz (~16:30 a 17:00)', maps('Glencoe to Fort William')],
-      [6, d(2, 3), 'Isle of Skye', 'Isle of Skye', 'Carro', '', '', 'Pela Skye Bridge (não pela balsa de Mallaig); terminar antes de escurecer (~17:50). Eilean Donan fica no caminho', maps('Fort William to Portree via Skye Bridge')],
+      [6, d(2, 3), 'Isle of Skye', 'Isle of Skye', 'Carro', '~140 a 165 km', '~2 h 30', 'Pela Skye Bridge (não pela balsa de Mallaig); terminar antes de escurecer (~17:50). Eilean Donan fica no caminho', maps('Fort William to Portree via Skye Bridge')],
       [7, d(4, 3), 'Inverness', 'Inverness', 'Carro', '~170 km', '~2 h 45 a 3 h', 'Devolver o carro do aluguel 2 em Inverness (one-way)', maps('Portree to Inverness')],
       [8, d(6, 3), 'Edimburgo', 'Edimburgo', 'Trem', '', '~3 h 15 a 3 h 45', 'Highland Main Line até Waverley; evitar o último trem do dia. Hospedagem de 06 a 08/03', maps('Inverness station to Edinburgh Waverley')],
     ],
@@ -110,6 +153,14 @@ const ABAS = [
     formulas: { F2: '=ARRAYFORMULA(IF(D2:D1000="","",E2:E1000-D2:D1000))' },
   },
   {
+    nome: 'Precos',
+    colunas: ['ID', 'Hospedagem', 'Cidade', 'Nome', 'Data da consulta', 'Valor (R$)', 'Fonte', 'Observações'],
+    larguras: [60, 100, 120, 220, 120, 110, 180, 300],
+    linhas: PRECOS_INICIAIS,
+    formatos: { E: 'dd/mm/yyyy', F: '"R$" #,##0' },
+    validacaoIntervalo: { B: 'Hospedagens!A2:A' },
+  },
+  {
     nome: 'Transportes',
     colunas: ['ID', 'Tipo', 'Trecho', 'Data', 'Valor (R$)', 'Status', 'Observações', 'Verificado em'],
     larguras: [60, 80, 300, 100, 110, 110, 420, 110],
@@ -124,21 +175,21 @@ const ABAS = [
   },
   {
     nome: 'Orcamento',
-    colunas: ['Categoria', 'Descrição', 'Previsto (R$)', 'Reservado/Pago (R$)', 'Real (R$)'],
-    larguras: [180, 360, 120, 150, 110],
+    colunas: ['Categoria', 'Descrição', 'Previsto (R$)', 'A pagar (R$)', 'Pago antes (R$)', 'Na viagem (R$)', 'Pago (R$)', 'Saldo (R$)'],
+    larguras: [180, 360, 120, 120, 130, 130, 110, 110],
     linhas: [
-      ['Passagens', 'Passagens aéreas', 16000, pago('Passagens', 'F', 'E'), real(2)],
-      ['Hospedagem', 'Hospedagens (12 noites)', 11550, pago('Hospedagens', 'G', 'H'), real(3)],
-      ['Transporte - carro', 'Aluguel de carro (2 aluguéis), combustível, estacionamento', 1650, pagoTipo('Carro'), real(4)],
-      ['Transporte - trem', 'Trens Edimburgo/Glasgow (~350) e Inverness/Edimburgo (~1.000)', 1350, pagoTipo('Trem'), real(5)],
-      ['Alimentação', 'Estimativa diária', 13000, '', real(6)],
-      ['Atrações e passes', 'HES Explorer Pass, ingressos (fora do orçamento original)', '', '', real(7)],
-      ['Documentos', 'ETA ×3 (£20 cada) (fora do orçamento original)', '', '', real(8)],
-      ['Seguro viagem', 'Seguro com cobertura médica e repatriação (fora do orçamento original)', '', '', real(9)],
-      ['Compras', 'Lembranças e compras', '', '', real(10)],
-      ['Outros', 'Imprevistos', '', '', real(11)],
-    ],
-    formatos: { C: '"R$" #,##0', D: '"R$" #,##0', E: '"R$" #,##0' },
+      ['Passagens', 'Passagens aéreas', 16000],
+      ['Hospedagem', 'Hospedagens (12 noites)', 11550],
+      ['Transporte - carro', 'Aluguel de carro (2 aluguéis), combustível, estacionamento', 1650],
+      ['Transporte - trem', 'Trens Edimburgo/Glasgow (~350) e Inverness/Edimburgo (~1.000)', 1350],
+      ['Alimentação', 'Estimativa diária', 13000],
+      ['Atrações e passes', 'HES Explorer Pass, ingressos (fora do orçamento original)', ''],
+      ['Documentos', 'ETA ×3 (£20 cada) (fora do orçamento original)', ''],
+      ['Seguro viagem', 'Seguro com cobertura médica e repatriação (fora do orçamento original)', ''],
+      ['Compras', 'Lembranças e compras', ''],
+      ['Outros', 'Imprevistos', ''],
+    ].map(function (l, i) { return l.concat(formulasOrcamento(l[0], i + 2)); }),
+    formatos: { C: '"R$" #,##0', D: '"R$" #,##0', E: '"R$" #,##0', F: '"R$" #,##0', G: '"R$" #,##0', H: '"R$" #,##0' },
   },
   {
     nome: 'Gastos',
@@ -152,16 +203,16 @@ const ABAS = [
   },
   {
     nome: 'Cidades',
-    colunas: ['Cidade', 'Resumo', 'Dicas', 'Clima/luz', 'Link da nota no vault', 'Imagem'],
-    larguras: [120, 380, 420, 320, 200, 140],
+    colunas: ['Cidade', 'Resumo', 'Dicas', 'Clima/luz', 'Link da nota no vault', 'Imagem', 'Latitude', 'Longitude'],
+    larguras: [120, 380, 420, 320, 200, 140, 90, 90],
     linhas: [
-      ['Edimburgo', 'Capital compacta e muito a pé: Old Town medieval (Castelo, Royal Mile) e New Town georgiana. Base de 24 a 27/02 (com bate-volta a St Andrews) e de 06 a 08/03.', 'Reservar Castelo, Holyroodhouse e Britannia. Museus gratuitos para dias de chuva. Carro atrapalha (LEZ e estacionamento caro). Rúgbi Escócia x Irlanda em 05/03 lota a cidade; Mothering Sunday em 07/03.', 'Máx. 6 a 8 °C, mín. 0 a 2 °C, ~15 a 18 dias de chuva. Luz de ~07:20–17:35 (23/02) a ~06:45–18:00 (08/03).', nota('Edimburgo'), ''],
-      ['St Andrews', 'Cidade universitária medieval à beira do Mar do Norte, a "casa do golfe". Bate-volta de carro a partir de Edimburgo em 26/02.', 'A catedral fecha de terça a quinta (26/02 é sexta: aberta). Castelo mais barato online. Estacionar e fazer tudo a pé. Vento forte na costa.', 'Máx. ~6 °C, mín. ~0 °C, ~15 dias de chuva. Pôr do sol ~17:30 a 17:45.', nota('St Andrews'), ''],
-      ['Glasgow', 'Maior cidade da Escócia: arquitetura vitoriana, legado de Mackintosh, museus gratuitos e cena de pubs e música. De 27/02 a 01/03, sem carro.', 'Chegar de trem em Queen Street. Quase tudo é gratuito. LEZ 24 h. Barras no fim de semana. Atenção à noite.', 'Máx. ~6 °C, mín. ~0 °C, ~15 dias de chuva. Luz até ~17:50.', nota('Glasgow'), ''],
-      ['Glencoe', 'Vale glacial mais cênico da A82 (Three Sisters, Buachaille Etive Mòr), palco do Massacre de 1692. Visita em 01/03, na ida de Glasgow para Fort William.', 'Centro de visitantes 09:30–16:00. Trilhas curtas (Signal Rock, Glencoe Lochan); pular o Lost Valley no inverno. Sinal de celular falho. Com chuva: mirantes de dentro do carro.', '0 a 6 °C no vale; chuva, sleet, neve e vento. Pôr do sol ~17:50.', nota('Glencoe'), ''],
-      ['Fort William', 'Base aos pés do Ben Nevis; 1 noite (01/03) entre Glencoe e Skye.', 'Reservar o jantar. Abastecer antes de seguir para Skye. O trem Jacobite não opera em fev/mar. Ben Nevis só com equipamento de inverno.', 'Uma das cidades mais chuvosas do Reino Unido: máx. 5 a 6 °C, mín. -1 a 0 °C. Luz ~07:15–17:50.', nota('Fort William'), ''],
-      ['Isle of Skye', 'Paisagem, trilhas curtas e estradas single-track. Chegada em 02/03, dia cheio em 03/03 e saída em 04/03.', 'Ir pela Skye Bridge. Priorizar Trotternish (Storr, Kilt Rock, Quiraing) ou o oeste (Fairy Pools, Talisker). Dunvegan fechado. Restaurantes fecham na baixa temporada. Abastecer em Broadford ou Portree.', 'Máx. 6 a 7 °C, mín. 1 a 2 °C, 19 a 23 dias de chuva, vento forte. Luz ~07:00–17:50.', nota('Isle of Skye'), ''],
-      ['Inverness', 'Capital das Highlands. Base de 04 a 06/03, com dia cheio em 05/03 nos arredores (Culloden, Clava Cairns, Fort George, Loch Ness e Urquhart).', 'Quase tudo abre em março, fechando entre 16:00 e 18:00. Reservar Urquhart online. Devolver o carro antes do trem de 06/03.', '~1 a 7 °C, geada pela manhã, garoa. Luz ~06:50–17:55.', nota('Inverness'), ''],
+      ['Edimburgo', 'Capital compacta e muito a pé: Old Town medieval (Castelo, Royal Mile) e New Town georgiana. Base de 24 a 27/02 (com bate-volta a St Andrews) e de 06 a 08/03.', 'Reservar Castelo, Holyroodhouse e Britannia. Museus gratuitos para dias de chuva. Carro atrapalha (LEZ e estacionamento caro). Rúgbi Escócia x Irlanda em 05/03 lota a cidade; Mothering Sunday em 07/03.', 'Máx. 6 a 8 °C, mín. 0 a 2 °C, ~15 a 18 dias de chuva. Luz de ~07:20–17:35 (23/02) a ~06:45–18:00 (08/03).', nota('Edimburgo'), ''].concat(COORDENADAS['Edimburgo']),
+      ['St Andrews', 'Cidade universitária medieval à beira do Mar do Norte, a "casa do golfe". Bate-volta de carro a partir de Edimburgo em 26/02.', 'A catedral fecha de terça a quinta (26/02 é sexta: aberta). Castelo mais barato online. Estacionar e fazer tudo a pé. Vento forte na costa.', 'Máx. ~6 °C, mín. ~0 °C, ~15 dias de chuva. Pôr do sol ~17:30 a 17:45.', nota('St Andrews'), ''].concat(COORDENADAS['St Andrews']),
+      ['Glasgow', 'Maior cidade da Escócia: arquitetura vitoriana, legado de Mackintosh, museus gratuitos e cena de pubs e música. De 27/02 a 01/03, sem carro.', 'Chegar de trem em Queen Street. Quase tudo é gratuito. LEZ 24 h. Barras no fim de semana. Atenção à noite.', 'Máx. ~6 °C, mín. ~0 °C, ~15 dias de chuva. Luz até ~17:50.', nota('Glasgow'), ''].concat(COORDENADAS['Glasgow']),
+      ['Glencoe', 'Vale glacial mais cênico da A82 (Three Sisters, Buachaille Etive Mòr), palco do Massacre de 1692. Visita em 01/03, na ida de Glasgow para Fort William.', 'Centro de visitantes 09:30–16:00. Trilhas curtas (Signal Rock, Glencoe Lochan); pular o Lost Valley no inverno. Sinal de celular falho. Com chuva: mirantes de dentro do carro.', '0 a 6 °C no vale; chuva, sleet, neve e vento. Pôr do sol ~17:50.', nota('Glencoe'), ''].concat(COORDENADAS['Glencoe']),
+      ['Fort William', 'Base aos pés do Ben Nevis; 1 noite (01/03) entre Glencoe e Skye.', 'Reservar o jantar. Abastecer antes de seguir para Skye. O trem Jacobite não opera em fev/mar. Ben Nevis só com equipamento de inverno.', 'Uma das cidades mais chuvosas do Reino Unido: máx. 5 a 6 °C, mín. -1 a 0 °C. Luz ~07:15–17:50.', nota('Fort William'), ''].concat(COORDENADAS['Fort William']),
+      ['Isle of Skye', 'Paisagem, trilhas curtas e estradas single-track. Chegada em 02/03, dia cheio em 03/03 e saída em 04/03.', 'Ir pela Skye Bridge. Priorizar Trotternish (Storr, Kilt Rock, Quiraing) ou o oeste (Fairy Pools, Talisker). Dunvegan fechado. Restaurantes fecham na baixa temporada. Abastecer em Broadford ou Portree.', 'Máx. 6 a 7 °C, mín. 1 a 2 °C, 19 a 23 dias de chuva, vento forte. Luz ~07:00–17:50.', nota('Isle of Skye'), ''].concat(COORDENADAS['Isle of Skye']),
+      ['Inverness', 'Capital das Highlands. Base de 04 a 06/03, com dia cheio em 05/03 nos arredores (Culloden, Clava Cairns, Fort George, Loch Ness e Urquhart).', 'Quase tudo abre em março, fechando entre 16:00 e 18:00. Reservar Urquhart online. Devolver o carro antes do trem de 06/03.', '~1 a 7 °C, geada pela manhã, garoa. Luz ~06:50–17:55.', nota('Inverness'), ''].concat(COORDENADAS['Inverness']),
     ],
   },
   {
@@ -191,20 +242,31 @@ const ABAS = [
   },
 ];
 
-// Reservado/Pago = soma dos valores com status "reservado" ou "pago".
-function pago(aba, colValor, colStatus) {
-  return '=SUMIFS(' + aba + '!' + colValor + ':' + colValor + ',' + aba + '!' + colStatus + ':' + colStatus + ',"reservado")' +
-    '+SUMIFS(' + aba + '!' + colValor + ':' + colValor + ',' + aba + '!' + colStatus + ':' + colStatus + ',"pago")';
+// As fórmulas deste arquivo usam vírgula entre argumentos. Planilhas em idioma que usa
+// vírgula decimal (como pt_BR) só aceitam ponto e vírgula, até via Apps Script; sem a
+// troca, a célula mostra #ERROR! (erro de análise). Vírgulas entre aspas não mudam.
+function formulaLocal(sh, formula) {
+  if (/^en/.test(sh.getParent().getSpreadsheetLocale())) return formula;
+  return formula.replace(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/g, ';');
 }
 
-function pagoTipo(tipo) {
-  return '=SUMIFS(Transportes!E:E,Transportes!B:B,"' + tipo + '",Transportes!F:F,"reservado")' +
-    '+SUMIFS(Transportes!E:E,Transportes!B:B,"' + tipo + '",Transportes!F:F,"pago")';
+// Soma dos itens de uma categoria com um status ("reservado" ou "pago").
+function somaStatus(origem, status) {
+  if (!origem) return '';
+  if (origem.tipo) return '=SUMIFS(Transportes!E:E,Transportes!B:B,"' + origem.tipo + '",Transportes!F:F,"' + status + '")';
+  return '=SUMIFS(' + origem.aba + '!' + origem.valor + ':' + origem.valor + ',' + origem.aba + '!' + origem.status + ':' + origem.status + ',"' + status + '")';
 }
 
-// Real = gastos lançados na aba Gastos com a mesma categoria.
-function real(linha) {
-  return '=SUMIFS(Gastos!H:H,Gastos!D:D,A' + linha + ')';
+// Colunas D a H do Orçamento para a categoria da linha.
+function formulasOrcamento(categoria, linha) {
+  const origem = ORIGEM_ORCAMENTO[categoria];
+  return [
+    somaStatus(origem, 'reservado'),
+    somaStatus(origem, 'pago'),
+    '=SUMIFS(Gastos!H:H,Gastos!D:D,A' + linha + ')',
+    '=N(E' + linha + ')+N(F' + linha + ')',
+    '=IF(C' + linha + '="","",C' + linha + '-N(D' + linha + ')-G' + linha + ')',
+  ];
 }
 
 function atracoes() {
@@ -315,7 +377,7 @@ function criarPlanilha() {
   if (linhaCotacao > 0) ss.setNamedRange('cotacao', viagem.getRange(linhaCotacao, 2));
   // Fórmulas que dependem da célula nomeada precisam dela já criada.
   const gastos = ss.getSheetByName('Gastos');
-  if (criadas.indexOf('Gastos') >= 0) gastos.getRange('H2').setFormula(ABAS.find(function (a) { return a.nome === 'Gastos'; }).formulas.H2);
+  if (criadas.indexOf('Gastos') >= 0) gastos.getRange('H2').setFormula(formulaLocal(gastos, ABAS.find(function (a) { return a.nome === 'Gastos'; }).formulas.H2));
 
   // Remove a aba padrão vazia da planilha nova.
   ss.getSheets().forEach(function (sh) {
@@ -346,8 +408,14 @@ function montarAba(sh, aba) {
 
   // Dados (fórmulas da coluna inteira entram depois).
   if (aba.linhas.length) sh.getRange(2, 1, aba.linhas.length, nCol).setValues(aba.linhas);
+  // Fórmulas dentro das linhas: regravadas na sintaxe do idioma da planilha.
+  aba.linhas.forEach(function (linha, i) {
+    linha.forEach(function (v, j) {
+      if (typeof v === 'string' && v.charAt(0) === '=') sh.getRange(i + 2, j + 1).setFormula(formulaLocal(sh, v));
+    });
+  });
   Object.keys(aba.formulas || {}).forEach(function (cel) {
-    if (aba.nome !== 'Gastos') sh.getRange(cel).setFormula(aba.formulas[cel]);
+    if (aba.nome !== 'Gastos') sh.getRange(cel).setFormula(formulaLocal(sh, aba.formulas[cel]));
   });
 
   // Corpo: fundo branco, tinta, quebra de linha nos textos longos.
@@ -387,6 +455,96 @@ function montarAba(sh, aba) {
     ]);
   }
   if (aba.nome === 'Orcamento') {
-    sh.getRange('C2:E').setHorizontalAlignment('right');
+    sh.getRange('C2:H').setHorizontalAlignment('right');
+    // Saldo negativo (estouro) em laranja, como as pendências.
+    sh.setConditionalFormatRules([
+      SpreadsheetApp.newConditionalFormatRule().whenNumberLessThan(0).setFontColor(COR.launchOrange).setRanges([sh.getRange('H2:H')]).build(),
+    ]);
   }
+  if (aba.nome === 'Cidades') {
+    sh.getRange('G2:H').setNumberFormat('0.0000');
+  }
+}
+
+
+// ---------------------------------------------------------------- migração
+
+/**
+ * Revisão de 27/10/2026, para a planilha já existente. Pode ser executada de novo:
+ * - Orcamento: troca "Reservado/Pago" e "Real" por A pagar, Pago antes, Na viagem,
+ *   Pago e Saldo, mantendo categorias, descrições e valores previstos;
+ * - Precos: cria a aba com as consultas de 15/09/2026 (se ainda não existir);
+ * - Cidades: acrescenta Latitude e Longitude (se faltarem) e preenche os valores;
+ * - Viagem: acrescenta emergências, tomadas e eventos (se faltarem);
+ * - Roteiro: preenche distâncias e tempos vazios com os valores deste arquivo.
+ */
+function migrarRevisao() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const feito = [];
+
+  const orc = ss.getSheetByName('Orcamento');
+  const atuais = orc.getRange(2, 1, Math.max(orc.getLastRow() - 1, 1), 3).getValues()
+    .filter(function (l) { return l[0] !== ''; });
+  orc.getDataRange().clearDataValidations();
+  orc.clear();
+  orc.setConditionalFormatRules([]);
+  const defOrc = ABAS.find(function (a) { return a.nome === 'Orcamento'; });
+  const linhas = atuais.map(function (l, i) { return [l[0], l[1], l[2]].concat(formulasOrcamento(l[0], i + 2)); });
+  montarAba(orc, Object.assign({}, defOrc, { linhas: linhas }));
+  feito.push('Orcamento: ' + linhas.length + ' categorias nas colunas novas');
+
+  if (!ss.getSheetByName('Precos')) {
+    const posicao = ss.getSheets().map(function (sh) { return sh.getName(); }).indexOf('Hospedagens') + 1;
+    montarAba(ss.insertSheet('Precos', posicao), ABAS.find(function (a) { return a.nome === 'Precos'; }));
+    feito.push('Precos: criada com ' + PRECOS_INICIAIS.length + ' consultas');
+  } else {
+    feito.push('Precos: já existia (não alterada)');
+  }
+
+  const cid = ss.getSheetByName('Cidades');
+  let cab = cid.getRange(1, 1, 1, cid.getLastColumn()).getValues()[0];
+  if (cab.indexOf('Latitude') < 0) {
+    cid.getRange(1, cab.length + 1, 1, 2).setValues([['Latitude', 'Longitude']])
+      .setBackground(COR.studioMist).setFontColor(COR.ink).setFontWeight('bold').setFontFamily(FONTE).setFontSize(10);
+    cab = cab.concat(['Latitude', 'Longitude']);
+  }
+  const colLat = cab.indexOf('Latitude') + 1;
+  const nomes = cid.getRange(2, 1, cid.getLastRow() - 1, 1).getValues();
+  nomes.forEach(function (l, i) {
+    const c = COORDENADAS[l[0]];
+    if (c) cid.getRange(i + 2, colLat, 1, 2).setValues([c]).setNumberFormat('0.0000');
+  });
+  feito.push('Cidades: coordenadas em ' + nomes.filter(function (l) { return COORDENADAS[l[0]]; }).length + ' cidades');
+
+  // Viagem: informações essenciais que ainda não existem.
+  const viagem = ss.getSheetByName('Viagem');
+  const chaves = viagem.getRange(2, 1, viagem.getLastRow() - 1, 1).getValues().map(function (l) { return l[0]; });
+  const essenciais = ABAS.find(function (a) { return a.nome === 'Viagem'; }).linhas.filter(function (l) {
+    return ['emergencias', 'tomadas', 'eventos'].indexOf(l[0]) >= 0 && chaves.indexOf(l[0]) < 0;
+  });
+  if (essenciais.length) {
+    viagem.getRange(viagem.getLastRow() + 1, 1, essenciais.length, 3).setValues(essenciais)
+      .setFontFamily(FONTE).setFontSize(10).setFontColor(COR.ink).setVerticalAlignment('top').setWrap(true);
+  }
+  feito.push('Viagem: ' + essenciais.length + ' informações essenciais acrescentadas');
+
+  // Roteiro: distâncias e tempos que estão vazios (tabela da nota Escócia 2027).
+  const rot = ss.getSheetByName('Roteiro');
+  const cabRot = rot.getRange(1, 1, 1, rot.getLastColumn()).getValues()[0];
+  const linhasRot = rot.getRange(2, 1, rot.getLastRow() - 1, cabRot.length).getValues();
+  const defRot = ABAS.find(function (a) { return a.nome === 'Roteiro'; });
+  let preenchidas = 0;
+  ['Distância', 'Tempo'].forEach(function (col) {
+    const c = cabRot.indexOf(col);
+    const cDef = defRot.colunas.indexOf(col);
+    linhasRot.forEach(function (l, i) {
+      const modelo = defRot.linhas.find(function (m) { return m[0] === l[0]; });
+      if (l[c] === '' && modelo && modelo[cDef]) { rot.getRange(i + 2, c + 1).setValue(modelo[cDef]); preenchidas++; }
+    });
+  });
+  feito.push('Roteiro: ' + preenchidas + ' células de distância ou tempo preenchidas');
+
+  const msg = feito.join('\n');
+  Logger.log(msg);
+  return msg;
 }

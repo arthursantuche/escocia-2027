@@ -1,44 +1,74 @@
 {
   "edimburgo": {
-    "titulo": "Edinburgh Skyline Panorama.jpg",
-    "autor": "Strevo",
+    "titulo": "Skyline of Edinburgh.jpg",
+    "autor": "Andrew Colin",
     "licenca": "CC BY 2.0",
-    "pagina": "https://commons.wikimedia.org/wiki/File:Edinburgh_Skyline_Panorama.jpg"
+    "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Skyline_of_Edinburgh.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
   },
   "st-andrews": {
-    "titulo": "St Andrews Cathedral, Fife - geograph.org.uk - 5496042.jpg",
-    "autor": "Jerzy Morkis",
+    "titulo": "St Andrews, sunset on the cathedral ruins - geograph.org.uk - 4891213.jpg",
+    "autor": "John H Darch",
     "licenca": "CC BY-SA 2.0",
-    "pagina": "https://commons.wikimedia.org/wiki/File:St_Andrews_Cathedral,_Fife_-_geograph.org.uk_-_5496042.jpg"
+    "licencaUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:St_Andrews,_sunset_on_the_cathedral_ruins_-_geograph.org.uk_-_4891213.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
   },
   "glasgow": {
-    "titulo": "Kelvingrove from Glasgow University Tower.jpg",
-    "autor": "Herebedug",
-    "licenca": "CC BY-SA 3.0",
-    "pagina": "https://commons.wikimedia.org/wiki/File:Kelvingrove_from_Glasgow_University_Tower.jpg"
+    "titulo": "Glasgow University (49078377092).jpg",
+    "autor": "Ian Dick from Glasgow, UK",
+    "licenca": "CC BY 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Glasgow_University_(49078377092).jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
   },
   "glencoe": {
-    "titulo": "Glen Coe Rainbow.jpg",
-    "autor": "Colin",
-    "licenca": "CC BY-SA 4.0",
-    "pagina": "https://commons.wikimedia.org/wiki/File:Glen_Coe_Rainbow.jpg"
+    "titulo": "Buachaille Etive Mòr - 40339525345.jpg",
+    "autor": "Ian D",
+    "licenca": "CC BY 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Buachaille_Etive_M%C3%B2r_-_40339525345.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
   },
   "fort-william": {
-    "titulo": "Glenfinnan Site.jpg",
-    "autor": "J. Drevet",
-    "licenca": "CC BY-SA 3.0",
-    "pagina": "https://commons.wikimedia.org/wiki/File:Glenfinnan_Site.jpg"
+    "titulo": "Ben Nevis from the Corpach Wreck - geograph.org.uk - 6370132.jpg",
+    "autor": "Andy Stephenson",
+    "licenca": "CC BY-SA 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Ben_Nevis_from_the_Corpach_Wreck_-_geograph.org.uk_-_6370132.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
   },
   "isle-of-skye": {
-    "titulo": "Quiraing, Isle of Skye, Scotland - Diliff.jpg",
-    "autor": "Diliff",
-    "licenca": "CC BY-SA 3.0",
-    "pagina": "https://commons.wikimedia.org/wiki/File:Quiraing,_Isle_of_Skye,_Scotland_-_Diliff.jpg"
+    "titulo": "Old Man of Storr, Scottish Highlands.jpg",
+    "autor": "Lauwz The Kiwistralian",
+    "licenca": "CC0",
+    "licencaUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Old_Man_of_Storr,_Scottish_Highlands.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
   },
   "inverness": {
-    "titulo": "Inverness Castle and the River Ness - geograph.org.uk - 2895311.jpg",
-    "autor": "Roger Davies",
-    "licenca": "CC BY-SA 2.0",
-    "pagina": "https://commons.wikimedia.org/wiki/File:Inverness_Castle_and_the_River_Ness_-_geograph.org.uk_-_2895311.jpg"
+    "titulo": "Inverness Castle on a Spring day (40710862772).jpg",
+    "autor": "Mike McBey",
+    "licenca": "CC BY 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Inverness_Castle_on_a_Spring_day_(40710862772).jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
+  },
+  "abertura": {
+    "titulo": "A small loch in the saddle between Beinn an Dothaidh and Beinn Dorain, Scotland 01.jpg",
+    "autor": "Michal Klajban",
+    "licenca": "CC BY-SA 4.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:A_small_loch_in_the_saddle_between_Beinn_an_Dothaidh_and_Beinn_Dorain,_Scotland_01.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
   }
 }

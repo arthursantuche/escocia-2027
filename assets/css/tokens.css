@@ -96,4 +96,46 @@
   --carousel-track: rgba(210, 210, 215, 0.64);
   --carousel-glyph: rgba(0, 0, 0, 0.56);
   --nav-label: rgba(0, 0, 0, 0.8);
+
+  /* Tokens de papel (seção "Tema escuro (extensão)" do documento). O restante do CSS
+     usa só estes; eles apontam para a paleta acima e mudam no tema escuro. */
+  --cor-fundo: var(--color-gallery-white);
+  --cor-faixa: var(--color-studio-mist);
+  --cor-cartao: var(--color-gallery-white);
+  --cor-vidro: rgba(255, 255, 255, 0.8);
+  --cor-texto: var(--color-ink);
+  --cor-texto-2: var(--color-slate);
+  --cor-link: var(--color-apple-blue);
+  --cor-acao: var(--color-pricing-blue);
+  --cor-sobre-acao: var(--color-gallery-white);
+  --cor-alerta: var(--color-launch-orange);
+  --cor-divisoria: var(--color-hairline-silver);
+  --cor-contorno: var(--color-steel);
+  --cor-contorno-suave: var(--color-control-gray);
+  --cor-trilho: var(--color-control-gray);
+  --cor-controle: var(--carousel-track);
+  --cor-glifo: var(--carousel-glyph);
+  --cor-grafico-previsto: var(--color-steel);
+
+  /* Contornos de 1px (o documento não usa sombras projetadas) */
+  --contorno-sutil: var(--cor-contorno-suave) 0 0 0 1px;
+  --contorno-forte: var(--cor-contorno) 0 0 0 1px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cor-fundo: #000000;
+    --cor-faixa: #161617;
+    --cor-cartao: var(--color-ink);
+    --cor-vidro: rgba(22, 22, 23, 0.8);
+    --cor-texto: var(--color-studio-mist);
+    --cor-texto-2: var(--color-steel);
+    --cor-link: #2997ff;
+    --cor-alerta: #f56300;
+    --cor-divisoria: #424245;
+    --cor-contorno-suave: #424245;
+    --cor-trilho: #424245;
+    --cor-controle: rgba(66, 66, 69, 0.72);
+    --cor-glifo: rgba(255, 255, 255, 0.56);
+  }
 }

@@ -31,17 +31,23 @@ const dia = 864e5;
 dados.Hospedagens.forEach((h) => { h.Noites = (new Date(h['Saída']) - new Date(h.Entrada)) / dia; });
 const cotacao = dados.Viagem.find((v) => v.Chave === 'cotacao_gbp_brl').Valor;
 dados.Gastos.forEach((g) => { g['Valor em R$'] = g.Moeda === '£' ? g.Valor * cotacao : g.Valor; });
-const confirmado = (s) => s === 'reservado' || s === 'pago';
 const soma = (lista, campo) => lista.reduce((t, x) => t + (Number(x[campo]) || 0), 0);
-const pagoPor = {
-  'Passagens': soma(dados.Passagens.filter((p) => confirmado(p.Status)), 'Valor (R$)'),
-  'Hospedagem': soma(dados.Hospedagens.filter((h) => confirmado(h.Status)), 'Valor (R$)'),
-  'Transporte - carro': soma(dados.Transportes.filter((t) => t.Tipo === 'Carro' && confirmado(t.Status)), 'Valor (R$)'),
-  'Transporte - trem': soma(dados.Transportes.filter((t) => t.Tipo === 'Trem' && confirmado(t.Status)), 'Valor (R$)'),
-};
+// Mesmas regras de formulasOrcamento() em Setup.gs.
+const porStatus = (status) => ({
+  'Passagens': soma(dados.Passagens.filter((p) => p.Status === status), 'Valor (R$)'),
+  'Hospedagem': soma(dados.Hospedagens.filter((h) => h.Status === status), 'Valor (R$)'),
+  'Transporte - carro': soma(dados.Transportes.filter((t) => t.Tipo === 'Carro' && t.Status === status), 'Valor (R$)'),
+  'Transporte - trem': soma(dados.Transportes.filter((t) => t.Tipo === 'Trem' && t.Status === status), 'Valor (R$)'),
+});
+const reservado = porStatus('reservado');
+const pagoAntes = porStatus('pago');
 dados.Orcamento.forEach((o) => {
-  if (o.Categoria in pagoPor) o['Reservado/Pago (R$)'] = pagoPor[o.Categoria];
-  o['Real (R$)'] = soma(dados.Gastos.filter((g) => g.Categoria === o.Categoria), 'Valor em R$');
+  const origem = o.Categoria in reservado;
+  o['A pagar (R$)'] = origem ? reservado[o.Categoria] : '';
+  o['Pago antes (R$)'] = origem ? pagoAntes[o.Categoria] : '';
+  o['Na viagem (R$)'] = soma(dados.Gastos.filter((g) => g.Categoria === o.Categoria), 'Valor em R$');
+  o['Pago (R$)'] = (Number(o['Pago antes (R$)']) || 0) + o['Na viagem (R$)'];
+  o['Saldo (R$)'] = o['Previsto (R$)'] === '' ? '' : o['Previsto (R$)'] - (Number(o['A pagar (R$)']) || 0) - o['Pago (R$)'];
 });
 
 const saida = { geradoEm: new Date().toISOString(), fonte: 'amostra', abas: dados };

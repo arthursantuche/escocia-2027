@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta name="description" content="Portal da viagem à Escócia, 23/02 a 08/03/2027">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Escócia 2027">
@@ -20,18 +22,17 @@
 </head>
 <body>
   <header class="topo">
-    <nav class="nav-local" aria-label="Portal">
-      <a class="nav-local__titulo" href="#painel">Escócia 2027</a>
-      <a class="pill" href="#checklist">Checklist</a>
-      <a class="pill pill--azul" href="#registrar">Registrar</a>
-    </nav>
-    <nav class="nav-secoes" aria-label="Seções">
-      <a href="#painel">Painel</a>
-      <a href="#roteiro">Roteiro</a>
-      <a href="#orcamento">Orçamento</a>
-      <a href="#checklist">Checklist</a>
-      <a href="#viagem">Viagem</a>
-      <a href="#registrar">Registrar</a>
+    <nav class="barra" aria-label="Portal">
+      <a class="barra__titulo" href="#painel">Escócia 2027</a>
+      <div class="barra__secoes" id="secoes">
+        <a href="#painel">Painel</a>
+        <a href="#roteiro">Roteiro</a>
+        <a href="#cidades">Cidades</a>
+        <a href="#orcamento">Orçamento</a>
+        <a href="#checklist">Checklist</a>
+        <a href="#viagem">Viagem</a>
+      </div>
+      <a class="pill pill--azul barra__acao" href="#registrar">Registrar</a>
     </nav>
   </header>
 
@@ -41,6 +42,14 @@
         <p class="kicker" id="periodo"></p>
         <h1 class="display" data-revelar>Escócia 2027.</h1>
         <p class="copy legenda" id="viajantes"></p>
+      </div>
+      <figure class="hero__foto" data-zoom>
+        <div class="hero__moldura">
+          <img src="assets/img/cidades/abertura-1600.webp" srcset="assets/img/cidades/abertura-800.webp 800w, assets/img/cidades/abertura-1600.webp 1600w, assets/img/cidades/abertura-2400.webp 2400w" sizes="(min-width: 1240px) 1200px, calc(100vw - 40px)" width="2400" height="1600" alt="Lago entre montanhas das Highlands ao amanhecer" fetchpriority="high">
+        </div>
+        <figcaption class="legenda" id="abertura-credito"></figcaption>
+      </figure>
+      <div class="conteudo hero__dados">
         <div class="contagem" data-subir>
           <span class="contagem__numero" id="dias">–</span>
           <span class="legenda" id="dias-legenda">dias para o embarque</span>
@@ -53,22 +62,22 @@
       </div>
     </section>
 
-    <section class="secao secao--mist destaques" aria-labelledby="destaques-titulo">
-      <div class="conteudo">
-        <div class="destaques__cabecalho">
-          <h2 class="titulo" id="destaques-titulo" data-revelar>Resumo da viagem.</h2>
-          <a href="#orcamento" class="legenda">Ver orçamento</a>
-        </div>
-        <div class="galeria" tabindex="0" aria-label="Cards de resumo">
+    <section class="secao secao--mist destaques faixa-carrossel" aria-labelledby="destaques-titulo">
+      <div class="conteudo destaques__cabecalho">
+        <h2 class="titulo" id="destaques-titulo" data-revelar>Resumo da viagem.</h2>
+        <a href="#orcamento" class="legenda">Ver orçamento</a>
+      </div>
+      <div class="carrossel" id="resumo" role="region" aria-roledescription="carrossel" aria-labelledby="destaques-titulo">
+        <div class="carrossel__trilho" id="resumo-lista" tabindex="0">
           <a class="card" href="#orcamento" aria-labelledby="orc-titulo">
             <p class="legenda" id="orc-titulo">Orçamento</p>
             <p class="card__numero" id="orc-previsto"></p>
             <p class="legenda" id="orc-detalhe"></p>
-            <div class="card__grafico"><canvas id="grafico-orcamento" aria-label="Orçamento por categoria: previsto, reservado ou pago e real" role="img"></canvas></div>
+            <div class="card__grafico"><canvas id="grafico-orcamento" aria-label="Orçamento por categoria: previsto, pago e a pagar" role="img"></canvas></div>
             <p class="legenda legenda-grafico" aria-hidden="true">
               <span class="cor-previsto">Previsto</span>
-              <span class="cor-pago">Reservado/pago</span>
-              <span class="cor-real">Real</span>
+              <span class="cor-pago">Pago</span>
+              <span class="cor-apagar">A pagar</span>
             </p>
           </a>
           <a class="card" href="#checklist" aria-labelledby="chk-titulo">
@@ -83,15 +92,27 @@
             <div class="card__grafico"><canvas id="grafico-noites" aria-label="Noites por cidade" role="img"></canvas></div>
           </article>
         </div>
+        <div class="conteudo carrossel__controles">
+          <div class="carrossel__pontos" id="resumo-pontos" role="group" aria-label="Escolher resumo">
+            <button type="button" aria-label="Orçamento" aria-controls="resumo-lista"></button>
+            <button type="button" aria-label="Checklist" aria-controls="resumo-lista"></button>
+            <button type="button" aria-label="Noites por cidade" aria-controls="resumo-lista"></button>
+          </div>
+          <div class="carrossel__setas">
+            <button class="carrossel__seta" type="button" data-direcao="-1" aria-label="Resumo anterior" aria-controls="resumo-lista"></button>
+            <button class="carrossel__seta carrossel__seta--proxima" type="button" data-direcao="1" aria-label="Próximo resumo" aria-controls="resumo-lista"></button>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="secao roteiro" id="roteiro" aria-labelledby="roteiro-titulo">
       <div class="conteudo roteiro__palco">
-        <div>
+        <div class="roteiro__texto">
           <p class="kicker">Roteiro</p>
           <h2 class="titulo" id="roteiro-titulo" data-revelar>De Edimburgo às Highlands, e de volta.</h2>
           <p class="copy legenda" id="roteiro-resumo"></p>
+          <div class="roteiro__midia" id="roteiro-midia" aria-hidden="true"></div>
         </div>
         <div class="roteiro__trilha">
           <div class="roteiro__linha"></div>
@@ -101,18 +122,28 @@
       </div>
     </section>
 
-    <section class="secao secao--mist" id="pendencias" aria-labelledby="pend-titulo">
+    <section class="secao secao--mist faixa-carrossel" id="cidades" aria-labelledby="cidades-titulo">
+      <div class="conteudo destaques__cabecalho">
+        <h2 class="titulo" id="cidades-titulo" data-revelar>Sete cidades.</h2>
+        <a href="#roteiro" class="legenda">Ver roteiro</a>
+      </div>
+      <div class="carrossel" role="region" aria-roledescription="carrossel" aria-labelledby="cidades-titulo">
+        <div class="carrossel__trilho" id="cidades-lista" tabindex="0"></div>
+        <div class="conteudo carrossel__controles">
+          <div class="carrossel__pontos" id="cidades-pontos" role="group" aria-label="Escolher cidade"></div>
+          <div class="carrossel__setas">
+            <button class="carrossel__seta" type="button" data-direcao="-1" aria-label="Cidade anterior" aria-controls="cidades-lista"></button>
+            <button class="carrossel__seta carrossel__seta--proxima" type="button" data-direcao="1" aria-label="Próxima cidade" aria-controls="cidades-lista"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao" id="pendencias" aria-labelledby="pend-titulo">
       <div class="conteudo">
         <h2 class="titulo" id="pend-titulo" data-revelar>Pendências por prazo.</h2>
         <ol class="pendencias" id="lista-pendencias"></ol>
         <a class="pill espaco-topo" href="#checklist">Ver checklist completo</a>
-      </div>
-    </section>
-
-    <section class="secao" aria-labelledby="cidades-titulo">
-      <div class="conteudo">
-        <h2 class="titulo" id="cidades-titulo" data-revelar>Sete cidades.</h2>
-        <div class="cidades" id="cidades"></div>
       </div>
     </section>
   </main>

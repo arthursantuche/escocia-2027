@@ -20,6 +20,7 @@ const EDITAVEIS = {
   Hospedagens: { colunas: ['Status', 'Valor (R$)', 'Link', 'Observações'] },
   Transportes: { colunas: ['Status', 'Valor (R$)', 'Observações'] },
   Atracoes: { colunas: ['Status'] },
+  Precos: { adicionar: true, prefixo: 'P' },
 };
 
 // Colunas calculadas por ARRAYFORMULA na planilha: nunca escrever nelas.

@@ -1,11 +1,11 @@
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; color-scheme: light dark; }
 
 body {
   margin: 0;
-  background: var(--color-gallery-white);
-  color: var(--color-ink);
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
   font-family: var(--font-sf-pro-text);
   font-size: var(--text-body);
   line-height: var(--leading-body);
@@ -15,15 +15,18 @@ body {
 
 h1, h2, h3, p { margin: 0; }
 
-a { color: var(--color-apple-blue); text-decoration: none; border-radius: var(--radius-links); }
+a { color: var(--cor-link); text-decoration: none; border-radius: var(--radius-links); }
 a:hover { text-decoration: underline; }
 
-:focus-visible { outline: 2px solid var(--color-apple-blue); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--cor-link); outline-offset: 2px; }
+
+/* Âncoras (#roteiro, #pendencias…) param abaixo da barra fixa. */
+[id] { scroll-margin-top: var(--altura-topo, 0px); }
 
 .secao {
-  padding: var(--section-gap) var(--spacing-20);
+  padding: var(--spacing-64) var(--spacing-20);
 }
-.secao--mist { background: var(--color-studio-mist); }
+.secao--mist { background: var(--cor-faixa); }
 
 .conteudo { max-width: 980px; margin: 0 auto; }
 
@@ -42,10 +45,12 @@ a:hover { text-decoration: underline; }
   letter-spacing: var(--tracking-hero-display);
   font-weight: var(--font-weight-semibold);
 }
+/* Altura de linha 1,08 (lista do SF Pro Display): títulos que quebram linha não se sobrepõem
+   e os descendentes (ç, g, p) ficam dentro da caixa. */
 .titulo {
   font-family: var(--font-sf-pro-display);
   font-size: var(--text-feature-heading);
-  line-height: var(--leading-feature-heading);
+  line-height: 1.08;
   letter-spacing: var(--tracking-feature-heading);
   font-weight: var(--font-weight-semibold);
 }
@@ -58,16 +63,25 @@ a:hover { text-decoration: underline; }
   font-size: var(--text-body-small);
   line-height: var(--leading-body-small);
   letter-spacing: var(--tracking-body-small);
-  color: var(--color-slate);
+  color: var(--cor-texto-2);
 }
 .status-pendente {
-  color: var(--color-launch-orange);
+  color: var(--cor-alerta);
   font-size: var(--text-compact-control);
   line-height: var(--leading-compact-control);
   letter-spacing: var(--tracking-compact-control);
   font-weight: var(--font-weight-semibold);
 }
 
+/* Ritmo vertical: um título nunca encosta no bloco seguinte (divisória, lista, tabela). */
+h2.titulo + :not(p, a) { margin-top: var(--spacing-32); }
+h2.titulo + p.legenda { margin-top: var(--spacing-32); }
+:not(.card) > h2.kicker + :is(ul, ol, table, form, div) { margin-top: var(--spacing-16); }
+
 .oculto-leitura {
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+@media (min-width: 834px) {
+  .secao { padding: var(--section-gap) var(--spacing-20); }
 }
