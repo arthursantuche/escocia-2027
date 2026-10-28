@@ -41,7 +41,9 @@
   margin: var(--spacing-48) 0 0; padding: 0;
   display: grid; grid-template-columns: repeat(3, 1fr);
 }
-.numeros__item { display: flex; flex-direction: column-reverse; align-items: center; gap: var(--spacing-8); padding: 0 var(--spacing-8); }
+/* column-reverse põe o número acima da legenda; flex-end (o início visual nessa direção)
+   alinha os três números pelo topo, mesmo quando uma legenda tem menos linhas. */
+.numeros__item { display: flex; flex-direction: column-reverse; justify-content: flex-end; align-items: center; gap: var(--spacing-8); padding: 0 var(--spacing-8); }
 .numeros__item + .numeros__item { border-left: 1px solid var(--cor-divisoria); }
 .numeros__valor {
   margin: 0;
