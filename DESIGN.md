@@ -1,6 +1,8 @@
 # DESIGN — Portal Escócia 2027
 
-Fonte da verdade: `x/Documentação/Identidade Visual - iPhone Duo.md` (vault Arthur's Ideaverse), aplicada integralmente, incluindo as seções "Tema escuro (extensão)" e "Regras de layout do portal". Os tokens estão transcritos em `assets/css/tokens.css`.
+Fonte da verdade: `x/Documentação/Identidade Visual - Apple.md` (vault Arthur's Ideaverse): modo claro pela parte "iPhone Duo - Modo claro", modo escuro pela parte "iPhone 18 Pro - Modo escuro" e movimento pela parte "Animações e comportamento visual - Apple". Como aplicar: `x/Documentação/Diretório - Identidade Visual - Apple.md`. Os tokens estão transcritos em `assets/css/tokens.css`.
+
+Desde 28/10/2026 (auditoria do site), os valores escuros seguem a referência do iPhone 18 Pro e o movimento segue as medições das páginas da Apple.
 
 ## Tokens
 - **Paleta** (`--color-*`): os valores literais do documento. Só `tokens.css` usa a paleta diretamente.
@@ -11,6 +13,7 @@ Fonte da verdade: `x/Documentação/Identidade Visual - iPhone Duo.md` (vault Ar
   | `--cor-fundo` | tela |
   | `--cor-faixa` | faixa alternada ou superfície sobre a tela |
   | `--cor-cartao` | cartão sobre a faixa |
+  | `--cor-campo` | fundo dos campos de formulário |
   | `--cor-vidro` | barra translúcida |
   | `--cor-texto` | texto |
   | `--cor-texto-2` | texto secundário |
@@ -43,10 +46,11 @@ Fonte da verdade: `x/Documentação/Identidade Visual - iPhone Duo.md` (vault Ar
 ## Tema escuro
 - Segue o sistema (`prefers-color-scheme`), sem seletor manual.
 - Os tokens de papel trocam de valor, e o CSS das páginas não muda.
-- **Superfícies:** `#000000` → `#161617` → `#1d1d1f`, cada elevação um passo mais claro.
+- **Superfícies (referência iPhone 18 Pro):** tela `#000000`; faixa `#1d1d1f` (Carbon); cartão sobre a faixa `#000000`; campo `rgba(255,255,255,0.04)`; vidro da barra `rgba(18,18,18,0.8)`.
+- **Linhas:** divisória e trilho `#333336`; contorno suave `#282828`; contorno de campo e pílula `#6e6e73`.
 - **Cores que mudam porque reprovariam no contraste:**
   - links passam a `#2997ff`;
-  - pendências passam a `#f56300`.
+  - pendências passam a `#f56300` (derivado; a referência usa `#b64400` só em rótulos de 12 px).
 - **Botão preenchido:** continua `#0071e3` com texto branco.
 - **Fotos:** sem filtro.
 - **Gráficos:** redesenhados quando o tema muda.
@@ -70,10 +74,14 @@ Fonte da verdade: `x/Documentação/Identidade Visual - iPhone Duo.md` (vault Ar
   - 48px de altura, padding de 20px, texto de 17px (o iOS dá zoom abaixo de 16px), contorno `--contorno-forte` e raio `--radius-inputs`;
   - listas com seta própria;
   - foco com anel `--cor-link` e erro em `--cor-alerta`.
-- **Toque:** área de pelo menos 44×44px.
+- **Toque:** área de pelo menos 44×44px; os pontos dos carrosséis são alvos de 24 × 44px (ponto de 8px com folga).
+- **Formulário depois de lista ou de aviso de lista vazia:** 32px de espaço.
 - **Texto sob o título das páginas:** `.copy.introducao`, 17px em `--cor-texto-2` (não 14px de legenda).
 - **Abertura:** sob a foto, números-chave (`.numeros`: dias para o embarque, noites, cidades) em `clamp(40px, 7vw, 80px)`, sem cartão; depois o próximo compromisso como chamada com a pílula "Ver checklist". Nada pequeno e isolado sob a imagem grande.
-- **Celular deitado** (`orientation: landscape` e altura até 500px): abertura em 3:1 e foto da cidade em 2:1.
+- **Celular deitado** (`orientation: landscape` e altura até 500px):
+  - abertura e foto da cidade em 3:1 (em 2:1 a foto passava da área visível em 844 × 390 e 932 × 430);
+  - abaixo de 834px, a barra fica numa linha só (52px em vez de 101px);
+  - a partir de 834px, o roteiro esconde a foto da parada, para a coluna fixa caber na tela.
 - **Barra flutuante:** 12px de margem lateral a partir de 834px.
 - **Validação:** conferir as orientações vertical e horizontal (por exemplo 390×844, 844×390, 1024×768 e 1280×800).
 
@@ -90,8 +98,9 @@ As cores são lidas do CSS no momento de desenhar. O raio das barras (4px, o `--
 O laranja em área maior que um rótulo é a única extensão de uso de cor: ele marca "a pagar" pelo mesmo motivo que marca pendências.
 
 ## Movimento (referência: apple.com/iphone-duo)
-- **Títulos `[data-revelar]`:** a opacidade acompanha a rolagem, de quase transparente a opaco.
-- **Blocos `[data-subir]`:** sobem 40px e aparecem ao entrar na tela.
+- **Títulos `[data-revelar]`:** a opacidade acompanha a rolagem, de quase transparente a opaco; vale para todos os títulos de seção, também nas páginas internas.
+- **Transições de interface:** curva `--ease-apple` (`cubic-bezier(0.4, 0, 0.6, 1)`) e durações `--dur-curta` (240 ms), `--dur-link` (320 ms, cor dos links e pontos do carrossel) e `--dur-longa` (500 ms, foto da parada).
+- **Blocos `[data-subir]`:** sobem 30px e aparecem em 0,5 s ao entrar na tela, com a curva de entrada da Apple `cubic-bezier(0, 0, 0.2, 1)` (função `bezier` em `movimento.js`).
 - **Roteiro:**
   - sem pin;
   - uma linha guia a 60% da altura da tela faz a linha crescer, do centro do primeiro círculo ao do último;

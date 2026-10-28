@@ -9,7 +9,7 @@ A documentação completa (decisões, operação, manutenção) fica no vault do
 - `data/amostra.json`: dados de exemplo e reserva offline; gerado por `node scripts/gerar-amostra.js`.
 - `apps-script/`: `Api.gs` (Web App) e `Setup.gs` (criação da planilha e `migrarRevisao`, migração de 27/10/2026).
 - `scripts/`: geração da planilha, da amostra e das fotos (`baixar-fotos.py`), e `checar-layout.js` (checagem de layout no navegador).
-- `DESIGN.md`: regras de design (Identidade Visual iPhone Duo, com o tema escuro).
+- `DESIGN.md`: regras de design do portal (Identidade Visual - Apple, claro e escuro).
 
 ## Rodar localmente
 ```bash

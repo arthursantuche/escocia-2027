@@ -97,11 +97,20 @@
   --carousel-glyph: rgba(0, 0, 0, 0.56);
   --nav-label: rgba(0, 0, 0, 0.8);
 
-  /* Tokens de papel (seção "Tema escuro (extensão)" do documento). O restante do CSS
-     usa só estes; eles apontam para a paleta acima e mudam no tema escuro. */
+  /* Movimento (Identidade Visual - Apple, "Animações e comportamento visual - Apple";
+     medido em apple.com em 28/10/2026). */
+  --ease-apple: cubic-bezier(0.4, 0, 0.6, 1);
+  --ease-entrada: cubic-bezier(0, 0, 0.2, 1);
+  --dur-curta: 240ms;
+  --dur-link: 320ms;
+  --dur-longa: 500ms;
+
+  /* Tokens de papel (Identidade Visual - Apple, "Uso conjunto com o modo claro"). O restante
+     do CSS usa só estes; eles apontam para a paleta acima e mudam no tema escuro. */
   --cor-fundo: var(--color-gallery-white);
   --cor-faixa: var(--color-studio-mist);
   --cor-cartao: var(--color-gallery-white);
+  --cor-campo: var(--color-gallery-white);
   --cor-vidro: rgba(255, 255, 255, 0.8);
   --cor-texto: var(--color-ink);
   --cor-texto-2: var(--color-slate);
@@ -122,19 +131,23 @@
   --contorno-forte: var(--cor-contorno) 0 0 0 1px;
 }
 
+/* Modo escuro: valores da referência iPhone 18 Pro (tela Obsidian, painel Carbon, cartão
+   preto sobre o painel, links Electric Link). O laranja é derivado para passar de 4,5:1. */
 @media (prefers-color-scheme: dark) {
   :root {
     --cor-fundo: #000000;
-    --cor-faixa: #161617;
-    --cor-cartao: var(--color-ink);
-    --cor-vidro: rgba(22, 22, 23, 0.8);
+    --cor-faixa: var(--color-ink);
+    --cor-cartao: #000000;
+    --cor-campo: rgba(255, 255, 255, 0.04);
+    --cor-vidro: rgba(18, 18, 18, 0.8);
     --cor-texto: var(--color-studio-mist);
     --cor-texto-2: var(--color-steel);
     --cor-link: #2997ff;
     --cor-alerta: #f56300;
-    --cor-divisoria: #424245;
-    --cor-contorno-suave: #424245;
-    --cor-trilho: #424245;
+    --cor-divisoria: #333336;
+    --cor-contorno: #6e6e73;
+    --cor-contorno-suave: #282828;
+    --cor-trilho: #333336;
     --cor-controle: rgba(66, 66, 69, 0.72);
     --cor-glifo: rgba(255, 255, 255, 0.56);
   }

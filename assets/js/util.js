@@ -85,7 +85,14 @@ export function seriesPrecos(abas) {
     (grupos[p.Hospedagem] ||= { id: p.Hospedagem, rotulo: `${p.Cidade} · ${p.Nome}`, cidade: p.Cidade, nome: p.Nome, pontos: [] })
       .pontos.push({ data: String(p['Data da consulta']).slice(0, 10), valor: Number(p['Valor (R$)']), fonte: p.Fonte });
   });
-  return Object.values(grupos).map((g) => ({ ...g, pontos: g.pontos.sort((a, b) => a.data.localeCompare(b.data)) }));
+  // Mesmo hotel em duas estadias (Edimburgo na ida e na volta): o rótulo ganha as datas.
+  const lista = Object.values(grupos);
+  const repetidos = (g) => lista.filter((o) => o.rotulo === g.rotulo).length > 1;
+  const periodo = (h) => (h && h.Entrada && h['Saída'] ? `${dataCurta.format(data(h.Entrada))}–${dataCurta.format(data(h['Saída']))}` : '');
+  return lista.map((g) => {
+    const p = repetidos(g) ? periodo(hosp[g.id]) : '';
+    return { ...g, periodo: p, rotulo: p ? `${g.rotulo} · ${p}` : g.rotulo, pontos: g.pontos.sort((a, b) => a.data.localeCompare(b.data)) };
+  });
 }
 
 // Nascer e pôr do sol (equação do nascer do sol, mesma base do algoritmo da NOAA; erro

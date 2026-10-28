@@ -1,6 +1,6 @@
-// Movimento no estilo da página de referência (apple.com/iphone-duo):
+// Movimento no estilo das páginas de referência (apple.com/iphone-duo e apple.com/iphone-18-pro):
 // - títulos que saem do quase transparente para o opaco conforme a rolagem;
-// - blocos que sobem suavemente ao entrar na tela;
+// - blocos que sobem até 30px ao entrar na tela;
 // - fotos com parallax leve, sempre dentro da moldura;
 // - foto de abertura que sai de 1,12× para 1× com a rolagem;
 // - roteiro com a linha avançando pelas paradas (scrub), sem fixar a seção.
@@ -11,6 +11,25 @@ let mm = null;
 // círculo enche quando o centro dele passa por ela. Assim a linha e os círculos
 // andam juntos, em qualquer altura de tela, e nada é marcado fora da vista.
 const GUIA = 'center 60%';
+
+// Curva cúbica de Bézier como função de ease do GSAP (o GSAP não lê "cubic-bezier()" sem
+// plugin). Resolve x(t) = p por Newton e devolve y(t).
+function bezier(x1, y1, x2, y2) {
+  const coord = (t, a, b) => 3 * a * t * (1 - t) ** 2 + 3 * b * t * t * (1 - t) + t ** 3;
+  const derivada = (t, a, b) => 3 * a * (1 - t) ** 2 + 6 * (b - a) * t * (1 - t) + 3 * (1 - b) * t * t;
+  return (p) => {
+    if (p <= 0 || p >= 1) return p;
+    let t = p;
+    for (let i = 0; i < 8; i++) {
+      const d = derivada(t, x1, x2);
+      if (Math.abs(d) < 1e-6) break;
+      t = Math.min(1, Math.max(0, t - (coord(t, x1, x2) - p) / d));
+    }
+    return coord(t, y1, y2);
+  };
+}
+// Curva de entrada medida nas páginas da Apple (Identidade Visual - Apple, "Tokens — Movimento").
+const ENTRADA = bezier(0, 0, 0.2, 1);
 
 export function iniciarMovimento() {
   const { gsap, ScrollTrigger } = window;
@@ -65,12 +84,15 @@ export function atualizarMovimento() {
       });
     });
 
+    // Entrada como a da Apple: até 30px, 0,5 s, curva de entrada cubic-bezier(0, 0, 0.2, 1).
     const subir = visiveis('[data-subir]');
-    gsap.set(subir, { opacity: 0, y: 40 });
-    ScrollTrigger.batch(subir, {
-      start: 'top 92%',
-      onEnter: (lote) => gsap.to(lote, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.06, overwrite: true }),
-    });
+    if (subir.length) {
+      gsap.set(subir, { opacity: 0, y: 30 });
+      ScrollTrigger.batch(subir, {
+        start: 'top 92%',
+        onEnter: (lote) => gsap.to(lote, { opacity: 1, y: 0, duration: 0.5, ease: ENTRADA, stagger: 0.06, overwrite: true }),
+      });
+    }
 
     // A imagem tem 12% de sobra dentro da moldura (paginas.css), então ±5% nunca a descobre.
     visiveis('[data-parallax] img').forEach((img) => {

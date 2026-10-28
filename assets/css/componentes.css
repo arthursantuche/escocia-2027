@@ -109,6 +109,11 @@
 /* Barra de progresso do checklist */
 .progresso { height: var(--spacing-8); border-radius: var(--radius-buttons); background: var(--cor-trilho); overflow: hidden; }
 .progresso__barra { height: 100%; background: var(--cor-link); border-radius: inherit; }
+/* Próximos prazos no cartão do Checklist: preenchem o cartão, que tem a altura dos vizinhos. */
+.prazos__titulo { margin-top: var(--spacing-16); }
+.prazos { list-style: none; margin: 0; padding: 0; }
+.prazos li { display: grid; grid-template-columns: var(--spacing-52) 1fr; gap: var(--spacing-12); padding: var(--spacing-12) 0; border-top: 1px solid var(--cor-divisoria); font-size: var(--text-body-small); line-height: var(--leading-body-small); letter-spacing: var(--tracking-body-small); }
+.prazos__data { font-weight: var(--font-weight-semibold); font-variant-numeric: tabular-nums; color: var(--cor-alerta); }
 
 /* Pendências por prazo */
 .pendencias { list-style: none; margin: var(--spacing-32) 0 0; padding: 0; }
@@ -139,7 +144,7 @@
   width: var(--spacing-24); height: var(--spacing-24); border-radius: var(--radius-buttons);
   background: var(--cor-fundo); box-shadow: var(--contorno-forte);
   position: relative; z-index: 1;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color var(--dur-curta) var(--ease-apple), box-shadow var(--dur-curta) var(--ease-apple);
 }
 .parada.ativa .parada__ponto { background: var(--cor-texto); box-shadow: var(--cor-texto) 0 0 0 1px; }
 .parada__cidade {
@@ -176,18 +181,20 @@
 
 .carrossel__controles { display: flex; justify-content: center; align-items: center; gap: var(--spacing-12); margin-top: var(--spacing-24); }
 /* "Carousel Playback Control": pontos agrupados numa cápsula translúcida. */
+/* Cada ponto é um alvo de 24 × 44px (ponto de 8px + folga), como os 24px por ponto da Apple. */
 .carrossel__pontos {
-  display: flex; align-items: center; padding: var(--spacing-8) var(--spacing-16);
+  display: flex; align-items: center; padding: 0 var(--spacing-8);
   border-radius: var(--radius-pills); background: var(--cor-controle);
 }
 .carrossel__pontos button {
   -webkit-appearance: none; appearance: none; border: 0; background: none; cursor: pointer;
-  padding: var(--spacing-12) var(--spacing-4); border-radius: var(--radius-buttons);
+  display: grid; place-items: center; min-height: calc(var(--spacing-40) + var(--spacing-4));
+  padding: 0 var(--spacing-8); border-radius: var(--radius-buttons);
 }
 .carrossel__pontos button::before {
   content: ''; display: block; width: var(--spacing-8); height: var(--spacing-8);
   border-radius: var(--radius-buttons); background: var(--cor-glifo);
-  transition: width 0.3s ease, background-color 0.3s ease;
+  transition: width var(--dur-link) var(--ease-apple), background-color var(--dur-link) var(--ease-apple);
 }
 .carrossel__pontos button[aria-current="true"]::before { width: var(--spacing-24); background: var(--cor-texto); }
 .carrossel__setas { display: none; gap: var(--spacing-12); }
@@ -221,9 +228,14 @@
     display: block; position: relative; margin-top: var(--spacing-40);
     aspect-ratio: 3 / 2; border-radius: var(--radius-images); overflow: hidden; background: var(--cor-faixa);
   }
-  .roteiro__midia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
+  .roteiro__midia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity var(--dur-longa) var(--ease-apple); }
   .roteiro__midia img.ativa { opacity: 1; }
   .carrossel__setas { display: flex; }
   .carrossel__trilho > .card { flex-basis: min(60vw, 560px); }
   .parada { padding: var(--spacing-16) 0; }
+}
+/* Celular deitado (a partir de 834px): com a foto, a coluna fixa ficaria mais alta que a
+   área visível; fica só o texto. */
+@media (min-width: 834px) and (orientation: landscape) and (max-height: 500px) {
+  .roteiro__midia { display: none; }
 }

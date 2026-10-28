@@ -90,7 +90,7 @@ export function paginaCidade(ctx, nome) {
         el('p', { class: 'legenda' }, `Horários e preços verificados em ${dataLonga.format(data(ctx.v.data_verificacao))}; confirmar perto da viagem.`))),
     el('section', { class: 'secao secao--mist' },
       el('div', { class: 'conteudo' },
-        el('h2', { class: 'titulo' }, 'Notas.'),
+        el('h2', { class: 'titulo', 'data-revelar': true }, 'Notas.'),
         lista(notas.map((n) => el('li', {}, el('p', {}, n['Texto livre']), el('p', { class: 'legenda' }, `${n.Autor || ''} · ${n.Data ? dataLonga.format(data(n.Data)) : ''}`))), 'Nenhuma nota ainda.'),
         formNota(ctx, c))),
     el('nav', { class: 'secao vizinhas', 'aria-label': 'Outras paradas' },
@@ -145,18 +145,21 @@ export function paginaOrcamento(ctx) {
   if (series.length) graficoPrecos(precos, series);
   const comHistorico = series.some((s) => s.pontos.length > 1);
   const valor = (n) => (n == null ? '–' : brl.format(n));
+  // Categorias ainda sem nenhum valor saem da tabela e são citadas numa linha abaixo dela.
+  const temValor = (o) => o.previsto || o.aPagar || o.pago;
+  const semValor = orc.filter((o) => !temValor(o)).map((o) => o.categoria);
   const detalhePago = (o) => [o.antes && `${brl.format(o.antes)} antes`, o.viagem && `${brl.format(o.viagem)} na viagem`].filter(Boolean).join(' · ');
 
   return el('div', {},
     el('section', { class: 'secao' }, el('div', { class: 'conteudo' },
       cabecalho('Orçamento', brl.format(total.previsto) + ' previstos.',
-        `Pago: ${brl.format(total.pago)}. A pagar: ${brl.format(total.aPagar)}. Saldo: ${brl.format(total.saldo)}. Cotação: R$ ${String(cot).replace('.', ',')} por £1.`),
+        `Pago ${brl.format(total.pago)} · A pagar ${brl.format(total.aPagar)} · Saldo ${brl.format(total.saldo)} · Cotação R$ ${String(cot).replace('.', ',')} por £1`),
       el('div', { class: 'card__grafico card__grafico--alto' }, canvas),
       el('p', { class: 'legenda legenda-grafico' },
         el('span', { class: 'cor-previsto' }, 'Previsto'), el('span', { class: 'cor-pago' }, 'Pago'), el('span', { class: 'cor-apagar' }, 'A pagar')),
       el('div', { class: 'espaco-topo' }, el('table', { class: 'tabela tabela--empilha' },
         el('thead', {}, el('tr', {}, ['Categoria', 'Previsto', 'A pagar', 'Pago', 'Saldo'].map((t) => el('th', { scope: 'col' }, t)))),
-        el('tbody', {}, orc.map((o) => el('tr', {},
+        el('tbody', {}, orc.filter(temValor).map((o) => el('tr', {},
           el('th', { scope: 'row' }, o.categoria),
           el('td', { 'data-rotulo': 'Previsto' }, valor(o.previsto)),
           el('td', { 'data-rotulo': 'A pagar' }, o.aPagar ? brl.format(o.aPagar) : '–'),
@@ -167,13 +170,14 @@ export function paginaOrcamento(ctx) {
           el('td', { 'data-rotulo': 'Previsto' }, brl.format(total.previsto)), el('td', { 'data-rotulo': 'A pagar' }, brl.format(total.aPagar)),
           el('td', { 'data-rotulo': 'Pago' }, brl.format(total.pago)),
           el('td', { 'data-rotulo': 'Saldo', class: total.saldo < 0 ? 'negativo' : null }, brl.format(total.saldo)))))),
+      semValor.length ? el('p', { class: 'legenda espaco-topo' }, `Sem valores ainda: ${semValor.join(', ')}. Preencha o previsto na aba Orcamento da planilha.`) : null,
       el('ul', { class: 'legenda glossario espaco-topo' },
         el('li', {}, el('strong', {}, 'Previsto: '), 'estimativa de cada categoria.'),
         el('li', {}, el('strong', {}, 'A pagar: '), 'reservas com status "reservado", ainda não pagas.'),
         el('li', {}, el('strong', {}, 'Pago: '), 'reservas com status "pago" (antes da viagem) mais os gastos registrados na viagem.'),
         el('li', {}, el('strong', {}, 'Saldo: '), 'previsto menos a pagar e pago. Negativo, em laranja, é estouro.')))),
     el('section', { class: 'secao secao--mist' }, el('div', { class: 'conteudo' },
-      el('h2', { class: 'titulo' }, 'Gastos.'),
+      el('h2', { class: 'titulo', 'data-revelar': true }, 'Gastos.'),
       Object.keys(porDia).length ? el('div', { class: 'card__grafico' }, diario) : null,
       lista(gastos.slice(0, 30).map((g) => el('li', {},
         el('p', {}, `${g.Descrição || g.Categoria} · ${brl2.format(valorBRL(g, cot))}`),
@@ -181,7 +185,7 @@ export function paginaOrcamento(ctx) {
       'Nenhum gasto registrado. Use Registrar durante a viagem.'),
       el('a', { class: 'pill pill--azul espaco-topo', href: '#registrar' }, 'Registrar gasto'))),
     series.length ? el('section', { class: 'secao' }, el('div', { class: 'conteudo' },
-      el('h2', { class: 'titulo' }, 'Preços das hospedagens.'),
+      el('h2', { class: 'titulo', 'data-revelar': true }, 'Preços das hospedagens.'),
       el('div', { class: 'card__grafico card__grafico--alto' }, precos),
       el('p', { class: 'legenda' }, comHistorico
         ? 'Cada linha é um hotel com duas ou mais consultas registradas.'
@@ -203,8 +207,10 @@ export function paginaChecklist(ctx) {
       }),
       el('label', { for: 'chk-' + c.ID },
         el('span', {}, c.Item),
-        el('span', { class: feito ? 'legenda' : 'status-pendente' },
-          [c.Prazo && `Prazo ${dataLonga.format(data(c.Prazo))}`, !feito && d != null && (d >= 0 ? `faltam ${d} dias` : `atrasado ${-d} dias`), c.Categoria, c['Responsável']].filter(Boolean).join(' · '))));
+        // Pendente: só o prazo fica em laranja (como no painel); categoria e responsável, em cinza.
+        !feito && c.Prazo && el('span', { class: 'status-pendente' }, `⚠️ Prazo ${dataLonga.format(data(c.Prazo))} · ${d >= 0 ? `faltam ${d} dias` : `atrasado ${-d} dias`}`),
+        el('span', { class: 'legenda' },
+          [feito && c.Prazo && `Prazo ${dataLonga.format(data(c.Prazo))}`, c.Categoria, c['Responsável']].filter(Boolean).join(' · '))));
   };
   return el('section', { class: 'secao' }, el('div', { class: 'conteudo' },
     cabecalho('Checklist', `${feitos} de ${itens.length} feitos.`, 'Toque para marcar como feito. As mudanças vão para a planilha.'),
@@ -225,13 +231,20 @@ export function paginaRegistrar(ctx) {
 
 // Informações de consulta rápida na viagem (aba Viagem); só aparecem as que existem.
 const ESSENCIAIS = [['emergencias', 'Emergências'], ['fuso', 'Fuso horário'], ['tomadas', 'Tomadas'], ['eventos', 'Eventos no período']];
+// Rótulos legíveis das chaves da aba Viagem; chaves novas aparecem com o próprio nome.
+const ROTULOS_VIAGEM = {
+  nome_portal: 'Nome do app', inicio: 'Embarque', chegada_escocia: 'Chegada à Escócia', saida_escocia: 'Saída da Escócia',
+  fim: 'Chegada ao Brasil', noites: 'Noites', viajantes: 'Viajantes', cotacao_gbp_brl: 'Cotação (R$ por £1)',
+  data_verificacao: 'Verificação dos dados', fuso: 'Fuso horário',
+};
 
 export function paginaViagem(ctx) {
   const { abas, v } = ctx;
   const essenciais = ESSENCIAIS.filter(([chave]) => v[chave]);
   return el('div', {},
     el('section', { class: 'secao' }, el('div', { class: 'conteudo' },
-      cabecalho('Viagem', `${dataLonga.format(data(v.inicio))} a ${dataLonga.format(data(v.fim))}.`, `${v.viajantes} · ${v.noites} noites · fuso ${v.fuso}`),
+      // Mesmo período da abertura do painel: do embarque à saída da Escócia.
+      cabecalho('Viagem', `${dataCurta.format(data(v.inicio))} a ${dataLonga.format(data(v.saida_escocia || v.fim))}.`, `${v.viajantes} · ${v.noites} noites · fuso ${v.fuso}`),
       essenciais.length ? el('h2', { class: 'kicker' }, 'Essenciais') : null,
       essenciais.length ? el('div', { class: 'grade-2 grade-2--par' }, essenciais.map(([chave, titulo]) => el('article', { class: 'card card--auto card--contorno essencial' },
         el('p', { class: 'legenda' }, titulo),
@@ -251,9 +264,9 @@ export function paginaViagem(ctx) {
           el('p', { class: 'legenda' }, `Verificado em ${dataLonga.format(data(t['Verificado em']))}`)),
         seletorStatus(ctx, 'Transportes', t))), ''))),
     el('section', { class: 'secao secao--mist' }, el('div', { class: 'conteudo' },
-      el('h2', { class: 'titulo' }, 'Dados da viagem.'),
+      el('h2', { class: 'titulo', 'data-revelar': true }, 'Dados da viagem.'),
       el('table', { class: 'tabela' }, el('tbody', {}, abas.Viagem.filter((l) => !ESSENCIAIS.some(([c]) => c === l.Chave && c !== 'fuso')).map((l) => el('tr', {},
-        el('th', { scope: 'row' }, l.Chave.replace(/_/g, ' ')),
+        el('th', { scope: 'row' }, ROTULOS_VIAGEM[l.Chave] || l.Chave.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase())),
         el('td', {}, /^\d{4}-\d{2}-\d{2}/.test(l.Valor) ? dataLonga.format(data(l.Valor)) : String(l.Valor)),
         el('td', { class: 'legenda' }, l['Observação'] || ''))))),
       el('p', { class: 'legenda espaco-topo' }, 'Documentos (passaporte, CNH, reservas) não ficam no portal; guarde só o status no Checklist.'),

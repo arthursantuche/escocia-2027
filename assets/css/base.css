@@ -18,7 +18,7 @@ h1, h2, h3, p { margin: 0; }
 /* O atributo hidden vence o display dos componentes (ex.: .proximo sem pendências). */
 [hidden] { display: none !important; }
 
-a { color: var(--cor-link); text-decoration: none; border-radius: var(--radius-links); }
+a { color: var(--cor-link); text-decoration: none; border-radius: var(--radius-links); transition: color var(--dur-link) var(--ease-apple); }
 a:hover { text-decoration: underline; }
 
 :focus-visible { outline: 2px solid var(--cor-link); outline-offset: 2px; }

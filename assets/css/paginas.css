@@ -57,6 +57,13 @@
   .barra__secoes { margin: 0; padding: 0; justify-content: center; -webkit-mask-image: none !important; mask-image: none !important; }
   .barra__secoes a { padding: var(--spacing-8) 0; }
 }
+/* Celular deitado e estreito: as duas linhas tomariam mais de um quarto da altura;
+   título, seções e ação ficam numa linha só, com a barra ainda na largura toda. */
+@media (max-width: 833px) and (orientation: landscape) and (max-height: 500px) {
+  .barra { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "titulo secoes acao"; padding: var(--spacing-4) var(--spacing-20); }
+  .barra__secoes { margin: 0; padding: 0 var(--spacing-8); }
+  .barra__secoes a { padding: var(--spacing-8) 0; }
+}
 /* Sem transparência (ajuste do sistema) ou sem suporte a desfoque: fundo sólido. */
 @media (prefers-reduced-transparency: reduce) {
   .topo, .barra { background: var(--cor-fundo) !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
@@ -101,9 +108,10 @@ a.card:hover, a.parada:hover { text-decoration: none; }
   display: block; object-fit: cover;
 }
 .foto figcaption { margin-top: var(--spacing-12); }
-/* Celular deitado: em 3:2 a foto passaria da altura da tela. */
+/* Celular deitado: em 3:2 (e até em 2:1) a foto passaria da área visível; fica em 3:1,
+   como a abertura. */
 @media (orientation: landscape) and (max-height: 500px) {
-  .foto__moldura { aspect-ratio: 2 / 1; }
+  .foto__moldura { aspect-ratio: 3 / 1; }
 }
 
 .lista { list-style: none; margin: 0; padding: 0; }
@@ -167,6 +175,8 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 /* Formulários: um só componente de campo ("Rounded Search Input" adaptado).
    17px em todos os campos: abaixo de 16px o iOS aplica zoom ao tocar. */
 .formulario { display: grid; gap: var(--spacing-20); max-width: 520px; }
+/* Formulário logo depois de uma lista ou do aviso de lista vazia: nada encosta. */
+.lista + .formulario, .legenda + .formulario { margin-top: var(--spacing-32); }
 .rotulo { display: grid; gap: var(--spacing-8); font-size: var(--text-body-small); line-height: var(--leading-body-small); color: var(--cor-texto-2); min-width: 0; }
 .campo {
   -webkit-appearance: none; appearance: none;
@@ -174,7 +184,7 @@ a.card:hover, a.parada:hover { text-decoration: none; }
   color: var(--cor-texto);
   min-height: var(--spacing-48); padding: var(--spacing-12) var(--spacing-20);
   border: 0; border-radius: var(--radius-inputs); box-shadow: var(--contorno-forte);
-  background: var(--cor-cartao); width: 100%; min-width: 0; margin: 0;
+  background: var(--cor-campo); width: 100%; min-width: 0; margin: 0;
 }
 .campo:focus { outline: none; box-shadow: var(--cor-link) 0 0 0 2px; }
 .campo[aria-invalid="true"] { box-shadow: var(--cor-alerta) 0 0 0 2px; }

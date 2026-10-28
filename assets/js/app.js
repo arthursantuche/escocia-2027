@@ -74,6 +74,9 @@ function renderPainel() {
   $('chk-barra').style.width = pct + '%';
   $('chk-barra-wrap').setAttribute('aria-valuenow', pct);
   $('chk-detalhe').textContent = `${chk.length - feitos} pendências ⚠️. ${pct}% concluído.`;
+  $('chk-proximos').previousElementSibling.hidden = !pendentes.length;
+  $('chk-proximos').replaceChildren(...pendentes.slice(0, 3).map((c) => el('li', {},
+    el('span', { class: 'prazos__data' }, dataCurta.format(data(c.Prazo))), el('span', {}, c.Item))));
 
   // Opções alternativas (mesma cidade e datas) contam uma vez; descartadas não contam.
   const vistas = new Set();

@@ -95,7 +95,7 @@ export function graficoPrecos(canvas, series) {
     new Chart(canvas, {
       type: 'bar',
       data: {
-        labels: series.map((s) => [s.cidade, s.nome]),
+        labels: series.map((s) => [s.cidade, s.nome, s.periodo].filter(Boolean)),
         datasets: [{ label: 'Último preço', data: series.map((s) => s.pontos[s.pontos.length - 1].valor), backgroundColor: token('--cor-texto') }],
       },
       options: {

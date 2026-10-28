@@ -3,7 +3,7 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .carrossel__trilho { scroll-snap-type: none; }
-  .parada__ponto { transition: none; }
+  .parada__ponto, a { transition: none; }
   .roteiro__midia img, .carrossel__pontos button::before { transition: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
