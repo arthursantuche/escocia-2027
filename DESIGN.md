@@ -80,7 +80,7 @@ Fonte da verdade: `x/Documentação/Identidade Visual - iPhone Duo.md` (vault Ar
 | A pagar | `--cor-alerta` |
 | Gasto diário | `--cor-link` |
 
-As cores são lidas do CSS no momento de desenhar. O raio das barras é `--radius-md` (4px) do documento.
+As cores são lidas do CSS no momento de desenhar. O raio das barras (4px, o `--radius-md` do documento) está escrito direto em `graficos.js`, porque o Chart.js não lê variáveis CSS; ele não existe em `tokens.css`.
 
 O laranja em área maior que um rótulo é a única extensão de uso de cor: ele marca "a pagar" pelo mesmo motivo que marca pendências.
 
@@ -104,6 +104,8 @@ O laranja em área maior que um rótulo é a única extensão de uso de cor: ele
   - espessura da linha do roteiro;
   - ponto de quebra de 834px.
 - **Ícone do app:** usa Helvetica Neue, substituta prevista no documento.
+- **Barra superior:** `saturate(180%)` junto do `blur(20px)` medido na Apple (decisão do portal) e esmaecimento das bordas da lista de seções com `mask-image` em degradê (só transparência, nenhuma cor nova).
+- **Raio das barras dos gráficos:** 4px direto em `graficos.js` (ver "Gráficos").
 
 ## Testes de layout
 `scripts/checar-layout.js` roda na página aberta e aponta:
