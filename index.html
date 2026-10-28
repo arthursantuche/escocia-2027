@@ -50,15 +50,19 @@
         <figcaption class="legenda" id="abertura-credito"></figcaption>
       </figure>
       <div class="conteudo hero__dados">
-        <div class="contagem" data-subir>
-          <span class="contagem__numero" id="dias">–</span>
-          <span class="legenda" id="dias-legenda">dias para o embarque</span>
+        <dl class="numeros" data-subir>
+          <div class="numeros__item"><dt class="legenda" id="dias-legenda">dias para o embarque</dt><dd class="numeros__valor" id="dias">–</dd></div>
+          <div class="numeros__item"><dt class="legenda" id="noites-legenda">noites na Escócia</dt><dd class="numeros__valor" id="noites-hero">–</dd></div>
+          <div class="numeros__item"><dt class="legenda" id="cidades-legenda">cidades</dt><dd class="numeros__valor" id="cidades-hero">–</dd></div>
+        </dl>
+        <div class="proximo" id="proximo" data-subir>
+          <div class="proximo__texto">
+            <span class="status-pendente">⚠️ Próximo compromisso</span>
+            <h2 class="kicker" id="proximo-titulo"></h2>
+            <p class="legenda" id="proximo-detalhe"></p>
+          </div>
+          <a class="pill" href="#checklist">Ver checklist</a>
         </div>
-        <a class="proximo" id="proximo" href="#checklist" data-subir aria-labelledby="proximo-titulo">
-          <span class="status-pendente">⚠️ Próximo compromisso</span>
-          <h2 class="kicker" id="proximo-titulo"></h2>
-          <p class="legenda" id="proximo-detalhe"></p>
-        </a>
       </div>
     </section>
 
@@ -111,7 +115,7 @@
         <div class="roteiro__texto">
           <p class="kicker">Roteiro</p>
           <h2 class="titulo" id="roteiro-titulo" data-revelar>De Edimburgo às Highlands, e de volta.</h2>
-          <p class="copy legenda" id="roteiro-resumo"></p>
+          <p class="copy introducao" id="roteiro-resumo"></p>
           <div class="roteiro__midia" id="roteiro-midia" aria-hidden="true"></div>
         </div>
         <div class="roteiro__trilha">

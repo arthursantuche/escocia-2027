@@ -26,31 +26,35 @@
 .hero__moldura img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .hero__foto figcaption { margin-top: var(--spacing-12); }
 .hero__dados { margin-top: var(--spacing-8); }
+/* Celular deitado: a foto em 2:1 seria mais alta que a tela; fica mais baixa. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero__moldura { aspect-ratio: 3 / 1 !important; }
+}
 @media (min-width: 834px) {
   .hero__moldura { aspect-ratio: 2 / 1; }
 }
 .roteiro .titulo, .destaques .titulo { margin-top: var(--spacing-8); }
 .roteiro .copy { margin-top: var(--spacing-12); }
-.contagem {
-  margin: var(--spacing-48) auto 0;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-8);
-  padding: var(--card-padding) var(--spacing-48);
-  border-radius: var(--radius-cards);
-  background: var(--cor-faixa);
+/* Números-chave da abertura: contagem regressiva, noites e cidades em tipografia grande,
+   sem cartão, alinhados à coluna de conteúdo (como as faixas de números das páginas da Apple). */
+.numeros {
+  margin: var(--spacing-48) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr);
 }
-.contagem__numero {
+.numeros__item { display: flex; flex-direction: column-reverse; align-items: center; gap: var(--spacing-8); padding: 0 var(--spacing-8); }
+.numeros__item + .numeros__item { border-left: 1px solid var(--cor-divisoria); }
+.numeros__valor {
+  margin: 0;
   font-family: var(--font-sf-pro-display);
-  font-size: var(--text-hero-display);
+  font-size: clamp(var(--text-feature-heading), 7vw, var(--text-hero-display));
   line-height: var(--leading-hero-display);
   letter-spacing: var(--tracking-hero-display);
   font-weight: var(--font-weight-semibold);
   font-variant-numeric: tabular-nums;
 }
 
-/* Próximo compromisso */
+/* Próximo compromisso: "Floating Pricing Callout" da referência, com o texto e a pílula
+   dentro do mesmo cartão. No computador, a pílula fica à direita. */
 .proximo {
   margin-top: var(--spacing-40);
   text-align: left;
@@ -58,7 +62,12 @@
   border-radius: var(--radius-cards);
   box-shadow: var(--contorno-sutil);
   display: grid;
-  gap: var(--spacing-8);
+  gap: var(--spacing-20);
+  justify-items: start;
+}
+.proximo__texto { display: grid; gap: var(--spacing-8); }
+@media (min-width: 834px) {
+  .proximo { grid-template-columns: 1fr auto; align-items: center; gap: var(--spacing-32); }
 }
 
 /* Destaques: cabeçalho com título e link ("Highlights Stage") */

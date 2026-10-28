@@ -1,7 +1,7 @@
 // Service worker: guarda os arquivos do portal para abrir sem sinal.
 // Os dados da planilha ficam no localStorage (assets/js/dados.js), não aqui.
 // Ao mudar qualquer arquivo listado, suba a VERSAO para os aparelhos baixarem de novo.
-const VERSAO = 'escocia2027-v2';
+const VERSAO = 'escocia2027-v3';
 const ARQUIVOS = [
   './', 'index.html', 'manifest.webmanifest', 'data/amostra.json',
   'assets/css/tokens.css', 'assets/css/base.css', 'assets/css/componentes.css', 'assets/css/paginas.css', 'assets/css/movimento.css',

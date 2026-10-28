@@ -42,7 +42,7 @@
 
 @media (min-width: 834px) {
   .topo {
-    padding-top: calc(var(--spacing-8) + env(safe-area-inset-top));
+    padding: calc(var(--spacing-8) + env(safe-area-inset-top)) var(--spacing-12) 0;
     background: none; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none;
     pointer-events: none;
   }
@@ -71,8 +71,8 @@
 .cor-link { color: var(--cor-link); }
 .negativo { color: var(--cor-alerta); }
 
-a.card, a.proximo, a.parada { color: inherit; }
-a.card:hover, a.proximo:hover, a.parada:hover { text-decoration: none; }
+a.card, a.parada { color: inherit; }
+a.card:hover, a.parada:hover { text-decoration: none; }
 
 .espaco-topo { margin-top: var(--spacing-32); }
 .pagina__cabecalho { display: grid; gap: var(--spacing-12); margin-bottom: var(--spacing-40); }
@@ -80,6 +80,10 @@ a.card:hover, a.proximo:hover, a.parada:hover { text-decoration: none; }
 .grade-2 { display: grid; gap: var(--element-gap); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
 .essencial__itens { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--spacing-8); }
 .essencial__itens li { font-size: var(--text-feature-copy); line-height: var(--leading-feature-copy); }
+/* Quatro cartões (Essenciais) ficam 2 × 2, sem um cartão sozinho na última linha. */
+@media (min-width: 600px) {
+  .grade-2--par { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .grade-2--folgada { row-gap: var(--spacing-64); column-gap: var(--spacing-64); }
 .card--auto { min-height: 0; }
 .card--contorno { box-shadow: var(--contorno-sutil); }
@@ -97,6 +101,10 @@ a.card:hover, a.proximo:hover, a.parada:hover { text-decoration: none; }
   display: block; object-fit: cover;
 }
 .foto figcaption { margin-top: var(--spacing-12); }
+/* Celular deitado: em 3:2 a foto passaria da altura da tela. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .foto__moldura { aspect-ratio: 2 / 1; }
+}
 
 .lista { list-style: none; margin: 0; padding: 0; }
 .lista > li { padding: var(--spacing-16) 0; border-top: 1px solid var(--cor-divisoria); display: grid; gap: var(--spacing-4); }

@@ -6,7 +6,9 @@ alteração) em assets/img/cidades/creditos.json, exibidos no portal junto de ca
 Licenças aceitas: CC0, domínio público, CC BY e CC BY-SA (que exigem crédito e, no
 caso de SA, indicar a alteração; o recorte e o redimensionamento ficam registrados).
 
-Uso, na raiz do repositório: python3 scripts/baixar-fotos.py
+Uso, na raiz do repositório: python3 scripts/baixar-fotos.py [nome ...]
+(sem nomes, refaz todas; com nomes, por exemplo `st-andrews`, refaz só essas e mantém
+os demais créditos de creditos.json)
 Requer Pillow com WebP (pip install Pillow). Os originais baixados ficam numa pasta
 temporária, fora do repositório, e são apagados no fim.
 """
@@ -26,7 +28,7 @@ from PIL import Image
 # do recorte 3:2: 0,5 = meio; menor = mais à esquerda/acima.
 FOTOS = {
     'edimburgo': ('File:Skyline of Edinburgh.jpg', 0.42, 0.5),
-    'st-andrews': ('File:St Andrews, sunset on the cathedral ruins - geograph.org.uk - 4891213.jpg', 0.5, 0.4),
+    'st-andrews': ('File:Swilken Bridge, Old Course geograph-6310525-by-Gordon-Hatton.jpg', 0.5, 0.5),
     'glasgow': ('File:Glasgow University (49078377092).jpg', 0.5, 0.5),
     'glencoe': ('File:Buachaille Etive Mòr - 40339525345.jpg', 0.5, 0.5),
     'fort-william': ('File:Ben Nevis from the Corpach Wreck - geograph.org.uk - 6370132.jpg', 0.5, 0.5),
@@ -100,11 +102,14 @@ def gravar(im, nome, largura):
     return os.path.getsize(caminho) // 1024
 
 
-def main():
+def main(nomes):
     os.makedirs(DESTINO, exist_ok=True)
-    creditos = {}
+    arquivo = os.path.join(DESTINO, 'creditos.json')
+    creditos = json.load(open(arquivo, encoding='utf-8')) if nomes and os.path.exists(arquivo) else {}
     with tempfile.TemporaryDirectory() as tmp:
         for nome, (titulo, fx, fy) in FOTOS.items():
+            if nomes and nome not in nomes:
+                continue
             url, dados = info(titulo)
             original = os.path.join(tmp, nome)
             with abrir(url) as r, open(original, 'wb') as f:
@@ -116,9 +121,12 @@ def main():
             creditos[nome] = dados
             print(nome, ' / '.join(f'{w}px {p} KB' for w, p in zip(LARGURAS, pesos)), '|', dados['licenca'], '|', dados['autor'])
             time.sleep(3)
-    with open(os.path.join(DESTINO, 'creditos.json'), 'w', encoding='utf-8') as f:
+    # Créditos na ordem de FOTOS.
+    creditos = {n: creditos[n] for n in FOTOS if n in creditos}
+    with open(arquivo, 'w', encoding='utf-8') as f:
         json.dump(creditos, f, ensure_ascii=False, indent=2)
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main(sys.argv[1:])

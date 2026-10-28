@@ -84,7 +84,13 @@ function renderPainel() {
     vistas.add(chave);
     noites[h.Cidade] = (noites[h.Cidade] || 0) + Number(h.Noites || 0);
   });
-  $('noites-total').textContent = `${Object.values(noites).reduce((a, b) => a + b, 0)} noites`;
+  const totalNoites = Object.values(noites).reduce((a, b) => a + b, 0);
+  $('noites-total').textContent = `${totalNoites} noites`;
+  // Números-chave da abertura, ao lado da contagem regressiva.
+  $('noites-hero').textContent = totalNoites;
+  $('noites-legenda').textContent = totalNoites === 1 ? 'noite na Escócia' : 'noites na Escócia';
+  $('cidades-hero').textContent = abas.Cidades.length;
+  $('cidades-legenda').textContent = abas.Cidades.length === 1 ? 'cidade' : 'cidades';
   graficoNoites($('grafico-noites'), noites);
 
   const roteiro = [...abas.Roteiro].sort((a, b) => a.Ordem - b.Ordem);

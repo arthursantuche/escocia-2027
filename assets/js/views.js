@@ -16,7 +16,7 @@ function cabecalho(kicker, titulo, texto) {
   return el('header', { class: 'pagina__cabecalho' },
     el('p', { class: 'kicker' }, kicker),
     el('h1', { class: 'titulo', 'data-revelar': true }, titulo),
-    texto && el('p', { class: 'copy legenda' }, texto));
+    texto && el('p', { class: 'copy introducao' }, texto));
 }
 
 function seletorStatus(ctx, aba, linha) {
@@ -233,7 +233,7 @@ export function paginaViagem(ctx) {
     el('section', { class: 'secao' }, el('div', { class: 'conteudo' },
       cabecalho('Viagem', `${dataLonga.format(data(v.inicio))} a ${dataLonga.format(data(v.fim))}.`, `${v.viajantes} · ${v.noites} noites · fuso ${v.fuso}`),
       essenciais.length ? el('h2', { class: 'kicker' }, 'Essenciais') : null,
-      essenciais.length ? el('div', { class: 'grade-2' }, essenciais.map(([chave, titulo]) => el('article', { class: 'card card--auto card--contorno essencial' },
+      essenciais.length ? el('div', { class: 'grade-2 grade-2--par' }, essenciais.map(([chave, titulo]) => el('article', { class: 'card card--auto card--contorno essencial' },
         el('p', { class: 'legenda' }, titulo),
         el('ul', { class: 'essencial__itens' }, String(v[chave]).split(/\s*·\s*/).map((item) => el('li', {}, item)))))) : null,
       el('h2', { class: 'kicker espaco-topo' }, 'Voos'),

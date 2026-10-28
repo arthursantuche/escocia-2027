@@ -15,6 +15,9 @@ body {
 
 h1, h2, h3, p { margin: 0; }
 
+/* O atributo hidden vence o display dos componentes (ex.: .proximo sem pendências). */
+[hidden] { display: none !important; }
+
 a { color: var(--cor-link); text-decoration: none; border-radius: var(--radius-links); }
 a:hover { text-decoration: underline; }
 
@@ -59,6 +62,8 @@ a:hover { text-decoration: underline; }
   line-height: var(--leading-feature-copy);
   letter-spacing: var(--tracking-feature-copy);
 }
+/* Texto de apoio sob um título ("Editorial Feature Block"): 17 px, em tom secundário. */
+.introducao { color: var(--cor-texto-2); }
 .legenda {
   font-size: var(--text-body-small);
   line-height: var(--leading-body-small);

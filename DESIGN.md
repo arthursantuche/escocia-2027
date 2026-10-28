@@ -71,6 +71,11 @@ Fonte da verdade: `x/Documentação/Identidade Visual - iPhone Duo.md` (vault Ar
   - listas com seta própria;
   - foco com anel `--cor-link` e erro em `--cor-alerta`.
 - **Toque:** área de pelo menos 44×44px.
+- **Texto sob o título das páginas:** `.copy.introducao`, 17px em `--cor-texto-2` (não 14px de legenda).
+- **Abertura:** sob a foto, números-chave (`.numeros`: dias para o embarque, noites, cidades) em `clamp(40px, 7vw, 80px)`, sem cartão; depois o próximo compromisso como chamada com a pílula "Ver checklist". Nada pequeno e isolado sob a imagem grande.
+- **Celular deitado** (`orientation: landscape` e altura até 500px): abertura em 3:1 e foto da cidade em 2:1.
+- **Barra flutuante:** 12px de margem lateral a partir de 834px.
+- **Validação:** conferir as orientações vertical e horizontal (por exemplo 390×844, 844×390, 1024×768 e 1280×800).
 
 ## Gráficos
 | Série | Cor |
