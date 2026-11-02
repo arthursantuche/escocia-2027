@@ -2,7 +2,7 @@
 // Os dados da planilha ficam no localStorage e os vouchers no IndexedDB (assets/js/dados.js),
 // nunca aqui. As fotos dos hotéis (Booking) ficam num cache próprio, depois de vistas.
 // Ao mudar qualquer arquivo listado, suba a VERSAO para os aparelhos baixarem de novo.
-const VERSAO = 'escocia2027-2.0-rev10';
+const VERSAO = 'escocia2027-2.0-rev11';
 const FOTOS_HOTEIS = 'escocia2027-fotos-hoteis';
 const ARQUIVOS = [
   './', 'index.html', 'manifest.webmanifest', 'data/amostra.json',

@@ -84,136 +84,6 @@
         "Observação": "Referência para hotéis, carro e trem"
       }
     ],
-    "Plano original": [
-      {
-        "Tipo": "Orçamento",
-        "Item": "Passagens aéreas",
-        "Período": "",
-        "Valor planejado (R$)": 16000,
-        "Referência": "Nota da viagem",
-        "Observações": "Pago"
-      },
-      {
-        "Tipo": "Orçamento",
-        "Item": "Hospedagens (12 noites)",
-        "Período": "",
-        "Valor planejado (R$)": 11550,
-        "Referência": "Nota da viagem",
-        "Observações": ""
-      },
-      {
-        "Tipo": "Orçamento",
-        "Item": "Aluguel de carro (2 aluguéis), combustível, estacionamento",
-        "Período": "",
-        "Valor planejado (R$)": 1650,
-        "Referência": "Nota da viagem",
-        "Observações": ""
-      },
-      {
-        "Tipo": "Orçamento",
-        "Item": "Trens Edimburgo/Glasgow (~350) e Inverness/Edimburgo (~1.000)",
-        "Período": "",
-        "Valor planejado (R$)": 1350,
-        "Referência": "Nota da viagem",
-        "Observações": ""
-      },
-      {
-        "Tipo": "Orçamento",
-        "Item": "Alimentação: estimativa diária",
-        "Período": "",
-        "Valor planejado (R$)": 13000,
-        "Referência": "Nota da viagem",
-        "Observações": ""
-      },
-      {
-        "Tipo": "Hospedagem",
-        "Item": "Edimburgo: Moxy Edinburgh",
-        "Período": "24/02 a 27/02",
-        "Valor planejado (R$)": 2498,
-        "Referência": "Booking, 15/09/2026",
-        "Observações": "Roteiro anterior"
-      },
-      {
-        "Tipo": "Hospedagem",
-        "Item": "Glasgow: Moxy Glasgow SEC",
-        "Período": "27/02 a 01/03",
-        "Valor planejado (R$)": 1553,
-        "Referência": "Booking, 15/09/2026",
-        "Observações": "Roteiro anterior"
-      },
-      {
-        "Tipo": "Hospedagem",
-        "Item": "Fort William: Lime Tree Hotel",
-        "Período": "01/03 a 02/03",
-        "Valor planejado (R$)": 1045,
-        "Referência": "Booking, 15/09/2026",
-        "Observações": "Roteiro anterior"
-      },
-      {
-        "Tipo": "Hospedagem",
-        "Item": "Isle of Skye: a definir",
-        "Período": "02/03 a 04/03",
-        "Valor planejado (R$)": 2599,
-        "Referência": "Nota de hospedagem",
-        "Observações": "Estimativa; hotel não definido"
-      },
-      {
-        "Tipo": "Hospedagem",
-        "Item": "Inverness: B&B HOTEL Inverness",
-        "Período": "04/03 a 06/03",
-        "Valor planejado (R$)": 1423,
-        "Referência": "Booking, 15/09/2026",
-        "Observações": "Roteiro anterior; opção 1"
-      },
-      {
-        "Tipo": "Hospedagem",
-        "Item": "Inverness: The Royal Highland Hotel",
-        "Período": "04/03 a 06/03",
-        "Valor planejado (R$)": 1899,
-        "Referência": "Booking, 15/09/2026",
-        "Observações": "Roteiro anterior; opção 2"
-      },
-      {
-        "Tipo": "Hospedagem",
-        "Item": "Edimburgo: Moxy Edinburgh",
-        "Período": "06/03 a 08/03",
-        "Valor planejado (R$)": 2217,
-        "Referência": "Booking, 15/09/2026",
-        "Observações": "Roteiro anterior"
-      },
-      {
-        "Tipo": "Transporte",
-        "Item": "Trem Edimburgo → Glasgow",
-        "Período": "2026-02-27",
-        "Valor planejado (R$)": 350,
-        "Referência": "Estimativa, 18/10/2026",
-        "Observações": "A partir de ~£12 por pessoa"
-      },
-      {
-        "Tipo": "Transporte",
-        "Item": "Trem Inverness → Edimburgo",
-        "Período": "2026-03-06",
-        "Valor planejado (R$)": 1000,
-        "Referência": "Estimativa, 18/10/2026",
-        "Observações": "Fora do roteiro atual"
-      },
-      {
-        "Tipo": "Transporte",
-        "Item": "Aluguel de carro para St Andrews",
-        "Período": "2026-02-26",
-        "Valor planejado (R$)": "",
-        "Referência": "A cotar em 18/10/2026",
-        "Observações": "Fora do roteiro atual"
-      },
-      {
-        "Tipo": "Transporte",
-        "Item": "Aluguel de carro Glasgow → Inverness",
-        "Período": "2026-03-01",
-        "Valor planejado (R$)": "",
-        "Referência": "A cotar em 18/10/2026",
-        "Observações": "Fora do roteiro atual"
-      }
-    ],
     "Programacao": [
       {
         "Data": "2027-02-24",
@@ -453,8 +323,7 @@
         "Fotos": "[{\"f\": \"689226358~045bbd54f567aa2e2d61e657c82c33e2b372352bf18afa8b9b1496a9af94573c\", \"t\": \"Fachada\"}, {\"f\": \"819606919~636df6f90763058ed6a2d4dba6026097557f07d6a05297169b62e9bd06e14a25\", \"t\": \"Quarto reservado\"}, {\"f\": \"819607147~bff7f5e479f32589b02c9063159610366d7ada53e5c1f2fa79ce18614a4a186f\", \"t\": \"Cozinha compacta do quarto\"}, {\"f\": \"737049692~0b83da1369d5479f66664c42faf33c0ff5b88c3208239f888ab0b8b21c940fa8\", \"t\": \"Lobby\"}, {\"f\": \"737049687~0e9aa6e068199cf169a382b933b365c989c333ba5c354357aca42e6579dc173c\", \"t\": \"Área comum\"}]",
         "ID": "H08",
         "Noites": 4,
-        "Valor planejado (R$)": "",
-        "Planejado para": ""
+        "Valor planejado (R$)": ""
       },
       {
         "Cidade": "Glasgow",
@@ -489,8 +358,7 @@
         "Fotos": "[{\"f\": \"484593344~73c535310a8d7ec2b09819655a4fce00edb9fa8c0dc1f49bc6716a7ec8a773df\", \"t\": \"Fachada\"}, {\"f\": \"484593337~502c9eaa0a8ec666da7af27bbbea6ca09d37cb1ff220f5f71522db8d2e6259d2\", \"t\": \"Quarto da categoria reservada\"}, {\"f\": \"539510091~e63a550014b14d37b818a791a2b9ca3ed20eb77855efc1471c2024854b39153f\", \"t\": \"Lobby\"}, {\"f\": \"539510268~7979832ea57defd58268f6da5e8b0f2c3205e2df587e6964e067496324dc4424\", \"t\": \"Área comum\"}, {\"f\": \"484593441~3ea3e184009509a89f44224ea27cbe9cbade756183a7671635e65256b202ff07\", \"t\": \"Vista externa, à beira do rio\"}]",
         "ID": "H14",
         "Noites": 2,
-        "Valor planejado (R$)": "",
-        "Planejado para": ""
+        "Valor planejado (R$)": ""
       },
       {
         "Cidade": "Fort William",
@@ -525,8 +393,7 @@
         "Fotos": "[{\"f\": \"181044275~c95beaa65c14a8b3e1354744b00f12c344e6b1493b22a65a42e8c024951ee32c\", \"t\": \"Fachada\"}, {\"f\": \"470065727~f347920184d5980f42919679bb7a18d6aaeab65d325ccce0a310298288cae757\", \"t\": \"Garrison Suite\"}, {\"f\": \"470063133~03c2edbeda93b2a31531c55106c6911f36f8f2636f5dd60cce7025fa20ac4ed6\", \"t\": \"Garrison Suite\"}, {\"f\": \"154102301~bdc7b4836319128b3965714bbad1cbc7b8688f389f8b8f49812db8f589ed0593\", \"t\": \"Restaurante\"}, {\"f\": \"154102318~621f9a049bb29284ce4babad8bec884b7fc96752f65c493ff9224e5c30395dc6\", \"t\": \"Bar\"}]",
         "ID": "H10",
         "Noites": 1,
-        "Valor planejado (R$)": "",
-        "Planejado para": ""
+        "Valor planejado (R$)": ""
       },
       {
         "Cidade": "Isle of Skye",
@@ -561,8 +428,7 @@
         "Fotos": "[{\"f\": \"323496236~cb3eac7fc6936282182e8953091dfd032fbaa3929b653b07eeb8ac8b02a2ff10\", \"t\": \"Fachada\"}, {\"f\": \"780532854~4db810feaddc77d3c64ada7f18aaf1c1b333405c09cadffe8501795058f5a9c9\", \"t\": \"Quarto Família Deluxe\"}, {\"f\": \"780532908~75f59218290833cfe291ae32b57a3b1a857eca3256332174a6fc031fc1d66307\", \"t\": \"Quarto Família Deluxe\"}, {\"f\": \"323496246~a88ce17bbc1effb016f75c6aad48a20e373b937524f3b4b90ab135f94e2d0314\", \"t\": \"Sala do café da manhã\"}, {\"f\": \"209251188~0354e156a0e05d2644d66ec0adaaa1ecafc7fd4ba413ee87c699c81c6f2159bb\", \"t\": \"Vista externa e jardim\"}]",
         "ID": "H11",
         "Noites": 2,
-        "Valor planejado (R$)": "",
-        "Planejado para": ""
+        "Valor planejado (R$)": ""
       },
       {
         "Cidade": "Inverness",
@@ -597,8 +463,7 @@
         "Fotos": "[{\"f\": \"816584891~8c2d9f51efbd7ab6319293dfafc5a0f51311fb6944f1f192c2dedef87a9867b6\", \"t\": \"Fachada\"}, {\"f\": \"453286485~e88baefa056147d6acd304d4a43a58203fe004cd65dab1122a0311b49c935f16\", \"t\": \"Quarto Família com Sofá-cama\"}, {\"f\": \"453286452~eb994db23eb202ec111514662fec1c8ced2a0fe1e7fbc92538686070ce08665a\", \"t\": \"Sofá-cama do quarto\"}, {\"f\": \"453286504~991839a49e62bf5329345c9f4b826c7f05cd615972e5a09fb96fd4bbf47fca43\", \"t\": \"Recepção\"}, {\"f\": \"453286508~d14fe205d87f5a6c5697891b084189ecdee1c6eac2bd2d9a1b9a2261829031a8\", \"t\": \"Área comum\"}, {\"f\": \"453286445~4bc050fcb70c5f181ab52020c0d8e98a3981f6c612287a2d39602e172b08d352\", \"t\": \"Localização, à beira do rio Ness\"}]",
         "ID": "H12",
         "Noites": 2,
-        "Valor planejado (R$)": "",
-        "Planejado para": ""
+        "Valor planejado (R$)": ""
       },
       {
         "Cidade": "Edimburgo",
@@ -633,8 +498,7 @@
         "Fotos": "[{\"f\": \"484596886~cff08c7d14ed15dfb394d1579908e340ecedf7a8795cee34bf2caf96fbcb3e0b\", \"t\": \"Fachada\"}, {\"f\": \"300390158~9c755c700b039dc9a76d5ffcfd98c6d47417f4213bbcd7bade851e4a86dad82b\", \"t\": \"Quarto Triplo Superior\"}, {\"f\": \"484596827~5e44b1895a1aea315c22c58b2416eb971435586fdaf84736a307d43fa9ecc152\", \"t\": \"Lobby\"}, {\"f\": \"484596782~4e64b889032248b021767096f8dfe8693cc8f8a6571e68a14a07a3b7d9037635\", \"t\": \"Restaurante\"}, {\"f\": \"484596767~18adaae53b61d001c8105312d445403824ec5abf55c899faade0ba4bb6d85937\", \"t\": \"Bar\"}]",
         "ID": "H13",
         "Noites": 1,
-        "Valor planejado (R$)": "",
-        "Planejado para": ""
+        "Valor planejado (R$)": ""
       }
     ],
     "Transportes": [
