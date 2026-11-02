@@ -438,7 +438,7 @@ export function paginaViagem(ctx) {
       el('h2', { class: 'kicker espaco-topo' }, 'Créditos das fotos'),
       el('p', { class: 'legenda' }, 'Fotos dos hotéis: anúncios de cada hotel no Booking.com, exibidas a partir do próprio Booking. Fotos das cidades:'),
       lista(Object.entries(ctx.creditos).map(([nome, c]) => el('li', {},
-        el('p', {}, (abas.Cidades.find((x) => slug(x.Cidade) === nome) || { Cidade: 'Abertura' }).Cidade),
+        el('p', {}, (abas.Cidades.find((x) => slug(x.Cidade) === nome) || { Cidade: nome }).Cidade),
         el('p', { class: 'legenda' }, creditoFoto(c)))), ''))));
 }
 

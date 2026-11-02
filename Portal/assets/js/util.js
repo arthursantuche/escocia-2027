@@ -56,7 +56,7 @@ export function creditoFoto(c) {
   return [`Foto: ${c.autor} · `, link(c.licencaUrl, c.licenca), ' · ', link(c.pagina, c.fonte || 'Wikimedia Commons'), c.alteracoes ? ` · ${c.alteracoes}` : ''];
 }
 
-// Valores de uma linha do Orçamento (regras em apps-script/Setup.gs, formulasOrcamento):
+// Valores de uma linha do Orçamento (mesmas regras das fórmulas da aba Orcamento):
 // A pagar = reservado e ainda não pago; Pago = pago antes da viagem + gastos na viagem;
 // Saldo = previsto − a pagar − pago.
 export function valoresOrcamento(o) {
