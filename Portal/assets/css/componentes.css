@@ -1,0 +1,426 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--spacing-40) + var(--spacing-4));
+  padding: 0 var(--spacing-16);
+  border-radius: var(--radius-buttons);
+  font-size: var(--text-compact-control);
+  line-height: var(--leading-compact-control);
+  letter-spacing: var(--tracking-compact-control);
+  color: var(--cor-texto);
+  box-shadow: var(--contorno-forte);
+  background: transparent;
+}
+button.pill { -webkit-appearance: none; appearance: none; border: 0; cursor: pointer; font: inherit; font-size: var(--text-compact-control); }
+.pill--azul { background: var(--cor-acao); color: var(--cor-sobre-acao); box-shadow: none; }
+.pill:hover { text-decoration: none; }
+.pill { transition: transform var(--dur-curta) var(--ease-apple), background-color var(--dur-curta) var(--ease-apple), box-shadow var(--dur-curta) var(--ease-apple); -webkit-tap-highlight-color: transparent; }
+.pill:active { transform: scale(0.97); }
+@media (hover: hover) {
+  .pill:not(.pill--azul):not(:disabled):hover { background: var(--cor-faixa); }
+  .secao--mist .pill:not(.pill--azul):not(:disabled):hover { background: var(--cor-cartao); }
+  .pill--azul:hover { filter: brightness(1.08); }
+}
+
+/* Hero */
+.hero { text-align: center; padding-top: var(--spacing-64); }
+.hero .kicker { margin-bottom: var(--spacing-16); }
+.hero .display + .copy { margin-top: var(--spacing-16); }
+/* Bandeira sob o título ("Hero Product Stage"): sempre em 5:3, a proporção oficial; a largura cede
+   em telas baixas para ela caber inteira. Assenta de 1,1× ou 1,16× para 1× com a rolagem (data-rolagem),
+   sempre dentro da moldura. */
+.hero__foto { margin: var(--spacing-40) auto 0; width: min(100%, 1000px, calc(70svh * 5 / 3)); }
+.hero__moldura { overflow: hidden; border-radius: var(--radius-images); aspect-ratio: 5 / 3; box-shadow: var(--contorno-sutil); }
+.hero__moldura img { display: block; width: 100%; height: 100%; }
+.hero__dados { margin-top: var(--spacing-8); }
+.roteiro .titulo, .destaques .titulo { margin-top: var(--spacing-8); }
+.roteiro .copy { margin-top: var(--spacing-12); }
+/* Números-chave da abertura: contagem regressiva, noites e cidades em tipografia grande,
+   sem cartão, alinhados à coluna de conteúdo (como as faixas de números das páginas da Apple). */
+.numeros {
+  margin: var(--spacing-48) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+/* column-reverse põe o número acima da legenda; flex-end (o início visual nessa direção)
+   alinha os três números pelo topo, mesmo quando uma legenda tem menos linhas. */
+.numeros__item { display: flex; flex-direction: column-reverse; justify-content: flex-end; align-items: center; gap: var(--spacing-8); padding: 0 var(--spacing-8); }
+.numeros__item + .numeros__item { border-left: 1px solid var(--cor-divisoria); }
+.numeros__valor {
+  margin: 0;
+  font-family: var(--font-sf-pro-display);
+  font-size: clamp(var(--text-feature-heading), 7vw, var(--text-hero-display));
+  line-height: var(--leading-hero-display);
+  letter-spacing: var(--tracking-hero-display);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Próximo compromisso: "Floating Pricing Callout" da referência, com o texto e a pílula
+   dentro do mesmo cartão. No computador, a pílula fica à direita. */
+.proximo {
+  margin-top: var(--spacing-40);
+  text-align: left;
+  padding: var(--card-padding);
+  border-radius: var(--radius-cards);
+  box-shadow: var(--contorno-sutil);
+  display: grid;
+  gap: var(--spacing-20);
+  justify-items: start;
+}
+.proximo__texto { display: grid; gap: var(--spacing-8); }
+@media (min-width: 834px) {
+  .proximo { grid-template-columns: 1fr auto; align-items: center; gap: var(--spacing-32); }
+}
+
+/* Destaques: cabeçalho com título e link ("Highlights Stage") */
+.destaques__cabecalho {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--element-gap);
+  margin-bottom: var(--spacing-32);
+}
+.destaques__cabecalho a { white-space: nowrap; color: var(--cor-link); }
+/* Telas estreitas: o link vai para baixo do título em vez de espremê-lo. */
+@media (max-width: 389px) {
+  .destaques__cabecalho { flex-direction: column; align-items: flex-start; gap: var(--spacing-12); }
+}
+.card {
+  scroll-snap-align: start;
+  background: var(--cor-cartao);
+  border-radius: var(--radius-cards);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-height: 420px;
+}
+a.card { transition: box-shadow var(--dur-curta) var(--ease-apple), transform var(--dur-curta) var(--ease-apple); -webkit-tap-highlight-color: transparent; }
+a.card:active { transform: scale(0.985); }
+@media (hover: hover) { a.card:hover { box-shadow: var(--contorno-forte); } }
+.card__numero {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-feature-heading);
+  line-height: var(--leading-feature-heading);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+.card__grafico { position: relative; flex: 1; min-height: 220px; }
+.legenda-grafico { display: flex; flex-wrap: wrap; gap: var(--spacing-12); }
+.legenda-grafico span::before {
+  content: ''; display: inline-block; width: 10px; height: 10px; margin-right: var(--spacing-4);
+  border-radius: var(--radius-buttons); background: currentColor; vertical-align: middle;
+}
+
+/* Barra de progresso do checklist */
+.progresso { height: var(--spacing-8); border-radius: var(--radius-buttons); background: var(--cor-trilho); overflow: hidden; }
+.progresso__barra { height: 100%; background: var(--cor-link); border-radius: inherit; }
+/* Próximos prazos no cartão do Checklist: preenchem o cartão, que tem a altura dos vizinhos. */
+.prazos__titulo { margin-top: var(--spacing-16); }
+.prazos { list-style: none; margin: 0; padding: 0; }
+.prazos li { display: grid; grid-template-columns: var(--spacing-52) 1fr; gap: var(--spacing-12); padding: var(--spacing-12) 0; border-top: 1px solid var(--cor-divisoria); font-size: var(--text-body-small); line-height: var(--leading-body-small); letter-spacing: var(--tracking-body-small); }
+.prazos__data { font-weight: var(--font-weight-semibold); font-variant-numeric: tabular-nums; color: var(--cor-alerta); }
+
+/* Pendências por prazo */
+.pendencias { list-style: none; margin: var(--spacing-32) 0 0; padding: 0; }
+.pendencias li {
+  display: grid;
+  grid-template-columns: var(--spacing-76) 1fr;
+  gap: var(--spacing-16);
+  padding: var(--spacing-20) 0;
+  border-top: 1px solid var(--cor-divisoria);
+}
+.pendencias__data {
+  font-family: var(--font-sf-pro-display);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Roteiro: a linha vai do centro do 1º círculo ao centro do último (top e height
+   calculados em movimento.js) e avança com a rolagem; cada círculo enche quando ela chega.
+   Aqui, a versão sem movimento: lista completa. O palco fixo é .roteiro--fixo, mais abaixo. */
+.roteiro__palco { display: flex; flex-direction: column; }
+.roteiro__trilha { margin-top: var(--spacing-24); }
+.roteiro__percurso { position: relative; }
+.roteiro__linha, .roteiro__progresso {
+  position: absolute; left: 11px; top: 12px; width: 2px;
+}
+.roteiro__linha { background: var(--cor-trilho); }
+.roteiro__progresso { background: var(--cor-texto); transform-origin: top; }
+.parada { position: relative; display: grid; grid-template-columns: var(--spacing-24) 1fr; gap: var(--spacing-16); padding: var(--spacing-8) 0; }
+.parada__ponto {
+  width: var(--spacing-24); height: var(--spacing-24); border-radius: var(--radius-buttons);
+  background: var(--cor-fundo); box-shadow: var(--contorno-forte);
+  position: relative; z-index: 1;
+  transition: background-color var(--dur-curta) var(--ease-apple), box-shadow var(--dur-curta) var(--ease-apple);
+}
+.parada.ativa .parada__ponto { background: var(--cor-texto); box-shadow: var(--cor-texto) 0 0 0 1px; }
+.parada { -webkit-tap-highlight-color: transparent; }
+.parada__cidade { transition: color var(--dur-link) var(--ease-apple); }
+@media (hover: hover) {
+  a.parada:hover .parada__cidade { color: var(--cor-link); }
+  a.parada:hover .parada__ponto { scale: 1.12; }
+}
+.parada__ponto { transition: background-color var(--dur-curta) var(--ease-apple), box-shadow var(--dur-curta) var(--ease-apple), scale var(--dur-curta) var(--ease-apple); }
+.parada__cidade {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-product-kicker);
+  line-height: var(--leading-product-kicker);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Todas as cidades: a faixa cinza é o próprio painel. Ocupa a tela inteira ao chegar pela
+   âncora, sem sobrar a seção preta seguinte, e os cartões crescem junto com a tela larga. */
+#cidades { --largura-faixa: 1200px; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+#cidades > .conteudo { box-sizing: border-box; width: 100%; max-width: calc(var(--largura-faixa) + var(--spacing-40)); }
+@media (min-width: 834px) { #cidades .cartao-cidade { flex-basis: clamp(340px, 30vw, 440px); } }
+/* Tela baixa: a altura da tela não é meta; o conteúdo manda. */
+@media (max-height: 560px) { #cidades { min-height: 0; } }
+
+/* Cidades: carrossel horizontal ("Highlights Stage") sobre a faixa, na ordem do roteiro.
+   O trilho ocupa a largura da tela e alinha o primeiro cartão à coluna de conteúdo. */
+.faixa-carrossel { padding-left: 0; padding-right: 0; }
+.faixa-carrossel > .conteudo { padding: 0 var(--gutter-d) 0 var(--gutter-e); box-sizing: content-box; }
+.carrossel { --margem: max(var(--gutter-e), calc((100% - var(--largura-faixa, 980px)) / 2)); }
+.carrossel__trilho {
+  display: flex; gap: var(--element-gap);
+  overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  padding: 0 var(--margem) var(--spacing-8); scroll-padding-inline: var(--margem);
+  scrollbar-width: none;
+}
+.carrossel__trilho::-webkit-scrollbar { display: none; }
+/* Cartões do Resumo da viagem dentro do carrossel. */
+.carrossel__trilho > .card { flex: 0 0 min(84vw, 400px); }
+.cartao-cidade {
+  isolation: isolate;
+  flex: 0 0 min(84vw, 380px); scroll-snap-align: start;
+  display: flex; flex-direction: column;
+  background: var(--cor-cartao); border-radius: var(--radius-cards); overflow: hidden;
+  color: inherit;
+}
+.cartao-cidade:hover { text-decoration: none; }
+.cartao-cidade__foto { overflow: hidden; aspect-ratio: 3 / 2; background: var(--cor-faixa); border-radius: var(--radius-cards) var(--radius-cards) 0 0; }
+.cartao-cidade__foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* A foto recorta os próprios cantos: durante o esmaecimento de entrada ela vai para outra camada, e o
+   recorte do cartão sozinho pode deixar de valer até a animação terminar. */
+.cartao-cidade__foto img, .hero__moldura img, .parada__foto img, .roteiro__midia img { border-radius: inherit; }
+.hero__moldura, .parada__foto, .roteiro__midia { isolation: isolate; }
+.cartao-cidade { transition: transform var(--dur-curta) var(--ease-apple); -webkit-tap-highlight-color: transparent; }
+.cartao-cidade:active { transform: scale(0.985); }
+@media (hover: hover) {
+  .cartao-cidade:hover .cartao-cidade__foto img { scale: 1.04; }
+  .cartao-cidade:hover .kicker { color: var(--cor-link); }
+}
+.cartao-cidade .kicker { transition: color var(--dur-link) var(--ease-apple); }
+.cartao-cidade__texto { display: grid; gap: var(--spacing-8); align-content: start; padding: var(--spacing-24) var(--card-padding) var(--card-padding); }
+.cartao-cidade__texto .copy { margin-top: var(--spacing-4); }
+
+.carrossel__controles { display: flex; justify-content: center; align-items: center; gap: var(--spacing-12); margin-top: var(--spacing-24); }
+/* "Carousel Playback Control": pontos agrupados numa cápsula translúcida. */
+/* Cada ponto é um alvo de 24 × 44px (ponto de 8px + folga), como os 24px por ponto da Apple. */
+.carrossel__pontos {
+  display: flex; align-items: center; padding: 0 var(--spacing-8);
+  border-radius: var(--radius-pills); background: var(--cor-controle);
+}
+.carrossel__pontos button {
+  -webkit-appearance: none; appearance: none; border: 0; background: none; cursor: pointer;
+  display: grid; place-items: center; min-height: calc(var(--spacing-40) + var(--spacing-4));
+  padding: 0 var(--spacing-8); border-radius: var(--radius-buttons);
+}
+.carrossel__pontos button::before {
+  content: ''; display: block; width: var(--spacing-8); height: var(--spacing-8);
+  border-radius: var(--radius-buttons); background: var(--cor-glifo);
+  transition: width var(--dur-link) var(--ease-apple), background-color var(--dur-link) var(--ease-apple);
+}
+.carrossel__pontos button[aria-current="true"]::before { width: var(--spacing-24); background: var(--cor-texto); }
+.carrossel__setas { display: none; gap: var(--spacing-12); }
+/* Gota, como nas páginas de referência: um círculo nasce no centro e cresce com um leve
+   excesso; a cápsula alarga até a largura real; por último entram os pontos e as setas.
+   Só usa transform, scale, clip-path e opacity: nada muda de lugar nem empurra o layout.
+   O estado inicial só vale com .movimento (sem preferência por movimento reduzido), e a
+   transição só com .aberto: o estado inicial é aplicado na hora, sem animar. */
+.movimento .carrossel__controles.aberto .carrossel__pontos {
+  clip-path: inset(0 0 round var(--radius-pills));
+  transition: transform 460ms var(--ease-gota), clip-path 640ms var(--ease-alarga) 180ms, opacity 120ms linear;
+}
+.movimento .carrossel__controles.aberto .carrossel__pontos button { transition: opacity 180ms linear 560ms, scale 280ms var(--ease-entrada) 560ms; }
+.movimento .carrossel__controles.aberto .carrossel__seta { transition: opacity 180ms linear 700ms, scale 420ms var(--ease-gota) 700ms; }
+.movimento .carrossel__controles:not(.aberto) .carrossel__pontos {
+  opacity: 0; transform: scale(0.01); clip-path: inset(0.5px calc(50% - 21.5px) round var(--radius-pills));
+}
+.movimento .carrossel__controles:not(.aberto) .carrossel__pontos button { opacity: 0; scale: 0.5; }
+.movimento .carrossel__controles:not(.aberto) .carrossel__seta { opacity: 0; scale: 0.01; }
+/* A cápsula nasce em escala mínima: com will-change, ela é desenhada no tamanho final e só reduzida, sem
+   perder definição na borda. O círculo inicial tem 0,5 px de folga: encostado no topo e na base da caixa,
+   seria cortado por elas e ficaria achatado ao rolar. */
+.movimento .carrossel__controles:not(.pronta) .carrossel__pontos { will-change: transform, clip-path; }
+.movimento .carrossel__controles:not(.pronta) .carrossel__seta { will-change: scale; }
+.carrossel__seta {
+  -webkit-appearance: none; appearance: none; border: 0; cursor: pointer;
+  width: calc(var(--spacing-40) + var(--spacing-4)); height: calc(var(--spacing-40) + var(--spacing-4));
+  border-radius: var(--radius-buttons); background: var(--cor-controle);
+  display: grid; place-items: center;
+}
+.carrossel__seta::before {
+  content: ''; width: var(--spacing-12); height: var(--spacing-8); background: var(--cor-texto);
+  transform: rotate(90deg);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.carrossel__seta--proxima::before { transform: rotate(-90deg); }
+.carrossel__seta:disabled { cursor: default; opacity: 0.4; }
+
+/* Roteiro sem movimento: sem foto trocando nem detalhe à parte. */
+.roteiro__midia, .roteiro__atual { display: none; }
+
+.rodape { padding: var(--spacing-40) var(--gutter-d) var(--spacing-40) var(--gutter-e); background: var(--cor-faixa); }
+
+/* Palco fixo do roteiro (.roteiro--fixo, ligado por movimento.js): a seção tem a altura do
+   percurso e o palco fica preso nela por position: sticky, ocupando uma tela. A rolagem é a do
+   navegador: ao chegar à última parada, o palco é solto e a seção seguinte sobe.
+   --paradas vem de movimento.js; cada trecho consome 34% da altura da tela. */
+section.roteiro--fixo.secao[id] { padding: 0; height: calc(100svh + (var(--paradas, 8) - 1) * var(--trecho, 34svh)); }
+/* Toque (.roteiro--toque, ligado por medirRoteiro): com as paradas mais próximas, 16% da altura por
+   trecho dá aos pontos o mesmo avanço por pixel rolado do computador. O ponto enche pela rolagem
+   (--enche), sem transição por tempo, e a foto troca mais depressa. */
+.roteiro--toque { --trecho: 16svh; }
+.roteiro--fixo.roteiro--toque .parada__ponto, .roteiro--fixo.roteiro--toque .parada.ativa .parada__ponto { background: var(--cor-fundo); box-shadow: var(--contorno-forte); transition: none; }
+.roteiro--fixo.roteiro--toque .parada__ponto::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--cor-texto);
+  transform: scale(var(--enche, 0));
+}
+.roteiro--fixo.roteiro--toque .parada__cidade { transition: none; }
+.roteiro--fixo.roteiro--toque .roteiro__midia img { transition: opacity var(--dur-curta) var(--ease-apple), visibility 0s linear var(--dur-curta); }
+.roteiro--fixo.roteiro--toque .roteiro__midia img.ativa { transition: opacity var(--dur-curta) var(--ease-apple), visibility 0s; }
+.roteiro--fixo .roteiro__palco {
+  position: sticky; top: 0; box-sizing: border-box; height: 100svh; max-width: calc(980px + var(--spacing-40));
+  padding: calc(var(--altura-topo, 0px) + var(--spacing-16)) var(--gutter-d) var(--spacing-20) var(--gutter-e);
+  display: grid; grid-template-rows: auto minmax(0, 1fr); gap: var(--spacing-16); align-items: stretch;
+}
+.roteiro--fixo .roteiro__texto { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.roteiro--fixo .titulo { font-size: 28px; }
+.roteiro--fixo .roteiro__texto > .introducao { display: none; }
+/* Janela estreita: foto na proporção dela (3:2), sem recorte, e no máximo 30% da tela baixa. */
+.roteiro--fixo .roteiro__midia {
+  display: block; position: relative; flex: none; height: min(calc((100vw - var(--spacing-40)) * 2 / 3), 30svh); margin-top: var(--spacing-12);
+  border-radius: var(--radius-images); overflow: hidden; background: var(--cor-faixa);
+}
+/* Só a foto atual e a que está saindo são desenhadas: empilhar sete fotos grandes visíveis ao mesmo
+   tempo pesava na memória do iPhone. Nada muda no que se vê: a troca continua por esmaecimento. */
+.roteiro--fixo .roteiro__midia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; visibility: hidden; transition: opacity var(--dur-longa) var(--ease-apple), visibility 0s linear var(--dur-longa); }
+.roteiro--fixo .roteiro__midia img.ativa { opacity: 1; visibility: visible; transition: opacity var(--dur-longa) var(--ease-apple), visibility 0s; }
+/* Altura reservada para o detalhe da parada: trocar de parada não mexe em mais nada. */
+.roteiro--fixo .roteiro__atual { display: grid; gap: var(--spacing-4); align-content: start; margin-top: var(--spacing-12); height: 88px; }
+.roteiro--fixo .roteiro__atual .kicker { font-size: var(--text-feature-copy); line-height: var(--leading-feature-copy); }
+/* A folga de 4 px mantém inteiros o contorno das bolinhas e o aumento ao passar o cursor. */
+.roteiro--fixo .roteiro__trilha { margin: 0; min-height: 0; overflow: clip; padding: var(--spacing-4); }
+.roteiro--fixo .roteiro__percurso { min-height: 100%; display: flex; flex-direction: column; }
+.roteiro--fixo .roteiro__progresso { will-change: transform; }
+.roteiro--fixo .roteiro__paradas { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.roteiro--fixo .parada { padding: var(--spacing-4) 0; align-items: center; min-height: 36px; }
+.roteiro--fixo .parada__texto { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; column-gap: var(--spacing-12); min-width: 0; }
+.roteiro--fixo .parada__cidade { font-size: var(--text-feature-copy); line-height: var(--leading-feature-copy); transition: color var(--dur-curta) var(--ease-apple); }
+.roteiro--fixo .parada:not(.ativa) .parada__cidade { color: var(--cor-texto-2); }
+.roteiro--fixo .parada__detalhe, .roteiro--fixo .parada__trajeto { display: none; }
+/* A trilha não cabe no palco: sobe aos poucos. As bordas esmaecem por degradês por cima, só onde
+   ainda há parada escondida. Máscara (mask-image) aqui obrigava o iPhone a recompor toda a trilha a
+   cada quadro. */
+.roteiro__trilha--excede { position: relative; }
+.roteiro__trilha--excede .roteiro__percurso { will-change: transform; }
+.roteiro__trilha--excede::before, .roteiro__trilha--excede::after {
+  content: ''; position: absolute; z-index: 2; left: 0; right: 0; opacity: 0; pointer-events: none;
+}
+.roteiro__trilha--excede::before { top: 0; height: var(--spacing-20); background: linear-gradient(to bottom, var(--cor-fundo), transparent); }
+.roteiro__trilha--excede::after { bottom: 0; height: var(--spacing-28); background: linear-gradient(to top, var(--cor-fundo), transparent); }
+.roteiro__trilha--acima::before, .roteiro__trilha--abaixo::after { opacity: 1; }
+
+@media (min-width: 834px) {
+  /* Sem movimento: título ao lado da lista. */
+  .roteiro__palco { flex-direction: row; align-items: flex-start; gap: var(--spacing-80); }
+  .roteiro__palco > * { flex: 1; }
+  .roteiro__trilha { margin-top: 0; }
+  .carrossel__setas { display: flex; }
+  .carrossel__trilho > .card { flex-basis: min(60vw, 560px); }
+  .parada { padding: var(--spacing-16) 0; }
+  /* Fixo, em duas colunas: foto e detalhe à esquerda, trilha inteira à direita. */
+  .roteiro--fixo .roteiro__palco {
+    grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--spacing-80);
+    padding: calc(var(--altura-topo, 0px) + var(--spacing-24)) var(--gutter-d) var(--spacing-32) var(--gutter-e);
+  }
+  .roteiro--fixo .titulo { font-size: var(--text-feature-heading); }
+  .roteiro--fixo .roteiro__midia { flex: 1 1 0; height: auto; min-height: 96px; margin-top: var(--spacing-24); }
+  .roteiro--fixo .roteiro__atual { margin-top: var(--spacing-16); height: 84px; }
+  .roteiro--fixo .parada__texto { display: block; }
+  .roteiro--fixo .parada__cidade { font-size: var(--text-product-kicker); line-height: var(--leading-product-kicker); }
+  .roteiro--fixo .parada__trajeto { display: inline; }
+}
+/* Altas o bastante: cabe o parágrafo de abertura, que explica "sair até". */
+@media (min-width: 834px) and (min-height: 760px) {
+  .roteiro--fixo .roteiro__texto > .introducao { display: block; }
+}
+/* Horizontal sem espaço para as duas colunas de computador: com menos de 640 px de altura a foto vira
+   tira e, com menos de 834 px de largura, as colunas não cabem. A foto e o texto ficam em cima, em 3:2 na
+   altura que sobrar, e a própria trilha deita: a linha corre da esquerda para a direita, com todas as
+   paradas à vista (movimento.js mede em x, com o mesmo limite, COMPACTA). */
+@media (orientation: landscape) and (max-width: 833px), (orientation: landscape) and (max-height: 639px) {
+  .roteiro--fixo, .roteiro--fixo.roteiro--toque { --trecho: 30svh; }
+  .roteiro--fixo .roteiro__palco {
+    --foto-altura: calc(100svh - var(--altura-topo, 0px) - var(--spacing-48) - var(--spacing-16) - var(--spacing-64));
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-content: center; gap: var(--spacing-16);
+    padding: calc(var(--altura-topo, 0px) + var(--spacing-12)) var(--gutter-d) var(--spacing-12) var(--gutter-e);
+  }
+  .roteiro--fixo .roteiro__texto { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); column-gap: var(--spacing-24); }
+  .roteiro--fixo .roteiro__texto > .kicker, .roteiro--fixo .titulo, .roteiro--fixo .roteiro__atual { grid-column: 2; min-width: 0; }
+  .roteiro--fixo .titulo { display: block; font-size: 28px; }
+  .roteiro--fixo .roteiro__texto > .introducao { display: none; }
+  .roteiro--fixo .roteiro__midia { grid-column: 1; grid-row: 1 / -1; align-self: start; flex: none; margin: 0; min-height: 0; width: min(calc(var(--foto-altura) * 3 / 2), 52vw); height: auto; max-width: none; aspect-ratio: 3 / 2; }
+  .roteiro--fixo .roteiro__atual { grid-row: 3; align-self: end; margin: 0; height: auto; min-height: 76px; align-content: end; }
+  .roteiro--fixo .roteiro__trilha { height: var(--spacing-64); padding: var(--spacing-2) 0 0; }
+  .roteiro--fixo .roteiro__percurso { display: block; min-height: 0; }
+  .roteiro--fixo .roteiro__linha, .roteiro--fixo .roteiro__progresso { height: 2px; }
+  .roteiro--fixo .roteiro__progresso { transform-origin: left; }
+  .roteiro--fixo .roteiro__paradas { flex-direction: row; display: flex; justify-content: space-between; align-items: flex-start; }
+  .roteiro--fixo .parada { flex: 1 1 0; min-width: 0; min-height: 0; padding: 0; grid-template-columns: minmax(0, 1fr); justify-items: center; align-items: start; gap: var(--spacing-4); text-align: center; }
+  .roteiro--fixo .parada__texto { display: block; }
+  .roteiro--fixo .parada__cidade { font-size: var(--text-body-small); line-height: var(--leading-body-small); }
+  .roteiro--fixo .parada__resumo { font-size: var(--text-compact-control); line-height: var(--leading-compact-control); }
+  .roteiro--fixo .parada__trajeto { display: none; }
+}
+/* Tela muito baixa: sobram os nomes, e o título e as datas seguem no detalhe da parada. */
+@media (orientation: landscape) and (max-height: 359px) {
+  .roteiro--fixo .titulo, .roteiro--fixo .parada__resumo { display: none; }
+  .roteiro--fixo .roteiro__trilha { height: calc(var(--spacing-64) + var(--spacing-4)); }
+}
+/* Foto de cada parada: só existe na vertical. Fora dela não tem caixa e, por isso, nem é baixada (movimento.js). */
+.parada__foto { display: none; }
+/* Na vertical, o roteiro é uma coluna própria: a linha corre pela lateral e cada parada traz o próprio
+   texto e a própria foto, no fluxo da página. Nada fica preso e nada troca: o único trabalho durante a
+   rolagem é a linha, os pontos e o esmaecimento da parada que chega (.roteiro--vertical, de movimento.js). */
+@media (orientation: portrait) {
+  .roteiro__palco { flex-direction: column; align-items: stretch; gap: 0; }
+  .roteiro__palco > * { flex: none; }
+  .roteiro__trilha { margin-top: var(--spacing-32); }
+  .parada { padding: 0 0 var(--spacing-40); grid-template-columns: var(--spacing-24) minmax(0, 1fr); column-gap: var(--spacing-16); }
+  .parada:last-child { padding-bottom: 0; }
+  .parada__foto {
+    display: block; grid-column: 2; margin-top: var(--spacing-12); aspect-ratio: 3 / 2; overflow: hidden;
+    border-radius: var(--radius-images); background: var(--cor-faixa); content-visibility: auto;
+    transition: transform var(--dur-curta) var(--ease-apple);
+  }
+  .parada__foto img { display: block; width: 100%; height: 100%; object-fit: cover; transition: opacity var(--dur-longa) var(--ease-entrada); }
+  .parada__foto img:not(.carregada) { opacity: 0; }
+  .parada:active .parada__foto { transform: scale(0.985); }
+  .roteiro--vertical .parada__ponto, .roteiro--vertical .parada.ativa .parada__ponto { background: var(--cor-fundo); box-shadow: var(--contorno-forte); transition: none; }
+  .roteiro--vertical .parada__ponto::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--cor-texto);
+    transform: scale(var(--enche, 0));
+  }
+  .roteiro--vertical .roteiro__progresso { will-change: transform; }
+  .roteiro--vertical .parada__cidade { transition: color var(--dur-curta) var(--ease-apple); }
+  .roteiro--vertical .parada:not(.ativa) .parada__cidade { color: var(--cor-texto-2); }
+  .roteiro--vertical .parada__foto { transition: transform var(--dur-curta) var(--ease-apple), opacity var(--dur-curta) var(--ease-apple); }
+  .roteiro--vertical .parada:not(.ativa) .parada__foto { opacity: 0.45; }
+}
+/* Com largura para isso, texto e foto ficam lado a lado, como no computador. */
+@media (orientation: portrait) and (min-width: 600px) {
+  .parada { grid-template-columns: var(--spacing-24) minmax(0, 1fr) minmax(0, 1.25fr); }
+  .parada__foto { grid-column: 3; grid-row: 1; margin-top: 0; }
+}

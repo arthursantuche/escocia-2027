@@ -1,0 +1,166 @@
+/* Identidade Visual iPhone Duo — transcrição dos tokens de
+   x/Documentação/Identidade Visual - iPhone Duo.md (fonte da verdade).
+   Use somente estas variáveis no restante do CSS. */
+:root {
+  /* Cores */
+  --color-gallery-white: #ffffff;
+  --color-studio-mist: #f5f5f7;
+  --color-paper-frost: #fafafc;
+  --color-hairline-silver: #d6d6d6;
+  --color-control-gray: #e6e6e8;
+  --color-ink: #1d1d1f;
+  --color-slate: #707070;
+  --color-steel: #86868b;
+  --color-apple-blue: #0066cc;
+  --color-pricing-blue: #0071e3;
+  --color-launch-orange: #b64400;
+
+  /* Famílias (substitutas do documento: Inter, Helvetica Neue, Arial;
+     -apple-system entrega a SF Pro nativa no iPhone e no Mac) */
+  --font-sf-pro-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, Inter, 'Helvetica Neue', Arial, sans-serif;
+  --font-sf-pro-text: 'SF Pro Text', -apple-system, BlinkMacSystemFont, Inter, 'Helvetica Neue', Arial, sans-serif;
+  --font-arial: Arial, sans-serif;
+
+  /* Escala tipográfica */
+  --text-global-nav: 12px;
+  --leading-global-nav: 1;
+  --tracking-global-nav: -0.12px;
+  --text-compact-control: 12px;
+  --leading-compact-control: 1.33;
+  --tracking-compact-control: -0.12px;
+  --text-body-small: 14px;
+  --leading-body-small: 1.29;
+  --tracking-body-small: -0.224px;
+  --text-body: 17px;
+  --leading-body: 1.47;
+  --tracking-body: -0.374px;
+  --text-feature-copy: 17px;
+  --leading-feature-copy: 1.24;
+  --tracking-feature-copy: -0.374px;
+  --text-product-nav-title: 19px;
+  --leading-product-nav-title: 1.21;
+  --tracking-product-nav-title: 0.228px;
+  --text-product-kicker: 21px;
+  --leading-product-kicker: 1;
+  --tracking-product-kicker: 0.231px;
+  --text-feature-heading: 40px;
+  --leading-feature-heading: 1;
+  --tracking-feature-heading: 0px;
+  --text-hero-display: 80px;
+  --leading-hero-display: 1.05;
+  --tracking-hero-display: -1.2px;
+
+  /* Pesos */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Espaçamento */
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-52: 52px;
+  --spacing-64: 64px;
+  --spacing-76: 76px;
+  --spacing-80: 80px;
+  --spacing-128: 128px;
+  --spacing-144: 144px;
+
+  /* Layout */
+  --section-gap: 90px;
+  --card-padding: 28px;
+  --element-gap: 20px;
+  /* Margem lateral: nunca menor que a área segura (entalhe do iPhone deitado). */
+  --gutter-e: max(var(--spacing-20), env(safe-area-inset-left));
+  --gutter-d: max(var(--spacing-20), env(safe-area-inset-right));
+
+  /* Raios nomeados */
+  --radius-cards: 28px;
+  --radius-links: 10px;
+  --radius-pills: 36px;
+  --radius-badges: 0px;
+  --radius-images: 28px;
+  --radius-inputs: 980px;
+  --radius-buttons: 9999px;
+  --radius-navigation: 20px;
+
+  /* Contornos (o documento não usa sombras projetadas) */
+  --shadow-subtle: rgb(230, 230, 232) 0px 0px 0px 1px;
+  --shadow-subtle-2: rgb(134, 134, 139) 0px 0px 0px 1px;
+
+  /* Controle translúcido do carrossel (componente "Carousel Playback Control") */
+  --carousel-track: rgba(210, 210, 215, 0.64);
+  --carousel-glyph: rgba(0, 0, 0, 0.56);
+  --nav-label: rgba(0, 0, 0, 0.8);
+
+  /* Movimento (Identidade Visual - Apple, "Animações e comportamento visual - Apple";
+     medido em apple.com em 28/10/2026). */
+  --ease-apple: cubic-bezier(0.4, 0, 0.6, 1);
+  --ease-entrada: cubic-bezier(0, 0, 0.2, 1);
+  --dur-curta: 240ms;
+  --dur-link: 320ms;
+  --dur-longa: 500ms;
+  /* Gota dos controles (medida em apple.com/iphone-18-pro em 02/11/2026): círculo que cresce,
+     cápsula que alarga, depois os pontos. */
+  --ease-gota: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-alarga: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-capsula: cubic-bezier(0.3, 1.28, 0.5, 1); /* menu ao virar cápsula: excesso bem menor que o da gota */
+
+  /* Tokens de papel (Identidade Visual - Apple, "Uso conjunto com o modo claro"). O restante
+     do CSS usa só estes; eles apontam para a paleta acima e mudam no tema escuro. */
+  --cor-veu: rgba(0, 0, 0, 0.45); /* sobre foto, nos dois temas */
+  --cor-sobre-veu: #ffffff;
+  --cor-papel: #ffffff; /* folha do voucher, nos dois temas */
+  --cor-fundo: var(--color-gallery-white);
+  --cor-faixa: var(--color-studio-mist);
+  --cor-cartao: var(--color-gallery-white);
+  --cor-campo: var(--color-gallery-white);
+  --cor-vidro: rgba(255, 255, 255, 0.8);
+  --cor-texto: var(--color-ink);
+  --cor-texto-2: var(--color-slate);
+  --cor-link: var(--color-apple-blue);
+  --cor-acao: var(--color-pricing-blue);
+  --cor-sobre-acao: var(--color-gallery-white);
+  --cor-alerta: var(--color-launch-orange);
+  --cor-divisoria: var(--color-hairline-silver);
+  --cor-contorno: var(--color-steel);
+  --cor-contorno-suave: var(--color-control-gray);
+  --cor-trilho: var(--color-control-gray);
+  --cor-controle: var(--carousel-track);
+  --cor-glifo: var(--carousel-glyph);
+  --cor-grafico-previsto: var(--color-steel);
+
+  /* Contornos de 1px (o documento não usa sombras projetadas) */
+  --contorno-sutil: var(--cor-contorno-suave) 0 0 0 1px;
+  --contorno-forte: var(--cor-contorno) 0 0 0 1px;
+}
+
+/* Modo escuro: valores da referência iPhone 18 Pro (tela Obsidian, painel Carbon, cartão
+   preto sobre o painel, links Electric Link). O laranja é derivado para passar de 4,5:1. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cor-fundo: #000000;
+    --cor-faixa: var(--color-ink);
+    --cor-cartao: #000000;
+    --cor-campo: rgba(255, 255, 255, 0.04);
+    --cor-vidro: rgba(18, 18, 18, 0.8);
+    --cor-texto: var(--color-studio-mist);
+    --cor-texto-2: var(--color-steel);
+    --cor-link: #2997ff;
+    --cor-alerta: #f56300;
+    --cor-divisoria: #333336;
+    --cor-contorno: #6e6e73;
+    --cor-contorno-suave: #282828;
+    --cor-trilho: #333336;
+    --cor-controle: rgba(66, 66, 69, 0.72);
+    --cor-glifo: rgba(255, 255, 255, 0.56);
+  }
+}

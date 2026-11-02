@@ -1,0 +1,412 @@
+.cor-previsto { color: var(--cor-grafico-previsto); }
+.cor-pago { color: var(--cor-texto); }
+.cor-apagar { color: var(--cor-alerta); }
+.cor-link { color: var(--cor-link); }
+.negativo { color: var(--cor-alerta); }
+
+a.card, a.parada { color: inherit; }
+a.card:hover, a.parada:hover { text-decoration: none; }
+
+.espaco-topo { margin-top: var(--spacing-32); }
+.pagina__cabecalho { display: grid; gap: var(--spacing-12); margin-bottom: var(--spacing-40); }
+
+.grade-2 { display: grid; gap: var(--element-gap); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
+.essencial__itens { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--spacing-8); }
+.essencial__itens li { font-size: var(--text-feature-copy); line-height: var(--leading-feature-copy); }
+/* Quatro cartões (Essenciais) ficam 2 × 2, sem um cartão sozinho na última linha. */
+@media (min-width: 600px) {
+  .grade-2--par { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.grade-2 > .card { min-width: 0; }
+.grade-2--folgada { row-gap: var(--spacing-64); column-gap: var(--spacing-64); }
+.card--auto { min-height: 0; }
+.card--contorno { box-shadow: var(--contorno-sutil); }
+.card__grafico--alto { min-height: 360px; margin-bottom: var(--spacing-40); }
+
+/* Foto com legenda: a moldura recorta a imagem (o parallax nunca sai dela) e a legenda
+   fica abaixo, fora da moldura. */
+.foto { margin: var(--spacing-40) 0 0; }
+.foto__moldura {
+  position: relative; overflow: hidden; aspect-ratio: 3 / 2;
+  border-radius: var(--radius-images); background: var(--cor-faixa);
+}
+.foto__moldura img {
+  position: absolute; left: 0; top: -6%; width: 100%; height: 112%;
+  display: block; object-fit: cover;
+}
+/* Tela estreita: a paralaxe é maior (movimento.js), e a sobra acompanha. */
+@media (max-width: 833px) {
+  .foto__moldura img { top: -10%; height: 120%; }
+}
+.foto figcaption { margin-top: var(--spacing-12); }
+/* Celular deitado: em 3:2 (e até em 2:1) a foto passaria da área visível; fica em 3:1,
+   como a abertura. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .foto__moldura { aspect-ratio: 3 / 1; }
+}
+
+.lista { list-style: none; margin: 0; padding: 0; }
+.lista > li { padding: var(--spacing-16) 0; border-top: 1px solid var(--cor-divisoria); display: grid; gap: var(--spacing-4); }
+/* Atrações por dia (página da cidade) */
+.atracoes > .dia + .dia { margin-top: var(--spacing-40); }
+.dia__titulo {
+  font-family: var(--font-sf-pro-display); font-size: var(--text-body); line-height: var(--leading-feature-copy);
+  font-weight: var(--font-weight-semibold); margin: 0 0 var(--spacing-12);
+}
+
+/* Programação: dias agrupados por trecho; a coluna da cidade acompanha a rolagem no computador */
+.trechos { display: grid; gap: var(--spacing-64); }
+.trecho { display: grid; gap: var(--spacing-20); }
+.trecho__lado { display: grid; gap: var(--spacing-8); align-content: start; }
+.trecho__foto { display: block; overflow: hidden; border-radius: var(--radius-images); background: var(--cor-faixa); -webkit-tap-highlight-color: transparent; transition: transform var(--dur-curta) var(--ease-apple); }
+.trecho__foto:active { transform: scale(0.985); }
+.trecho__foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.trecho__link { color: inherit; }
+.trecho__dias { list-style: none; margin: 0; padding: 0; }
+.trecho__dias .dia {
+  display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: var(--spacing-16);
+  padding: var(--spacing-20) 0; border-top: 1px solid var(--cor-divisoria); margin: 0;
+}
+.trecho__dias .dia:last-child { padding-bottom: 0; }
+.trecho__dias .dia[aria-current='date'] .dia__numero { color: var(--cor-link); }
+.dia__data { display: grid; gap: var(--spacing-4); align-content: start; margin: 0; }
+.dia__numero {
+  font-family: var(--font-sf-pro-display); font-size: var(--text-product-kicker); line-height: 1;
+  font-weight: var(--font-weight-semibold); font-variant-numeric: tabular-nums;
+}
+.dia__texto { display: grid; gap: var(--spacing-8); align-content: start; }
+.dia__texto p { margin: 0; }
+.dia__deslocamento {
+  justify-self: start; padding: 2px var(--spacing-12); border-radius: var(--radius-pills);
+  background: var(--cor-faixa); font-size: var(--text-body-small); line-height: 1.5;
+}
+@media (min-width: 834px) {
+  .trecho { grid-template-columns: 280px minmax(0, 1fr); gap: var(--spacing-48); }
+  .trecho__lado { position: sticky; top: calc(var(--altura-topo, 0px) + var(--spacing-16)); align-self: start; }
+  .trecho__dias .dia:first-child { border-top: 0; padding-top: 0; }
+}
+
+/* Hospedagens: uma estadia por cartão, na ordem da viagem */
+.resumo-estadias {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--element-gap);
+  margin: 0 0 var(--spacing-48);
+}
+.resumo-estadias > div { display: grid; gap: var(--spacing-4); align-content: start; }
+.resumo-estadias dd { margin: 0; }
+.estadias { display: grid; gap: var(--element-gap); }
+.estadia { display: grid; overflow: hidden; border-radius: var(--radius-cards); background: var(--cor-cartao); box-shadow: var(--contorno-sutil); }
+.estadia__corpo { display: grid; gap: var(--spacing-20); padding: var(--spacing-24); align-content: start; min-width: 0; }
+.estadia__topo { display: grid; gap: var(--spacing-8); }
+.estadia__nome {
+  margin: var(--spacing-4) 0 0; font-family: var(--font-sf-pro-display); font-size: var(--text-feature-copy);
+  line-height: var(--leading-feature-copy); font-weight: var(--font-weight-semibold);
+}
+.estadia__preco { margin: 0; }
+.estadia dl { margin: 0; }
+.estadia dd { margin: 0; }
+.estadia__datas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spacing-16); }
+.estadia__fatos { display: grid; gap: var(--spacing-12); padding-top: var(--spacing-16); border-top: 1px solid var(--cor-divisoria); }
+.estadia__fatos > div { display: grid; gap: var(--spacing-4); }
+.estadia__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-12); }
+@media (min-width: 834px) {
+  .estadia__topo { grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: var(--spacing-16); }
+  .estadia__fatos > div { grid-template-columns: 120px minmax(0, 1fr); gap: var(--spacing-12); }
+}
+@media (max-width: 480px) {
+  .resumo-estadias { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .resumo-estadias > div:first-child { grid-column: 1 / -1; }
+}
+.atracoes + .legenda { margin-top: var(--spacing-32); }
+
+/* Parada anterior / próxima no fim da página de cidade */
+.vizinhas__grade { display: grid; grid-template-columns: 1fr 1fr; gap: var(--element-gap); }
+.vizinha {
+  display: grid; align-content: start; overflow: hidden; color: inherit;
+  border-radius: var(--radius-cards); background: var(--cor-faixa);
+}
+.vizinha:hover { text-decoration: none; }
+.vizinha__foto { overflow: hidden; aspect-ratio: 3 / 2; }
+.vizinha__foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (hover: hover) {
+  .vizinha:hover .vizinha__foto img { scale: 1.04; }
+}
+.vizinha__texto { display: grid; gap: var(--spacing-4); padding: var(--spacing-16) var(--spacing-20) var(--spacing-20); }
+.vizinha--proxima { grid-column: 2; text-align: right; }
+
+.atracao { grid-template-columns: 1fr auto; align-items: start; gap: var(--spacing-12) !important; }
+.atracao__nome { font-weight: var(--font-weight-semibold); }
+
+.tarefa { grid-template-columns: var(--spacing-28) 1fr; align-items: start; }
+.tarefa input { width: var(--spacing-24); height: var(--spacing-24); margin: 0; accent-color: var(--cor-link); }
+.tarefa label { display: grid; gap: var(--spacing-4); cursor: pointer; }
+.tarefa--feita label > span:first-child { color: var(--cor-texto-2); text-decoration: line-through; }
+
+.tabela { width: 100%; border-collapse: collapse; font-size: var(--text-body-small); letter-spacing: var(--tracking-body-small); }
+.tabela th, .tabela td { text-align: left; padding: var(--spacing-12) var(--spacing-8); border-top: 1px solid var(--cor-divisoria); vertical-align: top; }
+.tabela td { font-variant-numeric: tabular-nums; }
+.tabela thead th { color: var(--cor-texto-2); font-weight: var(--font-weight-regular); border-top: 0; }
+.tabela tfoot th, .tabela tfoot td { font-weight: var(--font-weight-semibold); border-top: 2px solid var(--cor-divisoria); }
+.tabela .bloco { display: block; margin-top: var(--spacing-4); }
+/* No celular, cada linha da tabela vira um bloco: categoria em cima, valores rotulados abaixo. */
+@media (max-width: 599px) {
+  .tabela--empilha thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .tabela--empilha tr { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-8) var(--spacing-16); padding: var(--spacing-16) 0; border-top: 1px solid var(--cor-divisoria); }
+  .tabela--empilha tfoot tr { border-top-width: 2px; }
+  .tabela--empilha th, .tabela--empilha td { padding: 0; border: 0 !important; }
+  .tabela--empilha th[scope="row"] { grid-column: 1 / -1; font-size: var(--text-body); }
+  .tabela--empilha td::before { content: attr(data-rotulo); display: block; color: var(--cor-texto-2); font-weight: var(--font-weight-regular); }
+}
+.glossario { list-style: none; padding: 0; display: grid; gap: var(--spacing-4); }
+.glossario strong { color: var(--cor-texto); font-weight: var(--font-weight-semibold); }
+
+/* Formulários: um só componente de campo ("Rounded Search Input" adaptado).
+   17px em todos os campos: abaixo de 16px o iOS aplica zoom ao tocar. */
+.formulario { display: grid; gap: var(--spacing-20); max-width: 520px; }
+/* Formulário logo depois de uma lista ou do aviso de lista vazia: nada encosta. */
+.lista + .formulario, .legenda + .formulario { margin-top: var(--spacing-32); }
+.rotulo { display: grid; gap: var(--spacing-8); font-size: var(--text-body-small); line-height: var(--leading-body-small); color: var(--cor-texto-2); min-width: 0; }
+.campo {
+  -webkit-appearance: none; appearance: none;
+  font: inherit; font-size: var(--text-body); line-height: var(--leading-feature-copy); letter-spacing: var(--tracking-body);
+  color: var(--cor-texto);
+  min-height: var(--spacing-48); padding: var(--spacing-12) var(--spacing-20);
+  border: 0; border-radius: var(--radius-inputs); box-shadow: var(--contorno-forte);
+  background: var(--cor-campo); width: 100%; min-width: 0; margin: 0;
+}
+.campo:focus { outline: none; box-shadow: var(--cor-link) 0 0 0 2px; }
+.campo[aria-invalid="true"] { box-shadow: var(--cor-alerta) 0 0 0 2px; }
+textarea.campo { border-radius: var(--radius-cards); resize: vertical; padding: var(--spacing-16) var(--spacing-20); }
+/* Data: no iOS o valor vem centralizado e com altura própria. */
+input[type="date"].campo { display: block; text-align: left; }
+input[type="date"].campo::-webkit-date-and-time-value { text-align: left; margin: 0; }
+input[type="date"].campo::-webkit-calendar-picker-indicator { opacity: 0.6; }
+
+/* Lista de seleção com seta própria (a nativa muda de lugar e de recuo em cada sistema). */
+.seletor { position: relative; display: block; min-width: 0; }
+.seletor .campo { padding-right: var(--spacing-48); cursor: pointer; }
+.seletor::after {
+  content: ''; position: absolute; right: var(--spacing-20); top: 50%;
+  width: var(--spacing-12); height: var(--spacing-8); margin-top: calc(var(--spacing-4) * -1);
+  background: var(--cor-texto-2); pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+/* Status dentro das listas: mesma altura de toque, largura do conteúdo. */
+.seletor--compacto { display: inline-block; justify-self: start; }
+.seletor--compacto .campo { min-height: calc(var(--spacing-40) + var(--spacing-4)); padding: var(--spacing-8) var(--spacing-40) var(--spacing-8) var(--spacing-16); width: auto; }
+.seletor--compacto::after { right: var(--spacing-16); }
+
+.linha-campos { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--spacing-12); align-items: end; }
+.erro { margin-top: var(--spacing-4); }
+.formulario .pill { justify-self: start; padding: 0 var(--spacing-20); }
+
+/* Aviso flutuante e diálogo de acesso */
+.aviso {
+  position: fixed; left: 50%; bottom: calc(var(--spacing-20) + env(safe-area-inset-bottom)); transform: translateX(-50%);
+  margin: 0; padding: var(--spacing-12) var(--spacing-20); border-radius: var(--radius-pills);
+  background: var(--cor-texto); color: var(--cor-fundo); font-size: var(--text-body-small); z-index: 20;
+  max-width: calc(100% - var(--spacing-40));
+}
+.acesso { border: 0; border-radius: var(--radius-cards); padding: var(--card-padding); width: min(92vw, 380px); color: var(--cor-texto); background: var(--cor-cartao); }
+.acesso::backdrop { background: var(--cor-faixa); }
+.acesso .status-pendente:empty { display: none; }
+
+.rodape .conteudo { display: grid; gap: var(--spacing-8); }
+body { padding-bottom: env(safe-area-inset-bottom); }
+
+/* A foto do trecho abre a cidade: só ela reage ao cursor, e só quando ele está sobre ela. */
+@media (hover: hover) {
+  .trecho__foto:hover img { scale: 1.04; }
+}
+
+.orcamento__referencia { margin: 0 0 var(--spacing-40); }
+
+/* ---- Programação: fotos do trecho. A moldura é 3:2, a proporção das fotos: nada é cortado. */
+.trecho__fotos { display: grid; gap: var(--spacing-12); margin-bottom: var(--spacing-8); }
+.trecho__fotos--duas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.trecho__figura { margin: 0; display: grid; gap: var(--spacing-4); }
+.trecho__foto { aspect-ratio: 3 / 2; margin-bottom: 0; }
+@media (max-width: 359px) { .trecho__fotos--duas { grid-template-columns: 1fr; } }
+/* O texto sempre começa no topo da foto. Duas cidades: coluna mais larga, com as fotos lado a
+   lado, em vez de uma torre de fotos ao lado de poucas linhas. */
+@media (min-width: 834px) {
+  .trecho__dias { align-self: start; }
+  .trecho--duas { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+  .trecho--duas .trecho__lado { position: static; }
+}
+/* Tela baixa: a coluna não acompanha a rolagem, para nada ficar fora da vista. */
+@media (min-width: 834px) and (max-height: 700px) {
+  .trecho__lado { position: static; }
+}
+
+/* ---- Hospedagens: galeria, reserva e detalhes */
+.guardar-vouchers { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--spacing-12); margin: calc(var(--spacing-24) * -1) 0 var(--spacing-32); }
+.galeria { display: grid; gap: var(--spacing-4); min-width: 0; }
+.galeria__capa, .galeria__miniatura { display: block; position: relative; width: 100%; padding: 0; border: 0; overflow: hidden; background: var(--cor-faixa); cursor: zoom-in; }
+.galeria__capa { aspect-ratio: 3 / 2; }
+.galeria__capa img, .galeria__miniatura img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.galeria__miniaturas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spacing-4); }
+.galeria__miniatura { aspect-ratio: 1; }
+.galeria__mais { position: absolute; inset: 0; display: grid; place-items: center; background: var(--cor-veu); color: var(--cor-sobre-veu); font-size: var(--text-body); font-weight: var(--font-weight-semibold); }
+@media (hover: hover) {
+  .galeria__capa:hover img, .galeria__miniatura:hover img { scale: 1.04; }
+}
+.estadia__endereco { display: block; margin-top: var(--spacing-4); font-size: var(--text-body-small); line-height: var(--leading-body-small); }
+.estadia__valor { display: grid; gap: var(--spacing-4); }
+.estadia__mais summary {
+  display: flex; align-items: center; min-height: 44px;
+  cursor: pointer; color: var(--cor-link); font-size: var(--text-body-small); list-style: none;
+}
+.estadia__mais summary::-webkit-details-marker { display: none; }
+.estadia__mais summary::after { content: ''; width: 8px; height: 8px; margin-left: var(--spacing-8); border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform var(--dur-curta) var(--ease-apple); }
+.estadia__mais[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+.estadia__mais .estadia__fatos { border-top: 0; }
+.estadia__rodape { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--spacing-12); margin-top: var(--spacing-16); font-size: var(--text-body-small); }
+/* Sob as fotos, o que se usa ao chegar: onde fica e onde deixar o carro. O painel ocupa toda
+   a altura restante da coluna; pagamento e cancelamento abrem na largura toda do cartão. */
+.estadia__pratico {
+  display: grid; gap: var(--spacing-12); align-content: start; margin: 0;
+  padding: var(--spacing-20) var(--spacing-24); background: var(--cor-faixa);
+  font-size: var(--text-body-small); line-height: var(--leading-body-small);
+}
+.estadia__pratico > div { display: grid; gap: var(--spacing-4); }
+.estadia__pratico dd { margin: 0; }
+/* Em uma coluna, abaixo do texto, a faixa cinza viraria um bloco solto no meio do cartão: ali o
+   painel é a continuação da lista de fatos, com a mesma divisória, sem fundo próprio. */
+@media (max-width: 833px) {
+  .estadia .estadia__pratico {
+    margin: calc(var(--spacing-8) * -1) var(--spacing-24) 0; padding: var(--spacing-16) 0 var(--spacing-24);
+    background: none; border-top: 1px solid var(--cor-divisoria);
+    font-size: var(--text-body); line-height: var(--leading-body);
+  }
+  .estadia__mais { border-top: 1px solid var(--cor-divisoria); }
+}
+.estadia__mais { padding: var(--spacing-16) var(--spacing-24) var(--spacing-16); border-top: 1px solid var(--cor-divisoria); }
+.estadia__mais summary { margin: 0; }
+.estadia__fatos--colunas { display: grid; gap: var(--spacing-16); padding-top: var(--spacing-8); }
+.estadia__fatos.estadia__fatos--colunas > div { grid-template-columns: 1fr; gap: var(--spacing-4); }
+@media (min-width: 834px) {
+  .estadia {
+    grid-template-columns: 340px minmax(0, 1fr); grid-template-rows: auto 1fr auto;
+    grid-template-areas: "galeria corpo" "pratico corpo" "mais mais"; align-items: stretch;
+  }
+  .estadia > .galeria { grid-area: galeria; }
+  .estadia > .estadia__corpo { grid-area: corpo; }
+  .estadia > .estadia__pratico { grid-area: pratico; }
+  .estadia > .estadia__mais { grid-area: mais; }
+  .estadia__valor { justify-items: end; text-align: right; }
+  .estadia__fatos--colunas { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--spacing-32); }
+}
+
+/* ---- Telas sobrepostas: voucher, fotos ampliadas e formulário */
+dialog.voucher, dialog.ampliada {
+  width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; margin: 0; padding: 0; border: 0;
+  color: var(--cor-texto); background: var(--cor-fundo);
+}
+dialog.voucher[open], dialog.ampliada[open] { display: flex; flex-direction: column; }
+.voucher__topo, .ampliada__topo {
+  display: flex; align-items: center; gap: var(--spacing-12); flex: none;
+  padding: calc(var(--spacing-12) + env(safe-area-inset-top)) var(--gutter-d) var(--spacing-12) var(--gutter-e);
+  border-bottom: 1px solid var(--cor-divisoria);
+}
+.voucher__titulo, .ampliada__topo > div { flex: 1; min-width: 0; }
+.voucher__titulo .kicker, .ampliada__topo .kicker { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.voucher__topo .pill, .ampliada__topo .pill { flex: none; }
+.voucher__corpo { flex: 1; min-height: 0; overflow: auto; -webkit-overflow-scrolling: touch; padding: var(--spacing-16) var(--spacing-12) calc(var(--spacing-32) + env(safe-area-inset-bottom)); background: var(--cor-faixa); }
+.voucher__paginas { display: grid; gap: var(--spacing-12); justify-items: center; max-width: 960px; margin: 0 auto; }
+.voucher__pagina { display: block; width: 100%; height: auto; background: var(--cor-papel); border-radius: var(--spacing-8); box-shadow: var(--contorno-sutil); animation: surgir var(--dur-curta) var(--ease-entrada); }
+.voucher__estado { display: flex; align-items: center; justify-content: center; gap: var(--spacing-12); max-width: 480px; margin: var(--spacing-40) auto; text-align: center; }
+
+.ampliada__trilho { flex: 1; min-height: 0; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior: contain; }
+.ampliada__trilho::-webkit-scrollbar { display: none; }
+.ampliada__slide { flex: 0 0 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--spacing-12); min-width: 0; margin: 0; padding: var(--spacing-16) var(--spacing-20); scroll-snap-align: center; scroll-snap-stop: always; }
+.ampliada__slide img { display: block; min-height: 0; max-width: 100%; max-height: calc(100% - var(--spacing-32)); object-fit: contain; border-radius: var(--spacing-12); }
+.ampliada__setas { display: none; }
+@media (hover: hover) and (min-width: 834px) {
+  .ampliada__setas { display: flex; justify-content: center; gap: var(--spacing-12); flex: none; padding: 0 0 var(--spacing-20); }
+}
+
+dialog.voucher::backdrop, dialog.ampliada::backdrop { background: var(--cor-fundo); }
+.rotulo__opcional { color: var(--cor-texto-2); opacity: 0.75; }
+.linha-campos--iguais { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 379px) { .linha-campos--iguais { grid-template-columns: 1fr; } }
+
+@media (max-width: 479px) {
+  .voucher__topo { flex-wrap: wrap; }
+  .voucher__titulo { flex: 1 1 100%; }
+  .voucher__topo .pill { flex: 1; }
+}
+
+/* ---- Registrar: escolha do tipo, formulário por grupos e registros */
+.registrar { max-width: 760px; }
+.registrar--entrada { animation: surgir-subindo var(--dur-longa) var(--ease-entrada); }
+.escolhas { display: grid; gap: var(--element-gap); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
+.escolha {
+  position: relative; display: grid; gap: var(--spacing-8); align-content: start; min-height: 148px;
+  padding: var(--spacing-24) var(--spacing-48) var(--spacing-24) var(--spacing-24);
+  border-radius: var(--radius-cards); background: var(--cor-faixa); color: inherit;
+  transition: transform var(--dur-curta) var(--ease-apple);
+}
+.escolha:hover { text-decoration: none; }
+.escolha:active { transform: scale(0.98); }
+.escolha__nome {
+  font-family: var(--font-sf-pro-display); font-size: var(--text-product-kicker); line-height: var(--leading-product-kicker);
+  font-weight: var(--font-weight-semibold);
+}
+.escolha__seta { position: absolute; right: var(--spacing-24); top: var(--spacing-24); color: var(--cor-link); font-size: var(--text-feature-copy); transition: transform var(--dur-curta) var(--ease-apple); }
+@media (hover: hover) { .escolha:hover .escolha__seta { transform: translateX(4px); } }
+.registrar__voltar { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: var(--spacing-16); font-size: var(--text-body-small); }
+.formulario--registrar { max-width: none; gap: var(--spacing-40); }
+.grupo { display: grid; gap: var(--spacing-20); min-width: 0; margin: 0; padding: var(--spacing-24) 0 0; border: 0; border-top: 1px solid var(--cor-divisoria); }
+.grupo__titulo { float: left; width: 100%; padding: 0; margin-bottom: var(--spacing-4); font-size: var(--text-body); font-weight: var(--font-weight-semibold); }
+.grupo__titulo + * { clear: both; }
+.rotulo__opcional { color: var(--cor-texto-2); opacity: 0.75; }
+.rotulo__obrigatorio { color: var(--cor-link); }
+.linha-campos--iguais { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 379px) { .linha-campos--iguais { grid-template-columns: 1fr; } }
+.registrar__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-12); }
+.formulario--registrar .registrar__acoes .pill { justify-self: auto; }
+.registrar__acoes a.pill { padding: 0 var(--spacing-20); }
+.registrar__acoes .link-botao { margin-left: auto; }
+.link-botao--alerta { color: var(--cor-alerta); }
+.espaco-abaixo { margin: 0 0 var(--spacing-16); }
+.lista > .registro { grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: var(--spacing-12); }
+.registro__texto { display: grid; gap: var(--spacing-4); min-width: 0; }
+.registro__links { display: flex; flex-wrap: wrap; gap: var(--spacing-16); margin: var(--spacing-4) 0 0; font-size: var(--text-body-small); }
+.vazio { padding: var(--spacing-32) var(--spacing-24); border-radius: var(--radius-cards); background: var(--cor-faixa); color: var(--cor-texto-2); text-align: center; }
+.secao--mist .vazio { background: var(--cor-cartao); }
+.estado { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-8); }
+/* No rodapé, o fundo é a faixa: ao passar o cursor, o botão usa a cor de cartão, como em .secao--mist. */
+@media (hover: hover) { .rodape .pill:not(.pill--azul):not(:disabled):hover { background: var(--cor-cartao); } }
+
+/* ---- Estados de carregamento e erro */
+.falha { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--spacing-12); max-width: 980px; margin: var(--spacing-16) auto 0; padding: var(--spacing-16) var(--spacing-20); color: var(--cor-alerta); }
+.falha[hidden] { display: none; }
+.falha p { margin: 0; }
+.carregando__ponto { flex: none; width: 16px; height: 16px; border: 2px solid var(--cor-trilho); border-top-color: var(--cor-link); border-radius: 50%; animation: girar 800ms linear infinite; }
+
+/* ---- Acabamento: toque, entradas das telas sobrepostas */
+.link-botao { transition: transform var(--dur-curta) var(--ease-apple), background-color var(--dur-curta) var(--ease-apple), color var(--dur-curta) var(--ease-apple); }
+button.pill:disabled { opacity: 0.5; cursor: default; }
+dialog[open].voucher, dialog[open].ampliada { animation: surgir var(--dur-curta) var(--ease-entrada); }
+details[open] > summary ~ * { animation: surgir var(--dur-curta) var(--ease-entrada); }
+@keyframes surgir { from { opacity: 0; } }
+@keyframes surgir-subindo { from { opacity: 0; transform: translateY(12px); } }
+@keyframes girar { to { transform: rotate(360deg); } }
+@keyframes carregando { 0% { transform: scaleX(0); } 60% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+
+/* ---- Atalhos internos: o que não ocupa o painel superior */
+.atalhos { display: flex; flex-wrap: wrap; gap: var(--spacing-12); margin: calc(var(--spacing-16) * -1) 0 var(--spacing-40); }
+.voltar { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--text-body-small); }
+
+/* Atrações da cidade: o dia acompanha a lista enquanto ela rola, como a foto na Programação. */
+@media (min-width: 834px) and (min-height: 600px) {
+  .atracoes > .dia { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: var(--spacing-32); }
+  .atracoes .dia__titulo { position: sticky; top: calc(var(--altura-topo, 0px) + var(--spacing-16)); align-self: start; padding-top: var(--spacing-16); margin: 0; }
+}
+
+/* Fotos carregadas sob demanda entram por esmaecimento, sobre o fundo da moldura. */
+.galeria img:not(.carregada), .trecho__foto img:not(.carregada), .cartao-cidade__foto img:not(.carregada), .vizinha__foto img:not(.carregada) { opacity: 0; }
+/* O cursor usa a propriedade scale; a rolagem (GSAP) usa transform. Assim uma não atrasa a outra:
+   transição em transform faria a foto "arrastar" atrás da rolagem. */
+.galeria img, .trecho__foto img, .cartao-cidade__foto img, .vizinha__foto img { transition: opacity var(--dur-longa) var(--ease-entrada), scale var(--dur-longa) var(--ease-entrada); }

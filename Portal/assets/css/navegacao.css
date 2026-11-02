@@ -1,0 +1,111 @@
+/* Painel superior: marca (leva ao Painel), quatro destinos e a ação Registrar.
+   Quem define os itens é o index.html; o item ativo é marcado por marcarSecao, em app.js.
+   Barra de carregamento: .carregamento, ligada por comProgresso, em app.js. */
+/* Barra superior única: no alto da página, faixa integrada ao topo da tela; ao rolar, o fundo se
+   solta e vira uma cápsula suspensa. Só o fundo (.topo::before) se transforma: textos e botões não
+   saem do lugar e a altura do painel não muda, então nada salta. Quem liga é .topo--flutuante,
+   em acompanharBarra (app.js). Entra com leve excesso, como a gota dos carrosséis; volta sem ele. */
+.topo {
+  position: sticky; top: 0; z-index: 10; pointer-events: none;
+  padding-top: calc(env(safe-area-inset-top) + var(--spacing-4));
+  --capsula-topo: calc(env(safe-area-inset-top) + var(--spacing-4));
+  --capsula-base: var(--spacing-4);
+  --capsula-esq: calc(env(safe-area-inset-left) + var(--spacing-8));
+  --capsula-dir: calc(env(safe-area-inset-right) + var(--spacing-8));
+}
+.topo::before {
+  content: ''; position: absolute; z-index: -1; top: 0; right: 0; bottom: 0; left: 0;
+  background: var(--cor-vidro);
+  -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  border-radius: 0; box-shadow: inset 0 -1px 0 var(--cor-contorno-suave);
+  transition: top 420ms var(--ease-alarga), right 420ms var(--ease-alarga), bottom 420ms var(--ease-alarga), left 420ms var(--ease-alarga),
+    border-radius 320ms var(--ease-entrada), box-shadow var(--dur-curta) var(--ease-apple);
+}
+.topo--flutuante::before {
+  top: var(--capsula-topo); right: var(--capsula-dir); bottom: var(--capsula-base); left: var(--capsula-esq);
+  border-radius: var(--radius-navigation); box-shadow: var(--contorno-sutil);
+  transition: top 560ms var(--ease-capsula), right 560ms var(--ease-capsula), bottom 560ms var(--ease-capsula), left 560ms var(--ease-capsula),
+    border-radius 320ms var(--ease-entrada), box-shadow var(--dur-curta) var(--ease-apple);
+}
+.barra {
+  pointer-events: auto;
+  display: grid; grid-template-columns: 1fr auto; grid-template-areas: "titulo acao" "secoes secoes";
+  align-items: center; column-gap: var(--spacing-12);
+  max-width: 1024px; margin: 0 auto; padding: var(--spacing-8) var(--gutter-d) var(--spacing-4) var(--gutter-e);
+}
+.barra__titulo {
+  grid-area: titulo; color: var(--cor-texto); white-space: nowrap;
+  font-family: var(--font-sf-pro-display); font-size: var(--text-product-nav-title);
+  line-height: var(--leading-product-nav-title); letter-spacing: var(--tracking-product-nav-title);
+  font-weight: var(--font-weight-semibold);
+}
+.barra__titulo:hover { text-decoration: none; }
+.barra__acao { grid-area: acao; }
+.barra__secoes {
+  grid-area: secoes; display: flex; gap: var(--spacing-16);
+  overflow-x: auto; scrollbar-width: none;
+  margin: 0 calc(var(--gutter-d) * -1) 0 calc(var(--gutter-e) * -1); padding: 0 var(--gutter-d) 0 var(--gutter-e);
+}
+.barra__secoes::-webkit-scrollbar { display: none; }
+/* Esmaecimento nas bordas indica que a lista continua (data-inicio/data-fim vêm do app.js). */
+.barra__secoes[data-fim="nao"] { -webkit-mask-image: linear-gradient(to right, black calc(100% - 48px), transparent); mask-image: linear-gradient(to right, black calc(100% - 48px), transparent); }
+.barra__secoes[data-inicio="nao"] { -webkit-mask-image: linear-gradient(to left, black calc(100% - 48px), transparent); mask-image: linear-gradient(to left, black calc(100% - 48px), transparent); }
+.barra__secoes[data-inicio="nao"][data-fim="nao"] { -webkit-mask-image: linear-gradient(to right, transparent, black 48px, black calc(100% - 48px), transparent); mask-image: linear-gradient(to right, transparent, black 48px, black calc(100% - 48px), transparent); }
+.barra__secoes a {
+  color: var(--cor-texto); white-space: nowrap;
+  font-size: var(--text-body-small); letter-spacing: var(--tracking-body-small); font-weight: var(--font-weight-medium);
+  padding: var(--spacing-12) 0; border-radius: 0; -webkit-tap-highlight-color: transparent;
+}
+.barra__secoes a:hover { text-decoration: none; color: var(--cor-link); }
+.barra__secoes a[aria-current] { color: var(--cor-link); }
+
+@media (min-width: 834px) {
+  .topo {
+    padding: calc(var(--spacing-4) + var(--spacing-2) + env(safe-area-inset-top)) var(--spacing-12) calc(var(--spacing-4) + var(--spacing-2));
+    --capsula-topo: calc(var(--spacing-4) + var(--spacing-2) + env(safe-area-inset-top));
+    --capsula-base: calc(var(--spacing-4) + var(--spacing-2));
+    --capsula-esq: var(--spacing-12); --capsula-dir: var(--spacing-12);
+  }
+  .barra {
+    grid-template-columns: auto 1fr auto; grid-template-areas: "titulo secoes acao";
+    padding: var(--spacing-4) var(--spacing-8) var(--spacing-4) var(--spacing-20);
+  }
+  .barra__secoes { margin: 0; padding: 0; gap: var(--spacing-24); justify-content: center; -webkit-mask-image: none !important; mask-image: none !important; }
+  .barra__secoes a { padding: var(--spacing-8) 0; font-size: var(--text-body); letter-spacing: var(--tracking-body); }
+}
+/* A cápsula acompanha a coluna do menu, de até 1024 px. */
+@media (min-width: 1048px) {
+  .topo { --capsula-esq: calc((100% - 1024px) / 2); --capsula-dir: calc((100% - 1024px) / 2); }
+}
+/* Celular deitado e estreito: as duas linhas tomariam mais de um quarto da altura;
+   título, seções e ação ficam numa linha só. */
+@media (max-width: 833px) and (orientation: landscape) and (max-height: 500px) {
+  .topo { padding-top: calc(env(safe-area-inset-top) + var(--spacing-2)); padding-bottom: var(--spacing-2); --capsula-topo: calc(env(safe-area-inset-top) + var(--spacing-2)); --capsula-base: var(--spacing-2); }
+  .barra { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "titulo secoes acao"; padding: var(--spacing-4) var(--gutter-d) var(--spacing-4) var(--gutter-e); }
+  .barra__secoes { margin: 0; padding: 0 var(--spacing-8); }
+  .barra__secoes a { padding: var(--spacing-8) 0; }
+}
+/* Com o palco do roteiro preso, o fundo atrás do menu é liso: sem desfoque, com a mesma aparência. */
+.topo--sobre-palco::before { -webkit-backdrop-filter: none; backdrop-filter: none; }
+/* Na vertical, as fotos passam atrás do menu: fundo sólido, para não desfocá-las a cada quadro. */
+.topo--sobre-fotos::before { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--cor-fundo); }
+/* Sem transparência (ajuste do sistema) ou sem suporte a desfoque: fundo sólido. */
+@media (prefers-reduced-transparency: reduce) {
+  .topo::before { background: var(--cor-fundo) !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .topo::before { background: var(--cor-fundo); }
+}
+
+
+/* Barra azul de carregamento, sempre presente no painel: entra e sai por opacidade, sem
+   mudar a altura de nada. Ligada enquanto há leitura ou gravação na planilha. */
+.carregamento {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 2px; overflow: hidden;
+  opacity: 0; pointer-events: none; transition: opacity var(--dur-curta) var(--ease-apple);
+}
+.carregamento::after {
+  content: ''; display: block; height: 100%; transform-origin: left; background: var(--cor-link);
+  animation: carregando 1.4s var(--ease-apple) infinite;
+}
+.carregamento[data-ativo] { opacity: 1; }
