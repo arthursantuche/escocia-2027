@@ -6,7 +6,7 @@ alteração) em assets/img/cidades/creditos.json, exibidos no portal junto de ca
 Licenças aceitas: CC0, domínio público, CC BY e CC BY-SA (que exigem crédito e, no
 caso de SA, indicar a alteração; o recorte e o redimensionamento ficam registrados).
 
-Uso, na raiz do repositório: python3 scripts/baixar-fotos.py [nome ...]
+Uso, em Portal/: python3 scripts/baixar-fotos.py [nome ...]
 (sem nomes, refaz todas; com nomes, por exemplo `st-andrews`, refaz só essas e mantém
 os demais créditos de creditos.json)
 Requer Pillow com WebP (pip install Pillow). Os originais baixados ficam numa pasta
