@@ -7,7 +7,7 @@ Mostra roteiro com luz do dia, programação, cidades, hospedagens com voucher, 
 A documentação completa, com o guia de manutenção, fica no Vault do Obsidian do autor, em `Efforts/Escócia 2027/Portal/`.
 
 ## Estrutura
-O site fica em `Portal/`:
+Esta pasta, `Portal/`, é o site. Na raiz do repositório ficam só `.github/` (publicação) e o `.gitignore`.
 
 - `index.html`, `assets/`, `manifest.webmanifest`, `sw.js`: o site.
 - `data/amostra.json`: dados de exemplo, sem informações pessoais, para testar com `?amostra`.
@@ -17,7 +17,8 @@ O site fica em `Portal/`:
 
 ## Rodar localmente
 ```bash
-python3 -m http.server 4173 --directory Portal
+# dentro de Portal/
+python3 -m http.server 4173
 ```
 Abra http://localhost:4173/?amostra para usar os dados de exemplo, sem código de acesso e sem gravar na planilha. Testes, no console da página:
 ```js
@@ -26,7 +27,7 @@ const { testarTrilha } = await import('/scripts/testar-trilha.js'); await testar
 ```
 
 ## Publicar
-Cada push na `main` publica pelo workflow `.github/workflows/pages.yml`. Ao mudar arquivos do site, altere a revisão em `VERSAO`, em `Portal/sw.js`, para os aparelhos baixarem a versão nova.
+Cada push na `main` publica pelo workflow `.github/workflows/pages.yml`, na raiz do repositório. Ao mudar arquivos do site, altere a revisão em `VERSAO`, em `sw.js`, para os aparelhos baixarem a versão nova.
 
 ## Créditos e privacidade
 Fotos das cidades: Wikimedia Commons (CC0, CC BY e CC BY-SA), com autores e licenças em `assets/img/cidades/creditos.json`, exibidos no site. GSAP, Chart.js e pdf.js ficam em `assets/vendor/`.

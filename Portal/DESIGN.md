@@ -72,6 +72,7 @@ Versão: **2.0** (`VERSAO_SITE`, em `assets/js/config.js`). A cada publicação,
   - duas seções seguidas com o mesmo fundo: use `.secao--continua`, para não somar os dois respiros;
   - `scripts/testar-telas.js` mede isso em todas as rotas: mínimo de 24px depois de `.titulo` e 8px depois de `.kicker`.
 - **Seções:** 90px no computador e 64px no celular.
+- **Linhas de texto dentro de um item de lista:** 4px (`--spacing-4`) entre as linhas. Vale para atrações, trens e carros (`.atracao > div`, em `paginas.css`) e para cidade e resumo na lista de paradas (`.parada__texto`, em `componentes.css`).
 - **Imagens:**
   - a moldura de 28px recorta a imagem, e parallax ou zoom nunca saem dela;
   - legenda abaixo, fora da moldura;
