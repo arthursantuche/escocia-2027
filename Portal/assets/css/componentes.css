@@ -160,6 +160,7 @@ a.card:active { transform: scale(0.985); }
   a.parada:hover .parada__ponto { scale: 1.12; }
 }
 .parada__ponto { transition: background-color var(--dur-curta) var(--ease-apple), box-shadow var(--dur-curta) var(--ease-apple), scale var(--dur-curta) var(--ease-apple); }
+.parada__texto { display: grid; gap: var(--spacing-4); align-content: start; }
 .parada__cidade {
   font-family: var(--font-sf-pro-display);
   font-size: var(--text-product-kicker);

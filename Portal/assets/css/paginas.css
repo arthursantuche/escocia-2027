@@ -135,6 +135,7 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 
 .atracao { grid-template-columns: 1fr auto; align-items: start; gap: var(--spacing-12) !important; }
 .atracao__nome { font-weight: var(--font-weight-semibold); }
+.atracao > div { display: grid; gap: var(--spacing-4); min-width: 0; }
 
 .tarefa { grid-template-columns: var(--spacing-28) 1fr; align-items: start; }
 .tarefa input { width: var(--spacing-24); height: var(--spacing-24); margin: 0; accent-color: var(--cor-link); }
