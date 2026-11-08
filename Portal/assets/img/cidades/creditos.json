@@ -1,0 +1,65 @@
+{
+  "edimburgo": {
+    "titulo": "Skyline of Edinburgh.jpg",
+    "autor": "Andrew Colin",
+    "licenca": "CC BY 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Skyline_of_Edinburgh.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
+  },
+  "st-andrews": {
+    "titulo": "Swilken Bridge, Old Course geograph-6310525-by-Gordon-Hatton.jpg",
+    "autor": "Gordon Hatton",
+    "licenca": "CC BY-SA 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Swilken_Bridge,_Old_Course_geograph-6310525-by-Gordon-Hatton.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
+  },
+  "glasgow": {
+    "titulo": "Glasgow University (49078377092).jpg",
+    "autor": "Ian Dick from Glasgow, UK",
+    "licenca": "CC BY 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Glasgow_University_(49078377092).jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
+  },
+  "glencoe": {
+    "titulo": "Buachaille Etive Mòr - 40339525345.jpg",
+    "autor": "Ian D",
+    "licenca": "CC BY 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Buachaille_Etive_M%C3%B2r_-_40339525345.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
+  },
+  "fort-william": {
+    "titulo": "Ben Nevis from the Corpach Wreck - geograph.org.uk - 6370132.jpg",
+    "autor": "Andy Stephenson",
+    "licenca": "CC BY-SA 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Ben_Nevis_from_the_Corpach_Wreck_-_geograph.org.uk_-_6370132.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
+  },
+  "isle-of-skye": {
+    "titulo": "Old Man of Storr, Scottish Highlands.jpg",
+    "autor": "Lauwz The Kiwistralian",
+    "licenca": "CC0",
+    "licencaUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Old_Man_of_Storr,_Scottish_Highlands.jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
+  },
+  "inverness": {
+    "titulo": "Inverness Castle on a Spring day (40710862772).jpg",
+    "autor": "Mike McBey",
+    "licenca": "CC BY 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Inverness_Castle_on_a_Spring_day_(40710862772).jpg",
+    "fonte": "Wikimedia Commons",
+    "alteracoes": "recortada em 3:2 e redimensionada"
+  }
+}

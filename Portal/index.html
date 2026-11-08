@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="Portal da viagem à Escócia, 23/02 a 08/03/2027">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Escócia 2027">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Escócia 2027</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/img/bandeira-16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="assets/img/bandeira-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/img/bandeira-48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="assets/img/bandeira-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/bandeira-180.png" sizes="180x180">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/componentes.css">
+  <link rel="stylesheet" href="assets/css/navegacao.css">
+  <link rel="stylesheet" href="assets/css/paginas.css">
+  <link rel="stylesheet" href="assets/css/movimento.css">
+</head>
+<body>
+  <header class="topo">
+    <nav class="barra" aria-label="Portal">
+      <a class="barra__titulo" href="#painel">Escócia 2027</a>
+      <div class="barra__secoes" id="secoes">
+        <a href="#programacao">Programação</a>
+        <a href="#hospedagens">Hospedagens</a>
+        <a href="#viagem">Viagem</a>
+        <a href="#checklist">Checklist</a>
+      </div>
+      <a class="pill pill--azul barra__acao" href="#registrar">Registrar</a>
+    </nav>
+    <div class="carregamento" id="carregamento" aria-hidden="true"></div>
+  </header>
+
+  <div class="falha" id="falha" role="alert" hidden>
+    <p>Não foi possível carregar os dados. Verifique a conexão.</p>
+    <button class="pill" type="button" id="falha-tentar">Tentar de novo</button>
+  </div>
+
+  <main id="painel">
+    <section class="secao hero">
+      <div class="conteudo">
+        <p class="kicker" id="periodo"></p>
+        <h1 class="display" data-revelar>Escócia 2027.</h1>
+        <p class="copy legenda" id="viajantes"></p>
+      </div>
+      <figure class="hero__foto" data-rolagem>
+        <div class="hero__moldura">
+          <img src="assets/img/bandeira.svg" width="1000" height="600" alt="Bandeira da Escócia">
+        </div>
+      </figure>
+      <div class="conteudo hero__dados">
+        <dl class="numeros" data-subir>
+          <div class="numeros__item"><dt class="legenda" id="dias-legenda">dias para o embarque</dt><dd class="numeros__valor" id="dias">–</dd></div>
+          <div class="numeros__item"><dt class="legenda" id="noites-legenda">noites na Escócia</dt><dd class="numeros__valor" id="noites-hero">–</dd></div>
+          <div class="numeros__item"><dt class="legenda" id="cidades-legenda">cidades</dt><dd class="numeros__valor" id="cidades-hero">–</dd></div>
+        </dl>
+        <div class="proximo" id="proximo" data-subir>
+          <div class="proximo__texto">
+            <span class="status-pendente">⚠️ Próximo compromisso</span>
+            <h2 class="kicker" id="proximo-titulo"></h2>
+            <p class="legenda" id="proximo-detalhe"></p>
+          </div>
+          <a class="pill" href="#checklist">Ver checklist</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao secao--mist destaques faixa-carrossel" aria-labelledby="destaques-titulo">
+      <div class="conteudo destaques__cabecalho">
+        <h2 class="titulo" id="destaques-titulo" data-revelar>Resumo da viagem.</h2>
+        <a href="#orcamento" class="legenda">Ver orçamento</a>
+      </div>
+      <div class="carrossel" id="resumo" role="region" aria-roledescription="carrossel" aria-labelledby="destaques-titulo">
+        <div class="carrossel__trilho" id="resumo-lista" tabindex="0">
+          <a class="card" href="#orcamento" aria-labelledby="orc-titulo">
+            <p class="legenda" id="orc-titulo">Orçamento</p>
+            <p class="card__numero" id="orc-previsto"></p>
+            <p class="legenda" id="orc-detalhe"></p>
+            <div class="card__grafico"><canvas id="grafico-orcamento" aria-label="Orçamento por categoria: planejado, pago e a pagar" role="img"></canvas></div>
+            <p class="legenda legenda-grafico" aria-hidden="true">
+              <span class="cor-previsto">Planejado</span>
+              <span class="cor-pago">Pago</span>
+              <span class="cor-apagar">A pagar</span>
+            </p>
+          </a>
+          <a class="card" href="#checklist" aria-labelledby="chk-titulo">
+            <p class="legenda" id="chk-titulo">Checklist</p>
+            <p class="card__numero" id="chk-numero"></p>
+            <div class="progresso" role="progressbar" aria-label="Progresso do checklist" aria-valuemin="0" aria-valuemax="100" id="chk-barra-wrap"><div class="progresso__barra" id="chk-barra"></div></div>
+            <p class="legenda" id="chk-detalhe"></p>
+            <p class="legenda prazos__titulo">Próximos prazos</p>
+            <ul class="prazos" id="chk-proximos"></ul>
+          </a>
+          <article class="card" aria-labelledby="noites-titulo">
+            <p class="legenda" id="noites-titulo">Noites por cidade</p>
+            <p class="card__numero" id="noites-total"></p>
+            <div class="card__grafico"><canvas id="grafico-noites" aria-label="Noites por cidade" role="img"></canvas></div>
+          </article>
+        </div>
+        <div class="conteudo carrossel__controles">
+          <div class="carrossel__pontos" id="resumo-pontos" role="group" aria-label="Escolher resumo">
+            <button type="button" aria-label="Orçamento" aria-controls="resumo-lista"></button>
+            <button type="button" aria-label="Checklist" aria-controls="resumo-lista"></button>
+            <button type="button" aria-label="Noites por cidade" aria-controls="resumo-lista"></button>
+          </div>
+          <div class="carrossel__setas">
+            <button class="carrossel__seta" type="button" data-direcao="-1" aria-label="Resumo anterior" aria-controls="resumo-lista"></button>
+            <button class="carrossel__seta carrossel__seta--proxima" type="button" data-direcao="1" aria-label="Próximo resumo" aria-controls="resumo-lista"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao roteiro" id="roteiro" aria-labelledby="roteiro-titulo">
+      <div class="conteudo roteiro__palco" id="roteiro-palco">
+        <div class="roteiro__texto">
+          <p class="kicker">Roteiro</p>
+          <h2 class="titulo" id="roteiro-titulo">De Edimburgo às Highlands, e de volta.</h2>
+          <p class="copy introducao" id="roteiro-resumo"></p>
+          <div class="roteiro__midia" id="roteiro-midia" aria-hidden="true"></div>
+          <div class="roteiro__atual" id="roteiro-atual" aria-live="off">
+            <p class="kicker" id="roteiro-atual-nome"></p>
+            <p class="legenda" id="roteiro-atual-resumo"></p>
+            <p class="legenda" id="roteiro-atual-luz"></p>
+          </div>
+        </div>
+        <div class="roteiro__trilha" id="roteiro-trilha">
+          <div class="roteiro__percurso" id="roteiro-percurso">
+            <div class="roteiro__linha"></div>
+            <div class="roteiro__progresso" id="trilha-progresso"></div>
+            <div class="roteiro__paradas" id="trilha-paradas"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao secao--mist faixa-carrossel" id="cidades" aria-labelledby="cidades-titulo">
+      <div class="conteudo destaques__cabecalho">
+        <h2 class="titulo" id="cidades-titulo" data-revelar>Sete cidades.</h2>
+        <a href="#roteiro" class="legenda">Ver roteiro</a>
+      </div>
+      <div class="carrossel" role="region" aria-roledescription="carrossel" aria-labelledby="cidades-titulo">
+        <div class="carrossel__trilho" id="cidades-lista" tabindex="0"></div>
+        <div class="conteudo carrossel__controles">
+          <div class="carrossel__pontos" id="cidades-pontos" role="group" aria-label="Escolher cidade"></div>
+          <div class="carrossel__setas">
+            <button class="carrossel__seta" type="button" data-direcao="-1" aria-label="Cidade anterior" aria-controls="cidades-lista"></button>
+            <button class="carrossel__seta carrossel__seta--proxima" type="button" data-direcao="1" aria-label="Próxima cidade" aria-controls="cidades-lista"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao" id="pendencias" aria-labelledby="pend-titulo">
+      <div class="conteudo">
+        <h2 class="titulo" id="pend-titulo" data-revelar>Pendências por prazo.</h2>
+        <ol class="pendencias" id="lista-pendencias"></ol>
+        <a class="pill espaco-topo" href="#checklist">Ver checklist completo</a>
+      </div>
+    </section>
+  </main>
+
+  <main id="pagina" hidden></main>
+
+  <footer class="rodape">
+    <div class="conteudo">
+      <p class="legenda" id="rodape"></p>
+      <p class="legenda" id="versao"></p>
+      <p class="legenda estado" id="estado" role="status"><span id="estado-texto"></span> <button class="pill" id="estado-atualizar" type="button" title="Os dados vêm da planilha e se atualizam sozinhos. Use para buscar agora o que acabou de mudar lá.">Buscar novidades da planilha</button></p>
+    </div>
+  </footer>
+
+  <p class="aviso" id="aviso" role="status" aria-live="polite" hidden></p>
+
+  <dialog class="acesso" id="acesso" aria-labelledby="acesso-titulo">
+    <form id="acesso-form" class="formulario">
+      <p class="kicker" id="acesso-titulo">Escócia 2027</p>
+      <label class="rotulo"><span>Código de acesso</span>
+        <input class="campo" id="acesso-codigo" type="password" autocomplete="current-password" required>
+      </label>
+      <p class="status-pendente" id="acesso-erro"></p>
+      <button class="pill pill--azul" type="submit">Entrar</button>
+    </form>
+  </dialog>
+
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/chart.umd.min.js" defer></script>
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

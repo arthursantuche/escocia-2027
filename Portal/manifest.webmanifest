@@ -1,0 +1,16 @@
+{
+  "name": "Escócia 2027",
+  "short_name": "Escócia 2027",
+  "description": "Portal da viagem à Escócia, 23/02 a 08/03/2027",
+  "lang": "pt-BR",
+  "start_url": "./#painel",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
+  "icons": [
+    { "src": "assets/img/bandeira-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/img/bandeira-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/img/bandeira-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,95 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; color-scheme: light dark; }
+
+body {
+  margin: 0;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--font-sf-pro-text);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p { margin: 0; }
+
+/* O atributo hidden vence o display dos componentes (ex.: .proximo sem pendências). */
+[hidden] { display: none !important; }
+
+a { color: var(--cor-link); text-decoration: none; border-radius: var(--radius-links); transition: color var(--dur-link) var(--ease-apple); }
+a:hover { text-decoration: underline; }
+
+:focus-visible { outline: 2px solid var(--cor-link); outline-offset: 2px; }
+
+/* Âncoras (#roteiro, #cidades, #pendencias): a seção começa no topo da tela e o painel flutua
+   sobre o fundo dela. Parar abaixo do painel deixava a seção anterior aparecendo atrás dele. */
+section[id] { scroll-margin-top: 0; padding-top: max(var(--spacing-64), calc(var(--altura-topo, 0px) + var(--spacing-32))); }
+
+.secao {
+  padding: var(--spacing-64) var(--gutter-d) var(--spacing-64) var(--gutter-e);
+}
+.secao--mist { background: var(--cor-faixa); }
+
+.conteudo { max-width: 980px; margin: 0 auto; }
+
+/* Tipografia (papéis da escala do documento) */
+.kicker {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-product-kicker);
+  line-height: var(--leading-product-kicker);
+  letter-spacing: var(--tracking-product-kicker);
+  font-weight: var(--font-weight-semibold);
+}
+.display {
+  font-family: var(--font-sf-pro-display);
+  font-size: clamp(var(--text-feature-heading), 12vw, var(--text-hero-display));
+  line-height: var(--leading-hero-display);
+  letter-spacing: var(--tracking-hero-display);
+  font-weight: var(--font-weight-semibold);
+}
+/* Altura de linha 1,08 (lista do SF Pro Display): títulos que quebram linha não se sobrepõem
+   e os descendentes (ç, g, p) ficam dentro da caixa. */
+.titulo {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-feature-heading);
+  line-height: 1.08;
+  letter-spacing: var(--tracking-feature-heading);
+  font-weight: var(--font-weight-semibold);
+}
+.copy {
+  font-size: var(--text-feature-copy);
+  line-height: var(--leading-feature-copy);
+  letter-spacing: var(--tracking-feature-copy);
+}
+/* Texto de apoio sob um título ("Editorial Feature Block"): 17 px, em tom secundário. */
+.introducao { color: var(--cor-texto-2); }
+.legenda {
+  font-size: var(--text-body-small);
+  line-height: var(--leading-body-small);
+  letter-spacing: var(--tracking-body-small);
+  color: var(--cor-texto-2);
+}
+.status-pendente {
+  color: var(--cor-alerta);
+  font-size: var(--text-compact-control);
+  line-height: var(--leading-compact-control);
+  letter-spacing: var(--tracking-compact-control);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Ritmo vertical: um título nunca encosta no bloco seguinte (divisória, lista, tabela). */
+h2.titulo + :not(a) { margin-top: var(--spacing-32); }
+.conteudo > h2.kicker + :is(ul, ol, table, form, div, p) { margin-top: var(--spacing-16); }
+/* Duas seções seguidas com o mesmo fundo: um só respiro entre elas, não a soma dos dois. */
+.secao.secao--continua { padding-top: 0; }
+
+.oculto-leitura {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+@media (min-width: 834px) {
+  .secao { padding: var(--section-gap) var(--gutter-d) var(--section-gap) var(--gutter-e); }
+  section.secao[id] { padding-top: max(var(--section-gap), calc(var(--altura-topo, 0px) + var(--spacing-32))); }
+}

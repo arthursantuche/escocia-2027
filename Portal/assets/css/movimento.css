@@ -1,0 +1,19 @@
+/* Os estados iniciais das animações são definidos pelo GSAP (assets/js/movimento.js),
+   só quando não há prefers-reduced-motion. Aqui ficam apenas ajustes de movimento reduzido. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .carrossel__trilho { scroll-snap-type: none; }
+  .parada__ponto, a { transition: none; }
+  .roteiro__midia img, .carrossel__pontos button::before { transition: none; }
+  .trecho__foto, .trecho__foto img, .galeria__capa img, .galeria__miniatura img { transition: none; transform: none !important; scale: none !important; }
+  dialog[open], dialog[open]::backdrop, .voucher__pagina, details[open] > summary ~ *, 
+  .pill:active, .escolha:active { transform: none; }
+  .registrar--entrada { animation: none; }
+  .escolha, .escolha__seta { transition: none; }
+  .entrando, .carregamento::after { animation: none !important; }
+  .cartao-cidade, a.card, .pill { transition: none; transform: none !important; }
+  .galeria img, .trecho__foto img, .cartao-cidade__foto img, .vizinha__foto img, a.parada .parada__ponto { transition: none; transform: none !important; scale: none !important; }
+}
+
+/* Troca de página: só o conteúdo entra por esmaecimento; o painel superior não participa. */
+.entrando { animation: surgir var(--dur-curta) var(--ease-entrada); }
