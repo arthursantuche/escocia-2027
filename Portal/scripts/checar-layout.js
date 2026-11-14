@@ -48,6 +48,8 @@ export function checarLayout() {
     const prox = h.nextElementSibling;
     const alvo = prox && (px(getComputedStyle(prox).borderTopWidth) ? prox : prox.firstElementChild);
     if (!alvo || !visivel(alvo) || !px(getComputedStyle(alvo).borderTopWidth)) return;
+    // Título ao lado do bloco (dia que acompanha a lista, no computador): não há divisória abaixo dele.
+    if (alvo.getBoundingClientRect().left >= h.getBoundingClientRect().right - 1) return;
     const folga = topoLayout(alvo) - (topoLayout(h) + h.offsetHeight);
     const minimo = px(getComputedStyle(h).fontSize) * 0.3;
     if (folga < minimo) problemas.push(`Divisória a ${Math.round(folga)}px do título "${texto(h)}" (mínimo ${Math.round(minimo)}px)`);
@@ -88,7 +90,8 @@ export function checarLayout() {
   const linha = document.getElementById('trilha-progresso');
   if (linha && visivel(linha) && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const fimLinha = linha.getBoundingClientRect().bottom;
-    document.querySelectorAll('[data-parada].ativa').forEach((p) => {
+    // A primeira parada fica sempre marcada, mesmo com o roteiro ainda abaixo da tela.
+    document.querySelectorAll('[data-parada].ativa:not(:first-child)').forEach((p) => {
       const ponto = (p.querySelector('.parada__ponto') || p).getBoundingClientRect();
       const centro = ponto.top + ponto.height / 2;
       if (ponto.top > vh) problemas.push(`Parada "${texto(p)}" marcada abaixo da tela`);
@@ -96,7 +99,13 @@ export function checarLayout() {
     });
   }
 
-  // 6. Cabeçalho flutuante (com raio) não pode encostar na borda superior.
+  // 6. Cabeçalho flutuante (com raio) não pode encostar na borda superior. A cápsula do menu é o
+  //    pseudo-elemento .topo::before: mede-se pelo estilo calculado dele.
+  const barra = document.querySelector('.topo--flutuante');
+  if (barra) {
+    const folga = px(getComputedStyle(barra, '::before').top);
+    if (folga < 4) problemas.push(`Cápsula do menu encostada no topo (${Math.round(folga)}px)`);
+  }
   document.querySelectorAll('header *').forEach((e) => {
     const cs = getComputedStyle(e);
     if (e.parentElement.tagName !== 'HEADER' || px(cs.borderTopLeftRadius) < 8 || !visivel(e)) return;
@@ -113,6 +122,9 @@ export function checarLayout() {
   if (matchMedia('(pointer: coarse)').matches) {
     document.querySelectorAll('button, .pill, select, input[type=checkbox]').forEach((b) => {
       const r = b.getBoundingClientRect();
+      // A caixa de seleção e o rótulo formam um alvo só (o rótulo estende a área de toque sobre ela).
+      const rotulo = b.type === 'checkbox' && b.labels && b.labels[0] ? b.labels[0].getBoundingClientRect() : null;
+      if (rotulo && rotulo.height >= 44) return;
       if (visivel(b) && r.height && r.height < 44 && r.width < 44) avisos.push(`Área de toque de ${Math.round(r.width)}×${Math.round(r.height)}px em ${nome(b)} "${texto(b)}"`);
     });
   }

@@ -4,7 +4,7 @@
 /* Barra superior única: no alto da página, faixa integrada ao topo da tela; ao rolar, o fundo se
    solta e vira uma cápsula suspensa. Só o fundo (.topo::before) se transforma: textos e botões não
    saem do lugar e a altura do painel não muda, então nada salta. Quem liga é .topo--flutuante,
-   em acompanharBarra (app.js). Entra com leve excesso, como a gota dos carrosséis; volta sem ele. */
+   em acompanharCapsula (app.js). Entra com leve excesso, como a gota dos carrosséis; volta sem ele. */
 .topo {
   position: sticky; top: 0; z-index: 10; pointer-events: none;
   padding-top: calc(env(safe-area-inset-top) + var(--spacing-4));

@@ -40,7 +40,7 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 }
 .foto figcaption { margin-top: var(--spacing-12); }
 /* Celular deitado: em 3:2 (e até em 2:1) a foto passaria da área visível; fica em 3:1,
-   como a abertura. */
+   para caber na tela. */
 @media (orientation: landscape) and (max-height: 500px) {
   .foto__moldura { aspect-ratio: 3 / 1; }
 }
@@ -125,6 +125,8 @@ a.card:hover, a.parada:hover { text-decoration: none; }
   border-radius: var(--radius-cards); background: var(--cor-faixa);
 }
 .vizinha:hover { text-decoration: none; }
+.vizinha { -webkit-tap-highlight-color: transparent; transition: transform var(--dur-curta) var(--ease-apple); }
+.vizinha:active { transform: scale(0.985); }
 .vizinha__foto { overflow: hidden; aspect-ratio: 3 / 2; }
 .vizinha__foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (hover: hover) {
@@ -136,9 +138,16 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 .atracao { grid-template-columns: 1fr auto; align-items: start; gap: var(--spacing-12) !important; }
 .atracao__nome { font-weight: var(--font-weight-semibold); }
 .atracao > div { display: grid; gap: var(--spacing-4); min-width: 0; }
+/* Texto longo (trem e carro, em Viagem): no celular, o seletor de status vai para baixo do texto, em vez
+   de espremê-lo numa coluna de meia tela. */
+@media (max-width: 599px) {
+  .atracao--empilha { grid-template-columns: minmax(0, 1fr); }
+}
 
-.tarefa { grid-template-columns: var(--spacing-28) 1fr; align-items: start; }
-.tarefa input { width: var(--spacing-24); height: var(--spacing-24); margin: 0; accent-color: var(--cor-link); }
+.tarefa { position: relative; grid-template-columns: var(--spacing-28) 1fr; align-items: start; }
+/* A caixa tem 24 px: o rótulo estende a área de toque a 44 px de largura e à altura da linha, por trás dela. */
+.tarefa label::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(var(--spacing-8) * -1); width: calc(var(--spacing-40) + var(--spacing-4)); }
+.tarefa input { position: relative; z-index: 1; width: var(--spacing-24); height: var(--spacing-24); margin: 0; accent-color: var(--cor-link); }
 .tarefa label { display: grid; gap: var(--spacing-4); cursor: pointer; }
 .tarefa--feita label > span:first-child { color: var(--cor-texto-2); text-decoration: line-through; }
 
@@ -197,8 +206,18 @@ input[type="date"].campo::-webkit-calendar-picker-indicator { opacity: 0.6; }
 .seletor--compacto .campo { min-height: calc(var(--spacing-40) + var(--spacing-4)); padding: var(--spacing-8) var(--spacing-40) var(--spacing-8) var(--spacing-16); width: auto; }
 .seletor--compacto::after { right: var(--spacing-16); }
 
-.linha-campos { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--spacing-12); align-items: end; }
+/* A segunda coluna nunca fica menor que o próprio conteúdo: no iPhone, com um terço da largura, o nome
+   do responsável era cortado ("Pesso") e o rótulo "Moeda · obrigatório" quebrava em duas linhas. */
+.linha-campos { display: grid; grid-template-columns: minmax(0, 2fr) minmax(max-content, 1fr); gap: var(--spacing-12); align-items: end; }
 .erro { margin-top: var(--spacing-4); }
+/* Rótulo, campo e mensagem em linhas comuns aos dois campos: a mensagem de erro de um campo não tira o
+   vizinho do alinhamento. Sem suporte a subgrid, vale o alinhamento pela base, acima. */
+@supports (grid-template-rows: subgrid) {
+  .linha-campos { grid-template-rows: auto auto auto; row-gap: 0; }
+  .linha-campos > .rotulo { grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
+  .linha-campos > .rotulo > :first-child { align-self: end; margin-bottom: var(--spacing-8); }
+  .linha-campos > .rotulo > :nth-child(n + 3) { margin-top: var(--spacing-8); }
+}
 .formulario .pill { justify-self: start; padding: 0 var(--spacing-20); }
 
 /* Aviso flutuante e diálogo de acesso */
@@ -207,6 +226,7 @@ input[type="date"].campo::-webkit-calendar-picker-indicator { opacity: 0.6; }
   margin: 0; padding: var(--spacing-12) var(--spacing-20); border-radius: var(--radius-pills);
   background: var(--cor-texto); color: var(--cor-fundo); font-size: var(--text-body-small); z-index: 20;
   max-width: calc(100% - var(--spacing-40));
+  animation: surgir var(--dur-curta) var(--ease-entrada);
 }
 .acesso { border: 0; border-radius: var(--radius-cards); padding: var(--card-padding); width: min(92vw, 380px); color: var(--cor-texto); background: var(--cor-cartao); }
 .acesso::backdrop { background: var(--cor-faixa); }
@@ -243,14 +263,17 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 /* ---- Hospedagens: galeria, reserva e detalhes */
 .guardar-vouchers { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--spacing-12); margin: calc(var(--spacing-24) * -1) 0 var(--spacing-32); }
 .galeria { display: grid; gap: var(--spacing-4); min-width: 0; }
-.galeria__capa, .galeria__miniatura { display: block; position: relative; width: 100%; padding: 0; border: 0; overflow: hidden; background: var(--cor-faixa); cursor: zoom-in; }
+.galeria__capa, .galeria__miniatura { display: block; position: relative; width: 100%; padding: 0; border: 0; overflow: hidden; background: var(--cor-faixa); }
+/* Só reage quem abre algo: a capa de reserva (foto da cidade, sem ação) não ganha cursor, zoom nem resposta ao toque. */
+button.galeria__capa, .galeria__miniatura { cursor: zoom-in; -webkit-tap-highlight-color: transparent; transition: opacity var(--dur-curta) var(--ease-apple); }
+button.galeria__capa:active, .galeria__miniatura:active { opacity: 0.85; }
 .galeria__capa { aspect-ratio: 3 / 2; }
 .galeria__capa img, .galeria__miniatura img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .galeria__miniaturas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spacing-4); }
 .galeria__miniatura { aspect-ratio: 1; }
 .galeria__mais { position: absolute; inset: 0; display: grid; place-items: center; background: var(--cor-veu); color: var(--cor-sobre-veu); font-size: var(--text-body); font-weight: var(--font-weight-semibold); }
 @media (hover: hover) {
-  .galeria__capa:hover img, .galeria__miniatura:hover img { scale: 1.04; }
+  button.galeria__capa:hover img, .galeria__miniatura:hover img { scale: 1.04; }
 }
 .estadia__endereco { display: block; margin-top: var(--spacing-4); font-size: var(--text-body-small); line-height: var(--leading-body-small); }
 .estadia__valor { display: grid; gap: var(--spacing-4); }
@@ -328,9 +351,6 @@ dialog.voucher[open], dialog.ampliada[open] { display: flex; flex-direction: col
 }
 
 dialog.voucher::backdrop, dialog.ampliada::backdrop { background: var(--cor-fundo); }
-.rotulo__opcional { color: var(--cor-texto-2); opacity: 0.75; }
-.linha-campos--iguais { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-@media (max-width: 379px) { .linha-campos--iguais { grid-template-columns: 1fr; } }
 
 @media (max-width: 479px) {
   .voucher__topo { flex-wrap: wrap; }
@@ -361,13 +381,27 @@ dialog.voucher::backdrop, dialog.ampliada::backdrop { background: var(--cor-fund
 .grupo { display: grid; gap: var(--spacing-20); min-width: 0; margin: 0; padding: var(--spacing-24) 0 0; border: 0; border-top: 1px solid var(--cor-divisoria); }
 .grupo__titulo { float: left; width: 100%; padding: 0; margin-bottom: var(--spacing-4); font-size: var(--text-body); font-weight: var(--font-weight-semibold); }
 .grupo__titulo + * { clear: both; }
-.rotulo__opcional { color: var(--cor-texto-2); opacity: 0.75; }
+/* "opcional" no mesmo tom do rótulo: com 75% de opacidade o contraste caía para 3:1. O azul de "obrigatório" já faz a distinção. */
+.rotulo__opcional { color: var(--cor-texto-2); }
 .rotulo__obrigatorio { color: var(--cor-link); }
 .linha-campos--iguais { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-@media (max-width: 379px) { .linha-campos--iguais { grid-template-columns: 1fr; } }
+@media (max-width: 379px) {
+  .linha-campos--iguais { grid-template-columns: 1fr; }
+  .linha-campos--iguais > .rotulo + .rotulo { margin-top: var(--spacing-12); }
+}
 .registrar__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-12); }
 .formulario--registrar .registrar__acoes .pill { justify-self: auto; }
 .registrar__acoes a.pill { padding: 0 var(--spacing-20); }
+/* Ação secundária em forma de link (Remover). Sem estas regras o botão aparecia com a moldura cinza
+   padrão do navegador e 21 px de altura; agora tem a área de toque de uma pílula. */
+.link-botao {
+  -webkit-appearance: none; appearance: none; border: 0; background: none; cursor: pointer;
+  display: inline-flex; align-items: center; min-height: calc(var(--spacing-40) + var(--spacing-4)); padding: 0 var(--spacing-8);
+  border-radius: var(--radius-links); color: var(--cor-link); -webkit-tap-highlight-color: transparent;
+  font: inherit; font-size: var(--text-body-small); line-height: var(--leading-body-small); letter-spacing: var(--tracking-body-small);
+}
+.link-botao:active { transform: scale(0.97); }
+@media (hover: hover) { .link-botao:hover { text-decoration: underline; } }
 .registrar__acoes .link-botao { margin-left: auto; }
 .link-botao--alerta { color: var(--cor-alerta); }
 .espaco-abaixo { margin: 0 0 var(--spacing-16); }
@@ -377,6 +411,8 @@ dialog.voucher::backdrop, dialog.ampliada::backdrop { background: var(--cor-fund
 .vazio { padding: var(--spacing-32) var(--spacing-24); border-radius: var(--radius-cards); background: var(--cor-faixa); color: var(--cor-texto-2); text-align: center; }
 .secao--mist .vazio { background: var(--cor-cartao); }
 .estado { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-8); }
+/* Sem texto de estado (antes da primeira leitura), o botão não fica recuado pelo espaço vazio. */
+#estado-texto:empty { display: none; }
 /* No rodapé, o fundo é a faixa: ao passar o cursor, o botão usa a cor de cartão, como em .secao--mist. */
 @media (hover: hover) { .rodape .pill:not(.pill--azul):not(:disabled):hover { background: var(--cor-cartao); } }
 

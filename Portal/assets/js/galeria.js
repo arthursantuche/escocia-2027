@@ -8,7 +8,8 @@ const urlFoto = (f, tamanho) => {
 };
 export const atributosFoto = (f, sizes) => ({
   src: urlFoto(f, 'max1024x768'), sizes,
-  srcset: `${urlFoto(f, 'max500')} 500w, ${urlFoto(f, 'max1024x768')} 1024w, ${urlFoto(f, 'max1280x900')} 1280w`,
+  // 1920 px só é pedido onde a foto ocupa a tela larga em alta densidade (iPad em pé, tela cheia no computador).
+  srcset: `${urlFoto(f, 'max500')} 500w, ${urlFoto(f, 'max1024x768')} 1024w, ${urlFoto(f, 'max1280x900')} 1280w, ${urlFoto(f, 'max1920x1080')} 1920w`,
 });
 
 export function lerFotos(texto) {

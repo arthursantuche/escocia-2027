@@ -1,6 +1,6 @@
 // Páginas além do painel: Cidade, Programação, Hospedagens, Orçamento, Checklist e Viagem (Registrar fica em registrar.js).
 // Cada função recebe o contexto { abas, v (Viagem), salvar } e devolve um elemento.
-import { el, pessoasDa as PESSOAS, formatoConfirmacao, brl, brl2, gbp, dataCurta, dataLonga, diaSemana, data, diasAte, slug, hojeISO, valorBRL, foto, creditoFoto, valoresOrcamento, totaisOrcamento, luzDaParada, textoLuz } from './util.js';
+import { el, pessoasDa as PESSOAS, formatoConfirmacao, brl, brl2, gbp, dataCurta, dataLonga, diaSemana, data, diasAte, slug, hojeISO, valorBRL, foto, creditoFoto, valoresOrcamento, totaisOrcamento, luzDaParada, textoLuz, linkSeguro, prazoEmDias, noitesTexto, resumo } from './util.js';
 import { graficoOrcamento, graficoGastoDiario } from './graficos.js';
 import { pessoa } from './dados.js';
 import { abrirVoucher, guardarVouchers } from './voucher.js';
@@ -61,7 +61,7 @@ export function paginaCidade(ctx, nome) {
       a['Observações'] && el('p', { class: 'legenda' }, a['Observações']),
       detalhesRegistro(a, 'atracao'),
       el('p', { class: 'registro__links' },
-        a['Endereço'] ? null : el('a', { href: a['Link Maps'] || maps(a.Nome + ' ' + c), target: '_blank', rel: 'noopener' }, 'Abrir no Google Maps'),
+        a['Endereço'] ? null : el('a', { href: linkSeguro(a['Link Maps']) || maps(a.Nome + ' ' + c), target: '_blank', rel: 'noopener' }, 'Abrir no Google Maps'),
         el('a', { href: `#registrar/atracao/${encodeURIComponent(a.ID)}` }, 'Editar'))),
     seletorStatus(ctx, 'Atracoes', a));
 
@@ -83,7 +83,7 @@ export function paginaCidade(ctx, nome) {
             el('p', {}, `${dataLonga.format(data(r.Data))} · ${r.Deslocamento}${r.Tempo ? ' · ' + r.Tempo : ''}${r['Distância'] ? ' · ' + r['Distância'] : ''}`),
             el('p', { class: 'legenda' }, `Dorme em ${r['Dormida em']}. ${r['Observações'] || ''}`),
             textoLuz(luzDaParada(r, abas.Cidades)) && el('p', { class: 'legenda' }, textoLuz(luzDaParada(r, abas.Cidades))),
-            r['Link Maps'] && el('a', { href: r['Link Maps'], target: '_blank', rel: 'noopener' }, 'Abrir no Google Maps'))), '')),
+            linkSeguro(r['Link Maps']) && el('a', { href: r['Link Maps'], target: '_blank', rel: 'noopener' }, 'Abrir no Google Maps'))), '')),
         el('article', { class: 'card card--auto', 'data-subir': true }, el('h2', { class: 'kicker' }, 'Hospedagem'),
           lista(hosp.map((h) => itemHospedagem(ctx, h)),
           `Sem hospedagem: visita no dia, dormindo em ${visitas[0] ? visitas[0]['Dormida em'] : 'outra cidade'}.`)))),
@@ -118,7 +118,7 @@ export function paginaCidade(ctx, nome) {
 
 // Reservado: aqui basta o resumo; a reserva completa fica em Hospedagens.
 function itemHospedagem(ctx, h) {
-  const periodo = `${dataCurta.format(data(h.Entrada))} a ${dataCurta.format(data(h['Saída']))} · ${h.Noites} ${Number(h.Noites) === 1 ? 'noite' : 'noites'}`;
+  const periodo = `${dataCurta.format(data(h.Entrada))} a ${dataCurta.format(data(h['Saída']))} · ${noitesTexto(h.Noites)}`;
   const reservado = h.Status === 'reservado' || h.Status === 'pago';
   return el('li', {},
     el('p', { class: 'atracao__nome' }, h.Nome),
@@ -223,7 +223,7 @@ function fato(rotulo, texto) {
 }
 
 function estadia(ctx, h) {
-  const noites = `${h.Noites} ${Number(h.Noites) === 1 ? 'noite' : 'noites'}`;
+  const noites = noitesTexto(h.Noites);
   const cidade = ctx.abas.Cidades.find((c) => c.Cidade === h.Cidade);
   const fotos = lerFotos(h.Fotos);
   const libra = Number(h['Valor (£)']);
@@ -261,7 +261,7 @@ function estadia(ctx, h) {
         fato('Telefone', h.Telefone || null),
         fato('Hóspedes', h['Hóspedes'] || null)),
       el('div', { class: 'estadia__rodape' },
-        h.Link ? el('a', { href: h.Link, target: '_blank', rel: 'noopener' }, 'Página do hotel no Booking') : null,
+        linkSeguro(h.Link) ? el('a', { href: h.Link, target: '_blank', rel: 'noopener' }, 'Página do hotel no Booking') : null,
         seletorStatus(ctx, 'Hospedagens', h))));
 }
 
@@ -273,7 +273,7 @@ export function paginaHospedagens(ctx) {
   const noites = hoteis.reduce((s, h) => s + (Number(h.Noites) || 0), 0);
   const reservados = hoteis.filter((h) => h.Status === 'reservado' || h.Status === 'pago').length;
   return el('section', { class: 'secao' }, el('div', { class: 'conteudo' },
-    cabecalho('Hospedagens', `${noites} noites.`, 'Reservas confirmadas. Na recepção, toque em "Ver reserva" para mostrar o voucher. Os valores em reais são estimativas: cada hotel cobra em libras, pelo câmbio do dia.'),
+    cabecalho('Hospedagens', `${noitesTexto(noites)}.`, 'Reservas confirmadas. Na recepção, toque em "Ver reserva" para mostrar o voucher. Os valores em reais são estimativas: cada hotel cobra em libras, pelo câmbio do dia.'),
     el('dl', { class: 'resumo-estadias' },
       el('div', {}, el('dt', { class: 'legenda' }, 'Total'), el('dd', { class: 'card__numero' }, totalLibras ? gbp.format(totalLibras) : brl.format(total)), totalLibras ? el('dd', { class: 'legenda' }, `~${brl.format(total)}`) : null),
       el('div', {}, el('dt', { class: 'legenda' }, 'Hotéis'), el('dd', { class: 'card__numero' }, String(new Set(hoteis.map((h) => h.Nome)).size))),
@@ -290,7 +290,7 @@ export function paginaOrcamento(ctx) {
   const orc = abas.Orcamento.map(valoresOrcamento);
   const total = totaisOrcamento(orc);
   const gastos = [...abas.Gastos].sort((a, b) => String(b.Data).localeCompare(String(a.Data)));
-  const canvas = el('canvas', { role: 'img', 'aria-label': 'Orçamento por categoria: previsto, pago e a pagar' });
+  const canvas = el('canvas', { role: 'img', 'aria-label': 'Orçamento por categoria: planejado, pago e a pagar' });
   const diario = el('canvas', { role: 'img', 'aria-label': 'Gasto diário em reais' });
   graficoOrcamento(canvas, orc.filter((o) => o.previsto || o.pago || o.aPagar));
   const porDia = {};
@@ -308,7 +308,7 @@ export function paginaOrcamento(ctx) {
     el('section', { class: 'secao' }, el('div', { class: 'conteudo' },
       el('a', { class: 'voltar', href: '#painel' }, '← Painel'),
       cabecalho('Orçamento', brl.format(total.previsto) + ' planejados.',
-        `Referência atual ${brl.format(total.atual)} · Pago ${brl.format(total.pago)} · A pagar ${brl.format(total.aPagar)} · Saldo sobre o planejado ${brl.format(total.saldo)} · Cotação ${brl2.format(cot)} por £1`),
+        resumo(`Referência atual ${brl.format(total.atual)}`, `Pago ${brl.format(total.pago)}`, `A pagar ${brl.format(total.aPagar)}`, `Saldo sobre o planejado ${brl.format(total.saldo)}`, `Cotação ${brl2.format(cot)} por £1`)),
       custoPrincipal && REFERENCIA_CUSTOS ? el('p', { class: 'copy introducao orcamento__referencia' }, `Hotéis, carro e trem: ${brl.format(custoPrincipal)}, para uma referência desejada de ${brl.format(REFERENCIA_CUSTOS)}.`) : null,
       el('div', { class: 'card__grafico card__grafico--alto' }, canvas),
       el('p', { class: 'legenda legenda-grafico' },
@@ -364,7 +364,7 @@ export function paginaChecklist(ctx) {
       el('label', { for: 'chk-' + c.ID },
         el('span', {}, c.Item),
         // Pendente: só o prazo fica em laranja (como no painel); categoria e responsável, em cinza.
-        !feito && c.Prazo && el('span', { class: 'status-pendente' }, `⚠️ Prazo ${dataLonga.format(data(c.Prazo))} · ${d >= 0 ? `faltam ${d} dias` : `atrasado ${-d} dias`}`),
+        !feito && c.Prazo && el('span', { class: 'status-pendente' }, `⚠️ Prazo ${dataLonga.format(data(c.Prazo))} · ${prazoEmDias(d)}`),
         el('span', { class: 'legenda' },
           [feito && c.Prazo && `Prazo ${dataLonga.format(data(c.Prazo))}`, c.Categoria, c['Responsável']].filter(Boolean).join(' · '))));
   };
@@ -401,7 +401,7 @@ export function paginaViagem(ctx) {
   return el('div', {},
     el('section', { class: 'secao' }, el('div', { class: 'conteudo' },
       // Mesmo período da abertura do painel: do embarque à saída da Escócia.
-      cabecalho('Viagem', `${dataCurta.format(data(v.inicio))} a ${dataLonga.format(data(v.saida_escocia || v.fim))}.`, `${v.viajantes} · ${v.noites} noites · fuso ${v.fuso}`),
+      cabecalho('Viagem', `${dataCurta.format(data(v.inicio))} a ${dataLonga.format(data(v.saida_escocia || v.fim))}.`, `${v.viajantes} · ${noitesTexto(v.noites)} · fuso ${v.fuso}`),
       el('nav', { class: 'atalhos', 'aria-label': 'Ver também' }, el('a', { class: 'pill', href: '#orcamento' }, 'Orçamento')),
       essenciais.length ? el('h2', { class: 'kicker' }, 'Essenciais') : null,
       essenciais.length ? el('div', { class: 'grade-2 grade-2--par' }, essenciais.map(([chave, titulo]) => el('article', { class: 'card card--auto card--contorno essencial', 'data-subir': true },
@@ -414,7 +414,7 @@ export function paginaViagem(ctx) {
         el('p', { class: 'legenda' }, `Sai ${dataLonga.format(data(p.Data))} · chega ${p['Chegada (data)'] ? dataLonga.format(data(p['Chegada (data)'])) : ''}`),
         el('p', { class: p.Status === 'pago' ? 'legenda' : 'status-pendente' }, p.Status)))),
       el('h2', { class: 'kicker espaco-topo' }, 'Trem e carro'),
-      lista(transportes.filter((t) => !DEVOLUCAO.test(t.Trecho)).map((t) => el('li', { class: 'atracao' },
+      lista(transportes.filter((t) => !DEVOLUCAO.test(t.Trecho)).map((t) => el('li', { class: 'atracao atracao--empilha' },
         el('div', {},
           el('p', { class: 'atracao__nome' }, t.Tipo === 'Outro' ? t.Trecho : `${t.Tipo}: ${t.Trecho}`),
           el('p', { class: 'legenda' }, `${dataLonga.format(data(t.Data))} · ${t['Valor (R$)'] ? brl.format(t['Valor (R$)']) : 'valor a confirmar'}${t['Status da informação'] ? ` · ${t['Status da informação']}` : ''}`),
@@ -504,7 +504,7 @@ function formPendencia(ctx) {
     ctx.salvar({ acao: 'adicionar', aba: 'Checklist', dados }, 'Pendência criada.').then(() => f.reset());
   },
     campo('Item', el('input', { class: 'campo', name: 'Item', maxlength: 200, required: true })),
-    el('div', { class: 'linha-campos' },
+    el('div', { class: 'linha-campos linha-campos--iguais' },
       campo('Prazo', el('input', { class: 'campo', type: 'date', name: 'Prazo', required: true })),
       campo('Responsável', el('select', { class: 'campo', name: 'Responsável' }, opcoes(quem, pessoa.obter())))),
     campo('Categoria', el('input', { class: 'campo', name: 'Categoria', maxlength: 40, value: 'Geral' })),

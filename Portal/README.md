@@ -20,7 +20,7 @@ Esta pasta, `Portal/`, é o site. Na raiz do repositório ficam só `.github/` (
 # dentro de Portal/
 python3 -m http.server 4173
 ```
-Abra http://localhost:4173/?amostra para usar os dados de exemplo, sem código de acesso e sem gravar na planilha. Testes, no console da página:
+Abra http://localhost:4173/?amostra para usar os dados de exemplo, sem código de acesso e sem gravar na planilha. Para testar mudanças sem o cache do navegador, use a configuração `portal-sem-cache` de `.claude/launch.json` (porta 4174), que responde com `Cache-Control: no-store`. Testes, no console da página:
 ```js
 const { testarTelas } = await import('/scripts/testar-telas.js'); await testarTelas();
 const { testarTrilha } = await import('/scripts/testar-trilha.js'); await testarTrilha();

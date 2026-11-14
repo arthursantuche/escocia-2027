@@ -91,7 +91,7 @@ export function graficoGastoDiario(canvas, porDia) {
       type: 'bar',
       data: {
         labels: dias.map((d) => d.slice(8, 10) + '/' + d.slice(5, 7)),
-        datasets: [{ label: 'Gasto do dia', data: dias.map((d) => porDia[d]), backgroundColor: token('--cor-link') }],
+        datasets: [{ label: 'Gasto do dia', data: dias.map((d) => porDia[d]), backgroundColor: token('--cor-link'), maxBarThickness: 48 }],
       },
       options: {
         maintainAspectRatio: false,

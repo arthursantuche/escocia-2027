@@ -6,6 +6,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "4173", "--directory", "Portal", "--bind", "127.0.0.1"],
       "port": 4173
+    },
+    {
+      "name": "portal-sem-cache",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-c", "import http.server, functools\nclass SemCache(http.server.SimpleHTTPRequestHandler):\n    protocol_version = 'HTTP/1.1'\n    def end_headers(self):\n        self.send_header('Cache-Control', 'no-store')\n        super().end_headers()\nhttp.server.ThreadingHTTPServer(('127.0.0.1', 4174), functools.partial(SemCache, directory='Portal')).serve_forever()"],
+      "port": 4174
     }
   ]
 }

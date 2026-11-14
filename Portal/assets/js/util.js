@@ -19,6 +19,17 @@ export const diasAte = (iso) => Math.round((data(iso) - data(hojeISO())) / DIA);
 export const slug = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 export const chaveValor = (linhas) => Object.fromEntries(linhas.map((l) => [l.Chave, l.Valor]));
 export const confirmado = (s) => s === 'reservado' || s === 'pago';
+// Só endereços http(s) viram link: um valor da planilha nunca vira "javascript:" num href.
+export const linkSeguro = (u) => (/^https?:\/\//i.test(String(u || '')) ? u : null);
+// "faltam 17 dias", "falta 1 dia", "vence hoje", "atrasado 2 dias"
+export const prazoEmDias = (d) => (d > 1 ? `faltam ${d} dias` : d === 1 ? 'falta 1 dia' : d === 0 ? 'vence hoje' : d === -1 ? 'atrasado 1 dia' : `atrasado ${-d} dias`);
+export const noitesTexto = (n) => `${n} ${Number(n) === 1 ? 'noite' : 'noites'}`;
+// Itens de um resumo ("A pagar R$ 15.347") separados por " · ": um item curto nunca se parte, e num
+// item longo o valor não se separa da última palavra ("planejado R$ 12.203").
+export const resumo = (...itens) => itens.filter(Boolean).map((t) => {
+  const texto = String(t);
+  return texto.length <= 26 ? texto.replace(/ /g, '\u00A0') : texto.replace(/ (?=[^ ]*$)/, '\u00A0');
+}).join(' · ');
 
 export function valorBRL(gasto, cotacao) {
   if (gasto['Valor em R$'] !== '' && gasto['Valor em R$'] != null) return Number(gasto['Valor em R$']) || 0;

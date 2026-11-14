@@ -65,7 +65,8 @@ export function iniciarMovimento() {
   acompanharControles();
 }
 
-// Liga a apresentação da orientação atual, com ou sem movimento reduzido.
+// Liga a apresentação da orientação atual. Só é chamada sem movimento reduzido: com ele, o roteiro
+// é a lista completa, nas duas orientações.
 function ligarApresentacao() {
   const secao = document.getElementById('roteiro');
   if (!secao) return;

@@ -7,8 +7,11 @@
   .roteiro__midia img, .carrossel__pontos button::before { transition: none; }
   .trecho__foto, .trecho__foto img, .galeria__capa img, .galeria__miniatura img { transition: none; transform: none !important; scale: none !important; }
   dialog[open], dialog[open]::backdrop, .voucher__pagina, details[open] > summary ~ *, 
-  .pill:active, .escolha:active { transform: none; }
-  .registrar--entrada { animation: none; }
+  .pill:active, .escolha:active, .link-botao:active, .vizinha:active { transform: none; }
+  /* O indicador do voucher e a seta de "Pagamento, cancelamento e contato" também param. */
+  .carregando__ponto { animation: none; }
+  .estadia__mais summary::after, .vizinha, button.galeria__capa, .galeria__miniatura { transition: none; }
+  .registrar--entrada, .aviso { animation: none; }
   .escolha, .escolha__seta { transition: none; }
   .entrando, .carregamento::after { animation: none !important; }
   .cartao-cidade, a.card, .pill { transition: none; transform: none !important; }

@@ -57,6 +57,8 @@ section[id] { scroll-margin-top: 0; padding-top: max(var(--spacing-64), calc(var
   line-height: 1.08;
   letter-spacing: var(--tracking-feature-heading);
   font-weight: var(--font-weight-semibold);
+  /* Linhas de comprimento parecido: nenhuma palavra fica sozinha na última linha. */
+  text-wrap: balance;
 }
 .copy {
   font-size: var(--text-feature-copy);
@@ -92,4 +94,11 @@ h2.titulo + :not(a) { margin-top: var(--spacing-32); }
 @media (min-width: 834px) {
   .secao { padding: var(--section-gap) var(--gutter-d) var(--section-gap) var(--gutter-e); }
   section.secao[id] { padding-top: max(var(--section-gap), calc(var(--altura-topo, 0px) + var(--spacing-32))); }
+}
+/* Celular deitado com 834 px ou mais de largura (iPhone de 844 a 932 px): continua sendo um celular.
+   O respiro das seções é o dele (64 px), como já acontece no iPhone de 667 px, e não o do computador:
+   com menos de 500 px de altura, os 90 px tomavam um quarto da tela antes do título. */
+@media (min-width: 834px) and (orientation: landscape) and (max-height: 500px) {
+  .secao { padding-top: var(--spacing-64); padding-bottom: var(--spacing-64); }
+  section.secao[id] { padding-top: max(var(--spacing-64), calc(var(--altura-topo, 0px) + var(--spacing-32))); }
 }

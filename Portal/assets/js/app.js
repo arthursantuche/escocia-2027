@@ -5,7 +5,7 @@ import { graficoOrcamento, graficoNoites } from './graficos.js';
 import { iniciarMovimento, atualizarMovimento, HORIZONTAL } from './movimento.js';
 import { VERSAO_SITE } from './config.js';
 import { carregar, dadosDoAparelho, salvar, sincronizar, codigo, usaPlanilha, pendentesNaFila, CodigoInvalido, ErroServidor } from './dados.js';
-import { $, el, brl, brl2, dataCurta, dataLonga, data, diasAte, slug, chaveValor, foto, creditoFoto, valoresOrcamento, totaisOrcamento, luzDaParada, textoLuz } from './util.js';
+import { $, el, brl, brl2, dataCurta, dataLonga, data, diasAte, slug, chaveValor, foto, valoresOrcamento, totaisOrcamento, luzDaParada, textoLuz, prazoEmDias, noitesTexto, resumo } from './util.js';
 import { iniciarCarrossel } from './carrossel.js';
 import { paginaCidade, paginaProgramacao, paginaHospedagens, paginaOrcamento, paginaChecklist, paginaViagem } from './views.js';
 import { paginaRegistrar } from './registrar.js';
@@ -54,7 +54,7 @@ ctx.pedirCodigo = () => pedirCodigo('Código de acesso inválido.');
 
 function renderPainel() {
   const { abas, v } = ctx;
-  $('periodo').textContent = `${dataCurta.format(data(v.inicio))} a ${dataLonga.format(data(v.saida_escocia))}`;
+  $('periodo').textContent = `${dataCurta.format(data(v.inicio))} a ${dataLonga.format(data(v.saida_escocia || v.fim))}`;
   $('viajantes').textContent = v.viajantes;
   const dias = diasAte(v.inicio);
   $('dias').textContent = Math.max(dias, 0);
@@ -66,13 +66,13 @@ function renderPainel() {
   if (proximo) {
     const d = diasAte(proximo.Prazo);
     $('proximo-titulo').textContent = proximo.Item;
-    $('proximo-detalhe').textContent = `Prazo ${dataLonga.format(data(proximo.Prazo))} · ${d >= 0 ? `faltam ${d} dias` : `atrasado ${-d} dias`} · ${proximo['Responsável']}`;
+    $('proximo-detalhe').textContent = [`Prazo ${dataLonga.format(data(proximo.Prazo))}`, prazoEmDias(d), proximo['Responsável']].filter(Boolean).join(' · ');
   }
 
   const orc = abas.Orcamento.map(valoresOrcamento);
   const total = totaisOrcamento(orc);
   $('orc-previsto').textContent = brl.format(total.previsto);
-  $('orc-detalhe').textContent = `Referência atual ${brl.format(total.atual)} · Pago ${brl.format(total.pago)} · A pagar ${brl.format(total.aPagar)}`;
+  $('orc-detalhe').textContent = resumo(`Referência atual ${brl.format(total.atual)}`, `Pago ${brl.format(total.pago)}`, `A pagar ${brl.format(total.aPagar)}`);
   graficoOrcamento($('grafico-orcamento'), orc.filter((o) => o.previsto || o.pago || o.aPagar));
 
   const chk = abas.Checklist;
@@ -97,7 +97,7 @@ function renderPainel() {
     noites[h.Cidade] = (noites[h.Cidade] || 0) + Number(h.Noites || 0);
   });
   const totalNoites = Object.values(noites).reduce((a, b) => a + b, 0);
-  $('noites-total').textContent = `${totalNoites} noites`;
+  $('noites-total').textContent = noitesTexto(totalNoites);
   // Números-chave da abertura, ao lado da contagem regressiva.
   $('noites-hero').textContent = totalNoites;
   $('noites-legenda').textContent = totalNoites === 1 ? 'noite na Escócia' : 'noites na Escócia';
@@ -151,7 +151,7 @@ function renderPainel() {
       el('div', { class: 'cartao-cidade__foto' }, el('img', { ...foto(slug(c.Cidade), '(min-width: 834px) 440px, 84vw', c.Imagem), alt: '', loading: 'lazy', onerror: (e) => e.target.remove() })),
       el('div', { class: 'cartao-cidade__texto' },
         el('h3', { class: 'kicker' }, c.Cidade),
-        el('p', { class: 'legenda' }, `${datas.join(' e ')} · ${n ? `${n} ${n === 1 ? 'noite' : 'noites'}` : 'visita no dia'}`),
+        el('p', { class: 'legenda' }, `${datas.join(' e ')} · ${n ? noitesTexto(n) : 'visita no dia'}`),
         el('p', { class: 'copy' }, c.Resumo)));
   }));
   $('cidades-pontos').replaceChildren(...abas.Cidades.map((c) => el('button', { type: 'button', 'aria-label': c.Cidade, 'aria-controls': 'cidades-lista' })));
@@ -180,7 +180,7 @@ function marcarSecao(rota) {
   const id = ITEM_DO_PAINEL[rota] || rota;
   lista.querySelectorAll('a').forEach((a) => {
     const atual = a.getAttribute('href') === '#' + id;
-    a.toggleAttribute('aria-current', atual);
+    if (atual) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     if (atual && lista.scrollWidth > lista.clientWidth) {
       lista.scrollTo({ left: a.offsetLeft - (lista.clientWidth - a.offsetWidth) / 2, behavior: reduzido() ? 'auto' : 'smooth' });
     }
@@ -307,6 +307,9 @@ let ultimaLeitura = 0;
 
 // Aplica os dados; só redesenha se algo mudou, para a página não piscar a cada leitura.
 function aplicarDados(dados) {
+  // Os dados chegaram: saem os blocos de carregamento da primeira abertura.
+  document.body.classList.remove('carregando');
+  $('painel').removeAttribute('aria-busy');
   const nova = JSON.stringify(dados.abas);
   const mudou = nova !== assinatura;
   assinatura = nova;
@@ -379,11 +382,27 @@ function medirTopo() {
   document.documentElement.style.setProperty('--altura-topo', document.querySelector('.topo').offsetHeight + 'px');
 }
 
+// Página interna aberta direto pelo endereço, antes de os dados chegarem: blocos no lugar do nome, do
+// título, do texto e da mídia. Sem isto, o Painel aparecia por um instante no lugar dela.
+function esqueletoPagina() {
+  const bloco = (classe) => el('span', { class: 'esqueleto ' + classe, 'aria-hidden': 'true' });
+  return el('section', { class: 'secao', 'aria-busy': 'true' }, el('div', { class: 'conteudo' },
+    el('p', { class: 'oculto-leitura', role: 'status' }, 'Carregando…'),
+    bloco('esqueleto--kicker'), bloco('esqueleto--titulo'), bloco('esqueleto--linha'), bloco('esqueleto--linha esqueleto--curta'), bloco('esqueleto--midia')));
+}
+
 // Foto carregada: libera o esmaecimento de entrada (paginas.css).
 document.addEventListener('load', (e) => { if (e.target.tagName === 'IMG') e.target.classList.add('carregada'); }, true);
 
 async function iniciar() {
   $('versao').textContent = `Portal Escócia 2027 · versão ${VERSAO_SITE}`;
+  const [rotaInicial] = location.hash.replace(/^#/, '').split('/');
+  if (rotaInicial && rotaInicial !== 'painel' && !ANCORAS.includes(rotaInicial)) {
+    $('painel').hidden = true;
+    $('pagina').hidden = false;
+    $('pagina').replaceChildren(esqueletoPagina());
+    marcarSecao(rotaInicial);
+  }
   medirTopo();
   new ResizeObserver(medirTopo).observe(document.querySelector('.topo'));
   acompanharBarra();

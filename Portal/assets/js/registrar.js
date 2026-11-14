@@ -1,7 +1,7 @@
 // Registrar: uma entrada só para tudo o que se acrescenta pelo site, em duas etapas: escolher
 // o tipo e preencher só os campos dele. A planilha é a fonte de verdade: gasto vai para Gastos,
 // atração para Atracoes, restaurante para Restaurantes e nota para Notas.
-import { el, brl2, gbp, dataLonga, data, hojeISO, slug, valorBRL, pessoasDa as PESSOAS } from './util.js';
+import { el, brl2, gbp, dataLonga, data, hojeISO, slug, valorBRL, linkSeguro, pessoasDa as PESSOAS } from './util.js';
 import { campo, form, opcoes, cabecalho } from './views.js';
 import { pessoa } from './dados.js';
 
@@ -15,7 +15,6 @@ const COM_RESERVA = ['Passagens', 'Hospedagem', 'Transporte - carro', 'Transport
 const MAPS = 'https://www.google.com/maps/search/?api=1&query=';
 
 const norm = (s) => slug(s || '');
-const linkSeguro = (u) => (/^https?:\/\//i.test(String(u || '')) ? u : null);
 const texto10 = (v) => String(v ?? '').slice(0, 10);
 
 export const TIPOS = {
