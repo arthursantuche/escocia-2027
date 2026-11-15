@@ -7,8 +7,8 @@
 a.card, a.parada { color: inherit; }
 a.card:hover, a.parada:hover { text-decoration: none; }
 
-.espaco-topo { margin-top: var(--spacing-32); }
-.pagina__cabecalho { display: grid; gap: var(--spacing-12); margin-bottom: var(--spacing-40); }
+.espaco-topo { margin-top: var(--espaco-bloco); }
+.pagina__cabecalho { display: grid; gap: var(--espaco-perto); margin-bottom: var(--espaco-cabecalho); }
 
 .grade-2 { display: grid; gap: var(--element-gap); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
 .essencial__itens { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--spacing-8); }
@@ -23,22 +23,16 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 .card--contorno { box-shadow: var(--contorno-sutil); }
 .card__grafico--alto { min-height: 360px; margin-bottom: var(--spacing-40); }
 
-/* Foto com legenda: a moldura recorta a imagem (o parallax nunca sai dela) e a legenda
-   fica abaixo, fora da moldura. */
+/* Foto com legenda (abertura da página da cidade): a moldura recorta a imagem e a legenda fica abaixo,
+   fora dela. A foto assenta de 1,16× ou 1,1× para 1× com a rolagem (data-rolagem), como as demais fotos
+   que abrem uma página ou um trecho, e termina inteira na moldura. */
 .foto { margin: var(--spacing-40) 0 0; }
 .foto__moldura {
   position: relative; overflow: hidden; aspect-ratio: 3 / 2;
   border-radius: var(--radius-images); background: var(--cor-faixa);
 }
-.foto__moldura img {
-  position: absolute; left: 0; top: -6%; width: 100%; height: 112%;
-  display: block; object-fit: cover;
-}
-/* Tela estreita: a paralaxe é maior (movimento.js), e a sobra acompanha. */
-@media (max-width: 833px) {
-  .foto__moldura img { top: -10%; height: 120%; }
-}
-.foto figcaption { margin-top: var(--spacing-12); }
+.foto__moldura img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.foto figcaption { margin-top: var(--espaco-perto); }
 /* Celular deitado: em 3:2 (e até em 2:1) a foto passaria da área visível; fica em 3:1,
    para caber na tela. */
 @media (orientation: landscape) and (max-height: 500px) {
@@ -46,7 +40,7 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 }
 
 .lista { list-style: none; margin: 0; padding: 0; }
-.lista > li { padding: var(--spacing-16) 0; border-top: 1px solid var(--cor-divisoria); display: grid; gap: var(--spacing-4); }
+.lista > li { padding: var(--espaco-grupo) 0; border-top: 1px solid var(--cor-divisoria); display: grid; gap: var(--espaco-junto); }
 /* Atrações por dia (página da cidade) */
 .atracoes > .dia + .dia { margin-top: var(--spacing-40); }
 .dia__titulo {
@@ -77,7 +71,7 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 .dia__texto { display: grid; gap: var(--spacing-8); align-content: start; }
 .dia__texto p { margin: 0; }
 .dia__deslocamento {
-  justify-self: start; padding: 2px var(--spacing-12); border-radius: var(--radius-pills);
+  justify-self: start; padding: var(--spacing-2) var(--spacing-12); border-radius: var(--radius-pills);
   background: var(--cor-faixa); font-size: var(--text-body-small); line-height: 1.5;
 }
 @media (min-width: 834px) {
@@ -95,7 +89,7 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 .resumo-estadias dd { margin: 0; }
 .estadias { display: grid; gap: var(--element-gap); }
 .estadia { display: grid; overflow: hidden; border-radius: var(--radius-cards); background: var(--cor-cartao); box-shadow: var(--contorno-sutil); }
-.estadia__corpo { display: grid; gap: var(--spacing-20); padding: var(--spacing-24); align-content: start; min-width: 0; }
+.estadia__corpo { display: grid; gap: var(--element-gap); padding: var(--card-padding-compacto); align-content: start; min-width: 0; }
 .estadia__topo { display: grid; gap: var(--spacing-8); }
 .estadia__nome {
   margin: var(--spacing-4) 0 0; font-family: var(--font-sf-pro-display); font-size: var(--text-feature-copy);
@@ -104,7 +98,9 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 .estadia__preco { margin: 0; }
 .estadia dl { margin: 0; }
 .estadia dd { margin: 0; }
-.estadia__datas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spacing-16); }
+.estadia__datas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--espaco-grupo); }
+/* Rótulo, data e hora formam uma unidade: 4px entre as linhas, como nos demais fatos da estadia. */
+.estadia__datas > div { display: grid; gap: var(--espaco-junto); align-content: start; }
 .estadia__fatos { display: grid; gap: var(--spacing-12); padding-top: var(--spacing-16); border-top: 1px solid var(--cor-divisoria); }
 .estadia__fatos > div { display: grid; gap: var(--spacing-4); }
 .estadia__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-12); }
@@ -137,7 +133,7 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 
 .atracao { grid-template-columns: 1fr auto; align-items: start; gap: var(--spacing-12) !important; }
 .atracao__nome { font-weight: var(--font-weight-semibold); }
-.atracao > div { display: grid; gap: var(--spacing-4); min-width: 0; }
+.atracao > div { display: grid; gap: var(--espaco-junto); min-width: 0; max-width: var(--medida-leitura); }
 /* Texto longo (trem e carro, em Viagem): no celular, o seletor de status vai para baixo do texto, em vez
    de espremê-lo numa coluna de meia tela. */
 @media (max-width: 599px) {
@@ -148,7 +144,7 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 /* A caixa tem 24 px: o rótulo estende a área de toque a 44 px de largura e à altura da linha, por trás dela. */
 .tarefa label::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(var(--spacing-8) * -1); width: calc(var(--spacing-40) + var(--spacing-4)); }
 .tarefa input { position: relative; z-index: 1; width: var(--spacing-24); height: var(--spacing-24); margin: 0; accent-color: var(--cor-link); }
-.tarefa label { display: grid; gap: var(--spacing-4); cursor: pointer; }
+.tarefa label { display: grid; gap: var(--espaco-junto); cursor: pointer; max-width: var(--medida-leitura); }
 .tarefa--feita label > span:first-child { color: var(--cor-texto-2); text-decoration: line-through; }
 
 .tabela { width: 100%; border-collapse: collapse; font-size: var(--text-body-small); letter-spacing: var(--tracking-body-small); }
@@ -171,7 +167,7 @@ a.card:hover, a.parada:hover { text-decoration: none; }
 
 /* Formulários: um só componente de campo ("Rounded Search Input" adaptado).
    17px em todos os campos: abaixo de 16px o iOS aplica zoom ao tocar. */
-.formulario { display: grid; gap: var(--spacing-20); max-width: 520px; }
+.formulario { display: grid; gap: var(--element-gap); max-width: 520px; }
 /* Formulário logo depois de uma lista ou do aviso de lista vazia: nada encosta. */
 .lista + .formulario, .legenda + .formulario { margin-top: var(--spacing-32); }
 .rotulo { display: grid; gap: var(--spacing-8); font-size: var(--text-body-small); line-height: var(--leading-body-small); color: var(--cor-texto-2); min-width: 0; }
@@ -232,7 +228,10 @@ input[type="date"].campo::-webkit-calendar-picker-indicator { opacity: 0.6; }
 .acesso::backdrop { background: var(--cor-faixa); }
 .acesso .status-pendente:empty { display: none; }
 
-.rodape .conteudo { display: grid; gap: var(--spacing-8); }
+/* Rodapé: notas e sincronização em cima; uma linha fina; a identificação do portal embaixo, à parte. */
+.rodape .conteudo { display: grid; gap: var(--spacing-16); }
+.rodape__notas { display: grid; gap: var(--spacing-4); }
+.rodape__identidade { padding-top: var(--spacing-16); border-top: 1px solid var(--cor-divisoria); }
 body { padding-bottom: env(safe-area-inset-bottom); }
 
 /* A foto do trecho abre a cidade: só ela reage ao cursor, e só quando ele está sobre ela. */
@@ -364,7 +363,7 @@ dialog.voucher::backdrop, dialog.ampliada::backdrop { background: var(--cor-fund
 .escolhas { display: grid; gap: var(--element-gap); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
 .escolha {
   position: relative; display: grid; gap: var(--spacing-8); align-content: start; min-height: 148px;
-  padding: var(--spacing-24) var(--spacing-48) var(--spacing-24) var(--spacing-24);
+  padding: var(--card-padding-compacto) var(--spacing-48) var(--card-padding-compacto) var(--card-padding-compacto);
   border-radius: var(--radius-cards); background: var(--cor-faixa); color: inherit;
   transition: transform var(--dur-curta) var(--ease-apple);
 }
@@ -376,8 +375,7 @@ dialog.voucher::backdrop, dialog.ampliada::backdrop { background: var(--cor-fund
 }
 .escolha__seta { position: absolute; right: var(--spacing-24); top: var(--spacing-24); color: var(--cor-link); font-size: var(--text-feature-copy); transition: transform var(--dur-curta) var(--ease-apple); }
 @media (hover: hover) { .escolha:hover .escolha__seta { transform: translateX(4px); } }
-.registrar__voltar { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: var(--spacing-16); font-size: var(--text-body-small); }
-.formulario--registrar { max-width: none; gap: var(--spacing-40); }
+.formulario--registrar { max-width: none; gap: var(--espaco-cabecalho); }
 .grupo { display: grid; gap: var(--spacing-20); min-width: 0; margin: 0; padding: var(--spacing-24) 0 0; border: 0; border-top: 1px solid var(--cor-divisoria); }
 .grupo__titulo { float: left; width: 100%; padding: 0; margin-bottom: var(--spacing-4); font-size: var(--text-body); font-weight: var(--font-weight-semibold); }
 .grupo__titulo + * { clear: both; }
@@ -387,7 +385,7 @@ dialog.voucher::backdrop, dialog.ampliada::backdrop { background: var(--cor-fund
 .linha-campos--iguais { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 379px) {
   .linha-campos--iguais { grid-template-columns: 1fr; }
-  .linha-campos--iguais > .rotulo + .rotulo { margin-top: var(--spacing-12); }
+  .linha-campos--iguais > .rotulo + .rotulo { margin-top: var(--element-gap); }
 }
 .registrar__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-12); }
 .formulario--registrar .registrar__acoes .pill { justify-self: auto; }
@@ -406,18 +404,26 @@ dialog.voucher::backdrop, dialog.ampliada::backdrop { background: var(--cor-fund
 .link-botao--alerta { color: var(--cor-alerta); }
 .espaco-abaixo { margin: 0 0 var(--spacing-16); }
 .lista > .registro { grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: var(--spacing-12); }
-.registro__texto { display: grid; gap: var(--spacing-4); min-width: 0; }
+.registro__texto { display: grid; gap: var(--espaco-junto); min-width: 0; max-width: var(--medida-leitura); }
 .registro__links { display: flex; flex-wrap: wrap; gap: var(--spacing-16); margin: var(--spacing-4) 0 0; font-size: var(--text-body-small); }
-.vazio { padding: var(--spacing-32) var(--spacing-24); border-radius: var(--radius-cards); background: var(--cor-faixa); color: var(--cor-texto-2); text-align: center; }
+.vazio { padding: var(--espaco-bloco) var(--card-padding-compacto); border-radius: var(--radius-cards); background: var(--cor-faixa); color: var(--cor-texto-2); text-align: center; }
 .secao--mist .vazio { background: var(--cor-cartao); }
-.estado { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-8); }
-/* Sem texto de estado (antes da primeira leitura), o botão não fica recuado pelo espaço vazio. */
-#estado-texto:empty { display: none; }
-/* No rodapé, o fundo é a faixa: ao passar o cursor, o botão usa a cor de cartão, como em .secao--mist. */
-@media (hover: hover) { .rodape .pill:not(.pill--azul):not(:disabled):hover { background: var(--cor-cartao); } }
+/* "Buscar novidades" é uma ação em forma de link, logo depois da hora da última leitura: azul, como
+   todo o resto que reage no portal, e sublinhada ao passar o cursor. A linha só quebra antes do " · ",
+   nunca no meio da ação. O alvo de toque tem 44 px de altura, sem mudar a altura da linha. */
+.estado__acao { white-space: nowrap; }
+#estado-texto:empty + .estado__acao .estado__separador { display: none; }
+.estado__buscar {
+  -webkit-appearance: none; appearance: none; position: relative; border: 0; padding: 0; margin: 0; background: none; cursor: pointer;
+  font: inherit; color: var(--cor-link); border-radius: var(--radius-links); -webkit-tap-highlight-color: transparent;
+  transition: color var(--dur-link) var(--ease-apple);
+}
+.estado__buscar::after { content: ''; position: absolute; top: calc(50% - var(--spacing-24) + var(--spacing-2)); bottom: calc(50% - var(--spacing-24) + var(--spacing-2)); left: calc(var(--spacing-8) * -1); right: calc(var(--spacing-8) * -1); }
+@media (hover: hover) { .estado__buscar:not(:disabled):hover { text-decoration: underline; } }
+.estado__buscar:disabled { color: var(--cor-texto-2); cursor: default; }
 
 /* ---- Estados de carregamento e erro */
-.falha { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--spacing-12); max-width: 980px; margin: var(--spacing-16) auto 0; padding: var(--spacing-16) var(--spacing-20); color: var(--cor-alerta); }
+.falha { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--spacing-12); max-width: var(--largura-conteudo); margin: var(--spacing-16) auto 0; padding: var(--spacing-16) var(--spacing-20); color: var(--cor-alerta); }
 .falha[hidden] { display: none; }
 .falha p { margin: 0; }
 .carregando__ponto { flex: none; width: 16px; height: 16px; border: 2px solid var(--cor-trilho); border-top-color: var(--cor-link); border-radius: 50%; animation: girar 800ms linear infinite; }
@@ -433,8 +439,10 @@ details[open] > summary ~ * { animation: surgir var(--dur-curta) var(--ease-entr
 @keyframes carregando { 0% { transform: scaleX(0); } 60% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
 
 /* ---- Atalhos internos: o que não ocupa o painel superior */
-.atalhos { display: flex; flex-wrap: wrap; gap: var(--spacing-12); margin: calc(var(--spacing-16) * -1) 0 var(--spacing-40); }
-.voltar { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--text-body-small); }
+.atalhos { display: flex; flex-wrap: wrap; gap: var(--espaco-perto); margin: calc(var(--spacing-16) * -1) 0 var(--espaco-cabecalho); }
+/* Link de voltar ("← Programação", "← Escolher outro tipo"): um componente só, com alvo de 44px e
+   8px até o cabeçalho da página, que ele situa. */
+.voltar { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: var(--espaco-par); font-size: var(--text-body-small); }
 
 /* Atrações da cidade: o dia acompanha a lista enquanto ela rola, como a foto na Programação. */
 @media (min-width: 834px) and (min-height: 600px) {

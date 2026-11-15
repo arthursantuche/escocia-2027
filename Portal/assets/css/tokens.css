@@ -78,6 +78,22 @@
   --section-gap: 90px;
   --card-padding: 28px;
   --element-gap: 20px;
+  /* Espaçamento por relação: cada papel aponta para um degrau da escala acima. Escolha pelo que os
+     dois elementos são um para o outro, não pelo número (DESIGN.md, "Espaçamento"). Do mais junto
+     ao mais separado: */
+  --espaco-junto: var(--spacing-4);      /* linhas de uma mesma unidade: nome e detalhe, valor e conversão */
+  --espaco-par: var(--spacing-8);        /* rótulo e campo; link de voltar e cabeçalho; kicker e linha curta num cartão */
+  --espaco-perto: var(--spacing-12);     /* um explica o outro: kicker e título, título e subtítulo, foto e legenda; ações lado a lado */
+  --espaco-grupo: var(--spacing-16);     /* peças de um mesmo componente; subtítulo de bloco e conteúdo; padding dos itens de lista */
+  /* --element-gap (20px, acima): componentes irmãos, como cartões de uma grade e campos de um formulário */
+  --espaco-bloco: var(--spacing-32);     /* título de seção e conteúdo; um bloco e o seguinte dentro da seção */
+  --espaco-cabecalho: var(--spacing-40); /* cabeçalho de página e conteúdo; grupos de um formulário; texto e foto grande */
+  --espaco-secao: var(--spacing-64);     /* seção e seção: 64px no celular, --section-gap (90px) no computador (abaixo) */
+  --card-padding-compacto: var(--spacing-24); /* cartões densos ou divididos com foto: estadia, escolha, cartão de cidade */
+  /* Medidas: coluna de conteúdo e largura máxima de leitura. 66ch dá de 75 a 85 caracteres por linha,
+     em qualquer tamanho de letra, porque o ch acompanha a fonte do próprio elemento. */
+  --largura-conteudo: 980px;
+  --medida-leitura: 66ch;
   /* Margem lateral: nunca menor que a área segura (entalhe do iPhone deitado). */
   --gutter-e: max(var(--spacing-20), env(safe-area-inset-left));
   --gutter-d: max(var(--spacing-20), env(safe-area-inset-right));
@@ -142,6 +158,11 @@
   --contorno-sutil: var(--cor-contorno-suave) 0 0 0 1px;
   --contorno-forte: var(--cor-contorno) 0 0 0 1px;
 }
+
+/* Respiro entre seções: 90px a partir de 834px de largura. O celular deitado continua com o de celular
+   (64px), mesmo com 844 a 932px de largura: com menos de 500px de altura, 90px tomavam um quarto da tela. */
+@media (min-width: 834px) { :root { --espaco-secao: var(--section-gap); } }
+@media (min-width: 834px) and (orientation: landscape) and (max-height: 500px) { :root { --espaco-secao: var(--spacing-64); } }
 
 /* Modo escuro: valores da referência iPhone 18 Pro (tela Obsidian, painel Carbon, cartão
    preto sobre o painel, links Electric Link). O laranja é derivado para passar de 4,5:1. */

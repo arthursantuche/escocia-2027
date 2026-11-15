@@ -23,13 +23,19 @@ function avisar(texto) {
   avisar.timer = setTimeout(() => { t.hidden = true; }, 3500);
 }
 
+// Linha de sincronização do rodapé: quando a planilha foi lida, se o aparelho está sem sinal e o que
+// espera para ser enviado. "Buscar novidades" vem logo depois, na mesma linha.
+const quando = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 function atualizarEstado(dados) {
   const fila = pendentesNaFila();
   const partes = [];
-  if (dados.offline) partes.push('Sem conexão: mostrando a última versão salva');
-  if (fila) partes.push(`${fila} alteração(ões) aguardando sinal`);
-  if (dados.geradoEm) partes.push(`Atualizado em ${new Date(dados.geradoEm).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}`);
-  $('estado-texto').textContent = partes.join(' · ');
+  const lida = dados.geradoEm ? quando.formatToParts(new Date(dados.geradoEm)) : null;
+  const hora = lida && ((t) => lida.find((p) => p.type === t).value);
+  const momento = lida ? `${hora('day')}/${hora('month')}/${hora('year')}, às ${hora('hour')}:${hora('minute')}` : '';
+  if (dados.offline) partes.push(momento ? `Sem conexão: cópia salva em ${momento}` : 'Sem conexão: mostrando a cópia salva');
+  else if (momento) partes.push(`Atualizado em ${momento}`);
+  if (fila) partes.push(`${fila} ${fila === 1 ? 'alteração aguardando' : 'alterações aguardando'} sinal`);
+  $('estado-texto').textContent = resumo(...partes);
 }
 
 // Devolve o resultado se salvou (ou entrou na fila), ou false. Quem chama pode receber o erro em aoFalhar,
@@ -316,7 +322,8 @@ function aplicarDados(dados) {
   ctx.abas = dados.abas;
   ctx.v = chaveValor(dados.abas.Viagem);
   // Fica fora do painel: o rodapé aparece em todas as páginas, mesmo abrindo direto numa delas.
-  $('rodape').textContent = `Dados de pesquisa verificados em ${dataLonga.format(data(ctx.v.data_verificacao))}. Itens com ⚠️ ainda precisam ser confirmados ou reservados. Cotação: ${brl2.format(ctx.v.cotacao_gbp_brl)} por £1.`;
+  $('rodape').textContent = resumo(`Dados de pesquisa verificados em ${dataLonga.format(data(ctx.v.data_verificacao))}`, `Cotação ${brl2.format(ctx.v.cotacao_gbp_brl)} por £1`);
+  $('rodape-pendencias').hidden = false;
   atualizarEstado(dados);
   if (!mudou && paginaAtual !== null) return false;
   if (emUso() && paginaAtual !== null) return true;
@@ -368,10 +375,12 @@ function acompanharPlanilha() {
     const rotulo = botao.textContent;
     botao.disabled = true;
     botao.textContent = 'Buscando…';
+    $('estado').setAttribute('aria-busy', 'true');
     ultimaLeitura = Date.now();
     const r = await recarregar(false);
     botao.disabled = false;
     botao.textContent = rotulo;
+    $('estado').removeAttribute('aria-busy');
     if (!r.ok || r.offline) avisar('Sem conexão: continua a última versão salva.');
     else avisar(r.mudou ? 'Dados atualizados com a planilha.' : 'Nada mudou na planilha.');
   });

@@ -25,14 +25,14 @@ a:hover { text-decoration: underline; }
 
 /* Âncoras (#roteiro, #cidades, #pendencias): a seção começa no topo da tela e o painel flutua
    sobre o fundo dela. Parar abaixo do painel deixava a seção anterior aparecendo atrás dele. */
-section[id] { scroll-margin-top: 0; padding-top: max(var(--spacing-64), calc(var(--altura-topo, 0px) + var(--spacing-32))); }
+section[id] { scroll-margin-top: 0; padding-top: max(var(--espaco-secao), calc(var(--altura-topo, 0px) + var(--espaco-bloco))); }
 
 .secao {
-  padding: var(--spacing-64) var(--gutter-d) var(--spacing-64) var(--gutter-e);
+  padding: var(--espaco-secao) var(--gutter-d) var(--espaco-secao) var(--gutter-e);
 }
 .secao--mist { background: var(--cor-faixa); }
 
-.conteudo { max-width: 980px; margin: 0 auto; }
+.conteudo { max-width: var(--largura-conteudo); margin: 0 auto; }
 
 /* Tipografia (papéis da escala do documento) */
 .kicker {
@@ -82,8 +82,14 @@ section[id] { scroll-margin-top: 0; padding-top: max(var(--spacing-64), calc(var
 }
 
 /* Ritmo vertical: um título nunca encosta no bloco seguinte (divisória, lista, tabela). */
-h2.titulo + :not(a) { margin-top: var(--spacing-32); }
-.conteudo > h2.kicker + :is(ul, ol, table, form, div, p) { margin-top: var(--spacing-16); }
+h2.titulo + :not(a) { margin-top: var(--espaco-bloco); }
+.conteudo > h2.kicker + :is(ul, ol, table, form, div, p) { margin-top: var(--espaco-grupo); }
+/* Lista com divisória logo abaixo de um texto ou de um gráfico: a linha nunca encosta no que vem antes. */
+.conteudo > p + .lista { margin-top: var(--espaco-grupo); }
+.conteudo > .card__grafico + .lista { margin-top: var(--espaco-bloco); }
+/* Medida de leitura: texto corrido não passa de ~80 caracteres por linha, mesmo na coluna de 980px.
+   Notas em legenda soltas na coluna também. A legenda centrada da abertura (.copy) fica de fora. */
+.introducao, .glossario, .conteudo > p.legenda:not(.copy), .grupo > p.legenda { max-width: var(--medida-leitura); }
 /* Duas seções seguidas com o mesmo fundo: um só respiro entre elas, não a soma dos dois. */
 .secao.secao--continua { padding-top: 0; }
 
@@ -91,14 +97,3 @@ h2.titulo + :not(a) { margin-top: var(--spacing-32); }
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
 }
 
-@media (min-width: 834px) {
-  .secao { padding: var(--section-gap) var(--gutter-d) var(--section-gap) var(--gutter-e); }
-  section.secao[id] { padding-top: max(var(--section-gap), calc(var(--altura-topo, 0px) + var(--spacing-32))); }
-}
-/* Celular deitado com 834 px ou mais de largura (iPhone de 844 a 932 px): continua sendo um celular.
-   O respiro das seções é o dele (64 px), como já acontece no iPhone de 667 px, e não o do computador:
-   com menos de 500 px de altura, os 90 px tomavam um quarto da tela antes do título. */
-@media (min-width: 834px) and (orientation: landscape) and (max-height: 500px) {
-  .secao { padding-top: var(--spacing-64); padding-bottom: var(--spacing-64); }
-  section.secao[id] { padding-top: max(var(--spacing-64), calc(var(--altura-topo, 0px) + var(--spacing-32))); }
-}

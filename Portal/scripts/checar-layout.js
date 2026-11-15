@@ -42,6 +42,42 @@ export function checarLayout() {
   // 1. Rolagem horizontal da página.
   if (raiz.scrollWidth > raiz.clientWidth + 1) problemas.push(`Rolagem horizontal: página com ${raiz.scrollWidth}px em tela de ${raiz.clientWidth}px`);
 
+  // 2a. Qualquer bloco (texto, gráfico, foto) com uma divisória logo abaixo: a linha precisa de pelo menos
+  //     8px (--espaco-par) de folga. Foi o caso da lista de gastos colada no gráfico do Orçamento.
+  document.querySelectorAll('main:not([hidden]) .lista, main:not([hidden]) .tabela, main:not([hidden]) .rodape__identidade').forEach((alvo) => {
+    const ant = alvo.previousElementSibling;
+    if (!ant || !visivel(alvo) || !visivel(ant) || !px(getComputedStyle(alvo.matches('.tabela') ? alvo.querySelector('th, td') || alvo : alvo.firstElementChild || alvo).borderTopWidth)) return;
+    if (ant.getBoundingClientRect().right <= alvo.getBoundingClientRect().left + 1) return; // lado a lado, não acima
+    const folga = topoLayout(alvo) - (topoLayout(ant) + ant.offsetHeight);
+    if (folga < 8) problemas.push(`Divisória a ${Math.round(folga)}px de "${texto(ant)}" (mínimo 8px)`);
+  });
+
+  // 2b. Linhas de uma mesma unidade encostadas: dois textos seguidos, um sobre o outro, sem os 4px
+  //     (--espaco-junto) da regra de listas. Foi o caso de "⚠️ pendente" colado no item, no Painel.
+  document.querySelectorAll('main:not([hidden]) :is(p, dt, dd, h3)').forEach((e) => {
+    const ant = e.previousElementSibling;
+    // Exceção documentada (DESIGN.md, "Espaçamento"): nomes e datas sob os pontos da trilha deitada.
+    if (!ant || !ant.matches('p, dt, dd, h3, span') || !visivel(e) || !visivel(ant) || e.closest('table, .roteiro--fixo .parada')) return;
+    const a = ant.getBoundingClientRect(); const b = e.getBoundingClientRect();
+    if (b.top < a.bottom - 1 || Math.min(a.right, b.right) - Math.max(a.left, b.left) < 8) return;
+    if (b.top - a.bottom < 3) avisos.push(`Linhas encostadas (${Math.round(b.top - a.bottom)}px): "${texto(ant)}" e "${texto(e)}" (use --espaco-junto)`);
+  });
+
+  // 2c. Medida de leitura: texto corrido de várias linhas passa de ~85 caracteres (17px) ou ~100 (legendas
+  //     de 14px) e cansa a leitura. Só conta texto que de fato quebra em mais de uma linha.
+  const regua = document.createElement('canvas').getContext('2d');
+  document.querySelectorAll('main:not([hidden]) :is(p, li, label > span:first-child)').forEach((e) => {
+    // Só texto próprio do elemento: um item de lista que só envolve o texto (como a tarefa) não conta.
+    const proprio = [...e.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').trim();
+    if (!visivel(e) || proprio.length < 100 || e.closest('table, .carrossel__trilho')) return;
+    const s = getComputedStyle(e); regua.font = `${s.fontWeight} ${s.fontSize} ${s.fontFamily}`;
+    const media = regua.measureText('abcdefghijklmnopqrstuvwxyz ABCDE áéç 0123').width / 42;
+    const r = e.getBoundingClientRect();
+    if (r.height < parseFloat(s.lineHeight) * 1.8) return; // uma linha só: a largura da caixa não diz nada
+    const chars = Math.round(r.width / media);
+    if (chars > (parseFloat(s.fontSize) >= 17 ? 90 : 100)) avisos.push(`Linha com ~${chars} caracteres: "${texto(e)}" (use --medida-leitura)`);
+  });
+
   // 2. Títulos encostando na divisória do bloco seguinte (descendentes cortados, como a cedilha).
   document.querySelectorAll('h1, h2, h3, .titulo, .kicker').forEach((h) => {
     if (!visivel(h)) return;

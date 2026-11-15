@@ -253,7 +253,7 @@ function paginaFormulario(ctx, tipo, id, cidadeInicial) {
     f.addEventListener('change', () => rascunho.gravar(tipo, Object.fromEntries(new FormData(f))));
   }
   return el('section', { class: 'secao' }, el('div', { class: 'conteudo registrar registrar--entrada' },
-    el('a', { class: 'registrar__voltar', href: '#registrar' }, atual ? '← Voltar a Registrar' : '← Escolher outro tipo'),
+    el('a', { class: 'voltar', href: '#registrar' }, atual ? '← Voltar a Registrar' : '← Escolher outro tipo'),
     cabecalho(atual ? 'Registrar · Edição' : 'Registrar · Etapa 2 de 2', atual ? (atual[cfg.chave] ? String(atual[cfg.chave]).slice(0, 60) : cfg.nome) + '.' : cfg.novo + '.', salvo && Object.values(salvo).some((x) => x) ? 'Recuperamos o que você tinha digitado.' : cfg.descricao),
     f));
 }

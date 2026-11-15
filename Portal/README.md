@@ -1,6 +1,6 @@
 # Escócia 2027
 
-Portal da viagem à Escócia (23/02 a 08/03/2027). Versão 2.0, publicada em https://arthursantuche.github.io/escocia-2027/.
+Portal da viagem à Escócia (23/02 a 08/03/2027). Versão 2.1, publicada em https://arthursantuche.github.io/escocia-2027/. Histórico em `CHANGELOG.md`.
 
 Mostra roteiro com luz do dia, programação, cidades, hospedagens com voucher, orçamento, checklist e registro de gastos, atrações, restaurantes e notas. Site estático em HTML, CSS e JavaScript, sem build. Os dados ficam numa planilha Google Sheets, lida e gravada por um Web App do Apps Script. Funciona sem sinal depois de aberto uma vez.
 
@@ -13,7 +13,8 @@ Esta pasta, `Portal/`, é o site. Na raiz do repositório ficam só `.github/` (
 - `data/amostra.json`: dados de exemplo, sem informações pessoais, para testar com `?amostra`.
 - `apps-script/Api.gs`: a API, colada no projeto do Apps Script da planilha.
 - `scripts/`: testes (`testar-telas.js`, `testar-trilha.js`, `checar-layout.js`, `medir-roteiro.cjs`, `visualizador-webkit.swift`), fotos (`baixar-fotos.py`) e ícones (`gerar-icones.py`). Não são publicados.
-- `DESIGN.md`: regras de design e de movimento do portal.
+- `DESIGN.md`: regras de design e de movimento do portal, com o porquê de cada efeito e a regra de versões.
+- `CHANGELOG.md`: histórico de versões.
 
 ## Rodar localmente
 ```bash
@@ -27,7 +28,7 @@ const { testarTrilha } = await import('/scripts/testar-trilha.js'); await testar
 ```
 
 ## Publicar
-Cada push na `main` publica pelo workflow `.github/workflows/pages.yml`, na raiz do repositório. Ao mudar arquivos do site, altere a revisão em `VERSAO`, em `sw.js`, para os aparelhos baixarem a versão nova.
+Cada push na `main` publica pelo workflow `.github/workflows/pages.yml`, na raiz do repositório. Ao mudar arquivos do site, altere a revisão em `VERSAO`, em `sw.js`, para os aparelhos baixarem a versão nova; se a mudança for visível, suba também `VERSAO_SITE` (regra em `DESIGN.md`, "Versão"), registre-a em `CHANGELOG.md` e crie a etiqueta `v<versão>`.
 
 ## Créditos e privacidade
 Fotos das cidades: Wikimedia Commons (CC0, CC BY e CC BY-SA), com autores e licenças em `assets/img/cidades/creditos.json`, exibidos no site. GSAP, Chart.js e pdf.js ficam em `assets/vendor/`.

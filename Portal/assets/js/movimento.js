@@ -1,8 +1,8 @@
 // Movimento do portal. As regras por função de cada elemento estão no DESIGN.md:
 // - títulos que saem do cinza para a cor plena conforme a posição na tela (atualizarTitulos);
 // - blocos que sobem até 30px ao entrar na tela (data-subir);
-// - fotos que assentam de 1,16× ou 1,1× para 1× ao atravessar a tela (data-rolagem);
-// - foto informativa da cidade com paralaxe, sempre dentro da moldura (data-paralaxe);
+// - fotos que abrem uma página ou um trecho e assentam de 1,16× ou 1,1× para 1× ao atravessar a tela
+//   (data-rolagem): abertura, foto da cidade, fotos da Programação, capa da galeria do hotel;
 // - roteiro com a linha avançando pelas paradas (medirRoteiro, atualizarTrilha). A orientação da tela
 //   decide a apresentação: na horizontal, palco fixo com a foto da parada; na vertical, coluna própria,
 //   com cada parada e sua foto no fluxo da página;
@@ -384,12 +384,6 @@ export function atualizarMovimento(semEntrada = false) {
           end: () => Math.max(inicio() + innerHeight * 0.35, topo() + moldura.offsetHeight / 2 - innerHeight * 0.4),
         },
       });
-    });
-
-    // A imagem tem sobra dentro da moldura (componentes.css), então o percurso nunca a descobre.
-    visiveis('[data-paralaxe] img').forEach((img) => {
-      const amplitude = estreita ? 9 : 5;
-      gsap.fromTo(img, { yPercent: -amplitude }, { yPercent: amplitude, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'clamp(top bottom)', end: 'bottom top', scrub: 0.4 } });
     });
 
     trilhaViva = true;

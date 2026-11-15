@@ -172,9 +172,12 @@
 
   <footer class="rodape">
     <div class="conteudo">
-      <p class="legenda" id="rodape"></p>
-      <p class="legenda" id="versao"></p>
-      <p class="legenda estado" id="estado" role="status"><span id="estado-texto"></span> <button class="pill" id="estado-atualizar" type="button" title="Os dados vêm da planilha e se atualizam sozinhos. Use para buscar agora o que acabou de mudar lá.">Buscar novidades da planilha</button></p>
+      <div class="rodape__notas">
+        <p class="legenda" id="rodape"></p>
+        <p class="legenda" id="rodape-pendencias" hidden>Itens com ⚠️ ainda precisam ser confirmados ou reservados.</p>
+        <p class="legenda estado" id="estado"><span id="estado-texto" role="status"></span><span class="estado__acao"><span class="estado__separador" aria-hidden="true"> · </span><button class="estado__buscar" id="estado-atualizar" type="button" title="Os dados vêm da planilha e se atualizam sozinhos. Use para buscar agora o que acabou de mudar lá.">Buscar novidades</button></span></p>
+      </div>
+      <p class="legenda rodape__identidade" id="versao"></p>
     </div>
   </footer>
 

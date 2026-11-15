@@ -34,7 +34,7 @@ button.pill { -webkit-appearance: none; appearance: none; border: 0; cursor: poi
 .hero__moldura { overflow: hidden; border-radius: var(--radius-images); aspect-ratio: 5 / 3; box-shadow: var(--contorno-sutil); }
 .hero__moldura img { display: block; width: 100%; height: 100%; }
 .hero__dados { margin-top: var(--spacing-8); }
-.roteiro .titulo, .destaques .titulo { margin-top: var(--spacing-8); }
+.roteiro .titulo { margin-top: var(--espaco-perto); }
 .roteiro .copy { margin-top: var(--spacing-12); }
 /* Números-chave da abertura: contagem regressiva, noites e cidades em tipografia grande,
    sem cartão, alinhados à coluna de conteúdo (como as faixas de números das páginas da Apple). */
@@ -131,6 +131,8 @@ a.card:active { transform: scale(0.985); }
   padding: var(--spacing-20) 0;
   border-top: 1px solid var(--cor-divisoria);
 }
+/* Item e o estado dele ("⚠️ pendente · Transporte") são uma unidade: 4px entre as linhas, como em toda lista. */
+.pendencias li > div { display: grid; gap: var(--espaco-junto); align-content: start; max-width: var(--medida-leitura); }
 .pendencias__data {
   font-family: var(--font-sf-pro-display);
   font-weight: var(--font-weight-semibold);
@@ -204,8 +206,8 @@ a.card:active { transform: scale(0.985); }
 .cartao-cidade__foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* A foto recorta os próprios cantos: durante o esmaecimento de entrada ela vai para outra camada, e o
    recorte do cartão sozinho pode deixar de valer até a animação terminar. */
-.cartao-cidade__foto img, .hero__moldura img, .parada__foto img, .roteiro__midia img { border-radius: inherit; }
-.hero__moldura, .parada__foto, .roteiro__midia { isolation: isolate; }
+.cartao-cidade__foto img, .hero__moldura img, .foto__moldura img, .parada__foto img, .roteiro__midia img { border-radius: inherit; }
+.hero__moldura, .foto__moldura, .parada__foto, .roteiro__midia { isolation: isolate; }
 .cartao-cidade { transition: transform var(--dur-curta) var(--ease-apple); -webkit-tap-highlight-color: transparent; }
 .cartao-cidade:active { transform: scale(0.985); }
 @media (hover: hover) {
@@ -213,7 +215,7 @@ a.card:active { transform: scale(0.985); }
   .cartao-cidade:hover .kicker { color: var(--cor-link); }
 }
 .cartao-cidade .kicker { transition: color var(--dur-link) var(--ease-apple); }
-.cartao-cidade__texto { display: grid; gap: var(--spacing-8); align-content: start; padding: var(--spacing-24) var(--card-padding) var(--card-padding); }
+.cartao-cidade__texto { display: grid; gap: var(--espaco-par); align-content: start; padding: var(--card-padding-compacto) var(--card-padding) var(--card-padding); }
 .cartao-cidade__texto .copy { margin-top: var(--spacing-4); }
 
 .carrossel__controles { display: flex; justify-content: center; align-items: center; gap: var(--spacing-12); margin-top: var(--spacing-24); }
@@ -331,7 +333,7 @@ section.roteiro--fixo.secao[id] { padding: 0; height: calc(100svh + (var(--parad
 .roteiro--fixo.roteiro--toque .roteiro__midia img { transition: opacity var(--dur-curta) var(--ease-apple), visibility 0s linear var(--dur-curta); }
 .roteiro--fixo.roteiro--toque .roteiro__midia img.ativa { transition: opacity var(--dur-curta) var(--ease-apple), visibility 0s; }
 .roteiro--fixo .roteiro__palco {
-  position: sticky; top: 0; box-sizing: border-box; height: 100svh; max-width: calc(980px + var(--spacing-40));
+  position: sticky; top: 0; box-sizing: border-box; height: 100svh; max-width: calc(var(--largura-conteudo) + var(--spacing-40));
   padding: calc(var(--altura-topo, 0px) + var(--spacing-16)) var(--gutter-d) var(--spacing-20) var(--gutter-e);
   display: grid; grid-template-rows: auto minmax(0, 1fr); gap: var(--spacing-16); align-items: stretch;
 }

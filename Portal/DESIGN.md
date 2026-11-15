@@ -8,11 +8,24 @@ Neste texto, "o documento" e "a identidade" são sempre a Identidade Visual - Ap
 - **Painel:** a página inicial (`#painel`), com Abertura, Resumo da viagem, Roteiro, cidades e Pendências. As demais páginas são Programação, Hospedagens, Viagem, Checklist, Orçamento, Registrar e Cidade.
 - **Barra superior** ou **menu:** o cabeçalho fixo (`.topo`), que é faixa no alto da página e cápsula ao rolar. **Barra azul** ou **barra de carregamento:** a linha `.carregamento`, na base dele.
 - **Kicker:** o texto de 21px acima de um título ou o nome de um item. **Display:** o título da Abertura.
-- **Parada:** cada local do Roteiro. **Trilha:** a lista de paradas com a linha. **Palco:** o Roteiro preso na tela, na horizontal. **Trecho:** os dias seguidos numa mesma base, na Programação. **Estadia:** o cartão de um hotel. **Vizinhas:** parada anterior e próxima, no fim da página da cidade.
+- **Parada:** cada local do Roteiro. **Trilha:** a lista de paradas com a linha. **Palco:** o Roteiro preso na tela, na horizontal. **Trecho:** os dias seguidos numa mesma base, na Programação. No Roteiro, a variável `--trecho` é outra coisa: a distância de rolagem entre duas paradas. **Estadia:** o cartão de um hotel. **Vizinhas:** parada anterior e próxima, no fim da página da cidade.
 - **Computador:** a partir de 834px de largura. **Celular** ou **tela estreita:** abaixo disso. **Celular deitado:** `orientation: landscape` com altura até 500px.
 
 ## Versão
-Versão: **2.0** (`VERSAO_SITE`, em `assets/js/config.js`). A cada publicação, mude a revisão interna em `VERSAO`, no `sw.js`, para os aparelhos baixarem os arquivos novos.
+Versão atual: **2.1** (`VERSAO_SITE`, em `assets/js/config.js`), mostrada no rodapé como "Portal Escócia 2027 · versão 2.1". O histórico fica em `CHANGELOG.md`.
+
+| O que mudou | Número | Exemplo |
+| --- | --- | --- |
+| Estrutura, páginas, identidade visual ou formato dos dados (planilha e API) | Principal: 2.x → 3.0 | Página nova no menu, troca da identidade, aba nova que a API grava |
+| Algo visível ou de funcionamento, sem mudar a estrutura | Secundário: 2.1 → 2.2 | Ajuste de layout, animação, texto fixo, componente, correção |
+| Arquivo do site sem efeito visível (por exemplo, a lista de arquivos do `sw.js`) | Nenhum; só a revisão do cache | Incluir uma foto na lista do uso sem sinal |
+| Só documentação e testes (`DESIGN.md`, `CHANGELOG.md`, `README.md`, `scripts/`), que não vão para o site | Nenhum, e a revisão do cache também não muda | Revisão deste arquivo |
+
+- **Revisão do cache** (`VERSAO`, em `sw.js`, no formato `escocia2027-<versão>-rev<n>`): muda sempre que um arquivo publicado muda (os de `index.html`, `manifest.webmanifest`, `sw.js`, `assets/` e `data/`), com ou sem número novo. É ela que faz os aparelhos baixarem os arquivos novos; o `n` só cresce.
+- **A cada versão numerada:**
+  - uma entrada em `CHANGELOG.md`, com data e o que mudou (só versões numeradas entram lá);
+  - uma etiqueta `v<versão>` no commit publicado, que é quem identifica o commit (`v2.0` marca o `d4b49df`);
+  - o número novo no cabeçalho de cinco documentos do vault: Diretório - Portal Escócia 2027, Guia do Projeto, Guia de Manutenção, Documentação e Referência técnica.
 
 ## Tokens
 - **Paleta** (`--color-*`): os valores literais do documento. Só `tokens.css` usa a paleta diretamente.
@@ -76,29 +89,63 @@ Versão: **2.0** (`VERSAO_SITE`, em `assets/js/config.js`). A cada publicação,
   - o `manifest.webmanifest` usa `#f5f5f7` em `theme_color` e `background_color`, porque o manifesto não aceita uma cor por tema;
   - a tela de abertura do app instalado pode piscar em branco no modo escuro. Isso só se confirma no iPhone.
 
+## Espaçamento
+O sistema completo (filosofia, definições, como decidir um caso novo, celular e orientação, certo e errado, o que reutilizar) está no Diretório - Identidade Visual - Apple, seção 7.1, no vault (`x/Documentação/Identidade Visual - Apple/Diretório - Identidade Visual - Apple.md`). Aqui ficam os valores do portal e as exceções.
+
+**Regra:** espaço entre elementos sai de um papel (`--espaco-*`, `--element-gap`), escolhido pelo que os dois elementos são um para o outro. O degrau da escala (`--spacing-*`) só aparece direto dentro de um componente, quando nenhum papel descreve a relação; o comentário da regra diz qual papel ele substitui e por quê.
+
+| Token | Valor | Relação |
+| --- | --- | --- |
+| `--espaco-junto` | 4px | Linhas de uma mesma unidade (nome e detalhe, rótulo, data e hora, item e estado) |
+| `--espaco-par` | 8px | Par: rótulo e campo, link de voltar e cabeçalho, kicker e linha curta num cartão |
+| `--espaco-perto` | 12px | Um explica o outro: kicker e título, título e introdução, foto e legenda, ações lado a lado |
+| `--espaco-grupo` | 16px | Peças de um componente; kicker de bloco e conteúdo; padding dos itens de lista; texto e lista abaixo |
+| `--element-gap` | 20px | Componentes irmãos: cartões de uma grade, campos de formulário |
+| `--espaco-bloco` | 32px | Título de seção e conteúdo; bloco e bloco; gráfico e lista abaixo |
+| `--espaco-cabecalho` | 40px | Cabeçalho de página e conteúdo; grupos de formulário; texto e foto grande |
+| `--espaco-secao` | 90px (`--section-gap`) com 834px de largura ou mais, exceto na horizontal com até 500px de altura; 64px nos demais casos | Seção e seção (definido em `tokens.css`, com as duas `@media`) |
+| `--card-padding` | 28px | Cartões de conteúdo (resumo, essenciais, dicas, próximo compromisso) |
+| `--card-padding-compacto` | 24px | Cartões densos ou divididos com foto (estadia, escolha, texto do cartão de cidade, lista vazia) |
+| `--largura-conteudo` | 980px | Coluna de conteúdo |
+| `--medida-leitura` | 66ch | Texto corrido de várias linhas: introduções, notas soltas, glossário, textos de itens e tarefas |
+
+**Exceções do portal** (cada uma com o motivo):
+- **Pílulas:** 16px de padding lateral no conteúdo; 20px nas que ficam ao lado de campos de 48px (formulários e `.registrar__acoes`), para equilibrar com a altura deles.
+- **Título do Roteiro no palco estreito** (o Roteiro preso na tela, na horizontal): 28px, para caber ao lado da foto (ver "Exceções conhecidas", mais abaixo).
+- **Tabelas:** 12px na vertical e 8px na horizontal dentro das células (no lugar de `--espaco-grupo`), pela densidade dos números.
+- **Detalhe da parada no palco:** altura fixa de 84 a 88px, para trocar de parada sem mexer no resto.
+- **Programação:** coluna da foto de 280px e coluna da data de 72px; **Hospedagens:** galeria de 340px e rótulos de 120px: medidas de componente, não espaços.
+- **Painel prático da estadia:** 20px na vertical e 24px na horizontal (no lugar de `--card-padding-compacto` nos quatro lados), por ser uma faixa estreita sob a galeria.
+- **Trilha deitada do Roteiro** (iPhone na horizontal): nome e data sob cada ponto ficam sem os 4px de `--espaco-junto`. A trilha tem 64px de altura fixa; com mais 4px, a data seria cortada ou a foto do palco encolheria. A diferença de tamanho (14px e 12px) e a meia entrelinha já separam as duas linhas.
+
+**Verificação:** `scripts/testar-telas.js` (respiro depois de títulos) e `scripts/checar-layout.js` (divisória encostada, linhas encostadas, medida de leitura) apontam o que sair destas regras.
+
 ## Layout
 - **Espaço depois de títulos:**
-  - a regra é 32px depois de `.titulo` e 16px depois de `.kicker`, inclusive antes de um aviso de lista vazia. No CSS: `h2.titulo + :not(a)` e `.conteudo > h2.kicker + …`, em `base.css`; o título de página (`h1`) recebe o respiro de `.pagina__cabecalho`;
+  - a regra é `--espaco-bloco` (32px) depois de `.titulo` e `--espaco-grupo` (16px) depois de `.kicker`, inclusive antes de um aviso de lista vazia. No CSS: `h2.titulo + :not(a)` e `.conteudo > h2.kicker + …`, em `base.css`; o título de página (`h1`) recebe o respiro de `.pagina__cabecalho`;
   - título nunca encosta em divisória nem em bloco com fundo;
   - subtítulo (`.introducao`) e link na linha do título fazem parte dele e podem ficar a 12px;
   - duas seções seguidas com o mesmo fundo: use `.secao--continua`, para não somar os dois respiros;
   - `scripts/testar-telas.js` mede isso nas rotas da lista `ROTAS` dele (faltam `pendencias`, `registrar/nota` e `registrar/salvo`) e só reprova abaixo de 24px depois de `.titulo` e de 8px depois de `.kicker`; subtítulo e link na linha do título ficam fora da medida.
-- **Seções:** 90px de respiro acima e abaixo no computador e 64px no celular, inclusive no celular deitado com 834px ou mais de largura (`orientation: landscape` e altura até 500px).
-- **Linhas de texto dentro de um item de lista:** 4px (`--spacing-4`) entre as linhas. Vale para atrações, trens e carros (`.atracao > div`, em `paginas.css`) e para cidade e resumo na lista de paradas (`.parada__texto`, em `componentes.css`).
+- **Seções:** `--espaco-secao`: 90px de respiro acima e abaixo no computador e 64px no celular, inclusive no celular deitado com 834px ou mais de largura (`orientation: landscape` e altura até 500px).
+- **Linhas de texto dentro de um item de lista:** 4px (`--espaco-junto`) entre as linhas, inclusive o estado do item ("⚠️ pendente") e as datas das estadias. Vale para atrações, trens e carros (`.atracao > div`, em `paginas.css`) e para cidade e resumo na lista de paradas (`.parada__texto`, em `componentes.css`).
 - **Imagens:**
-  - a moldura de 28px recorta a imagem, e parallax ou zoom nunca saem dela;
+  - a moldura de 28px recorta a imagem, e o zoom nunca sai dela;
   - legenda abaixo, fora da moldura;
   - resolução de pelo menos 2× a largura exibida.
 - **Campos:**
   - 48px de altura, padding de 20px, texto de 17px (o iOS dá zoom abaixo de 16px), contorno `--contorno-forte` e raio `--radius-inputs`;
   - listas com seta própria;
   - foco com anel `--cor-link` e erro em `--cor-alerta`;
+  - campos a 20px um do outro (`--element-gap`), também quando empilham abaixo de 380px;
   - dois campos na mesma linha (`.linha-campos`): rótulo, campo e mensagem ficam em linhas comuns (`subgrid`), então a mensagem de erro de um não desalinha o vizinho; a segunda coluna nunca fica menor que o próprio conteúdo;
   - "obrigatório" em `--cor-link` e "opcional" em `--cor-texto-2`, sem opacidade.
 - **Toque:** área de pelo menos 44×44px. Exceção: os pontos dos carrosséis são alvos de 24 × 44px (ponto de 8px com folga), a medida da referência, porque ficam lado a lado numa cápsula. No Checklist, o rótulo estende a área da caixa de 24px a 44px de largura e à altura da linha.
 - **Ação em forma de link** (`.link-botao`, o "Remover" de Registrar): sem moldura, texto de 14px, altura de 44px; em `--cor-alerta` quando apaga algo.
 - **Item de lista com seletor de status:** texto à esquerda e seletor à direita. Com texto longo (trem e carro, em Viagem), abaixo de 600px o seletor vai para baixo do texto (`.atracao--empilha`).
 - **Formulário depois de lista ou do texto de lista vazia** (`.lista + .formulario`, `.legenda + .formulario`): 32px de espaço.
+- **Lista com divisória logo abaixo** de um texto: 16px; de um gráfico: 32px. A divisória nunca encosta no que vem antes.
+- **Link de voltar** (`.voltar`, em todas as páginas que têm um): alvo de 44px e 8px até o cabeçalho.
 - **Texto sob o título das páginas:** `.copy.introducao`, 17px em `--cor-texto-2` (não 14px de legenda).
 - **Abertura:** a bandeira em 5:3, sem corte, com até 1000px de largura e no máximo 70% da altura da tela; sob ela, números-chave (`.numeros`: dias para o embarque, noites, cidades) em `clamp(40px, 7vw, 80px)`, sem cartão; depois o próximo compromisso como chamada com a pílula "Ver checklist". Nada pequeno e isolado sob a imagem grande.
 - **Celular deitado** (`orientation: landscape` e altura até 500px):
@@ -123,30 +170,50 @@ As cores são lidas do CSS no momento de desenhar. No gasto diário, cada barra 
 O laranja em área maior que um rótulo é a única extensão de uso de cor: ele marca "a pagar" pelo mesmo motivo que marca pendências.
 
 ## Movimento (referência: apple.com/iphone-duo e apple.com/iphone-18-pro)
-Todo efeito tem uma função. A escolha depende do que o elemento faz, não de onde ele está.
+Todo efeito tem uma função. A escolha depende do que o elemento faz, não de onde ele está, e a ausência de um efeito também é decisão: está registrada em "Onde não há efeito, e por quê".
 
-| Categoria | Exemplos | Comportamento |
-| --- | --- | --- |
-| Imagem clicável | Cartão de cidade, vizinhas, foto do trecho, galeria do hotel | Cursor sobre ela: `scale` até 1,04×. Toque: em `:active`, o cartão recua para 0,985×; na galeria, cujas fotos encostam nas bordas do cartão, a foto vai a 85% de opacidade. Só reage quem abre algo. Um elemento pode somar categorias: a foto do trecho é clicável e editorial |
-| Imagem editorial | Abertura, foto do trecho, capa da galeria (`data-rolagem`) | Assenta de 1,1× (1,16× em tela estreita) para 1× com a rolagem. Termina com o centro da foto a 40% da altura, nunca em menos de 35% de uma tela |
-| Imagem informativa | Foto do topo da cidade (`data-paralaxe`) | Paralaxe de ±5% (±9% em tela estreita), sem hover |
-| Imagem narrativa | Foto do palco do roteiro | Só troca por esmaecimento de 500 ms, sem zoom nem hover: quem muda é o conteúdo |
-| Coluna que acompanha | `.trecho__lado`, dia em `.atracoes` | `position: sticky`, com o conteúdo passando ao lado |
-| Título de seção | `data-revelar` | Opacidade de 0,08 a 1 enquanto sobe de 90% a 55% da altura. É função da posição atual, calculada a cada quadro em `atualizarTitulos`, sem gatilho nem estado: subir, descer ou saltar dá sempre o mesmo resultado |
-| Bloco e cartão | `data-subir` | Sobe 30px em 0,5 s, curva `cubic-bezier(0, 0, 0.2, 1)` |
-| Controle de carrossel | `.carrossel__controles` | Gota: nasce como círculo, cresce com leve excesso (460 ms, `--ease-gota`), alarga (640 ms, `--ease-alarga`, atraso de 180 ms), entram os pontos (depois de 560 ms) e as setas (depois de 700 ms). Uma vez só, quando 90% do controle está na tela (`IntersectionObserver`) |
-| Troca de página | `.entrando` | Só o conteúdo, 240 ms. Nada de View Transitions da página inteira |
-| Aviso flutuante | `.aviso` | Surge por esmaecimento de 240 ms e some depois de 3,5 s |
+### Efeitos e por que existem
+| Categoria | Onde | Comportamento | Por quê |
+| --- | --- | --- | --- |
+| Imagem que abre a página ou o trecho (`data-rolagem`) | Bandeira da Abertura, foto do topo da cidade, fotos da Programação, capa da galeria do hotel | Assenta de 1,1× (1,16× em tela estreita) para 1× com a rolagem e termina quando o centro da foto chega a 40% da altura da janela. O efeito dura no mínimo 35% da altura da janela de rolagem; foto já visível ao abrir a página começa no topo dela, em qualquer aparelho | Dá profundidade à chegada da imagem principal, como nas páginas da referência, e termina com a foto **inteira** e em 1×: o leitor vê a composição completa quando para de rolar. É o único efeito de **escala** ligado à rolagem em fotos (a foto do roteiro só muda de opacidade); a mesma categoria tem o mesmo comportamento em todas as páginas |
+| Imagem clicável | Cartão de cidade, vizinhas, foto do trecho, galeria do hotel | Cursor sobre ela: `scale` até 1,04×. Toque: em `:active`, o cartão recua para 0,985×; na galeria, cujas fotos encostam nas bordas do cartão, a foto vai a 85% de opacidade | Indica que a foto abre algo. Só reage quem abre algo. Uma foto pode somar categorias: a do trecho abre a cidade e também assenta com a rolagem |
+| Foto do roteiro (narrativa) | Paradas na vertical; palco na horizontal | Na vertical, a parada ainda não alcançada fica a 45% de opacidade e chega à plena quando a linha a alcança. No palco, a foto troca por esmaecimento (500 ms no computador, 240 ms no toque) | Quem conta a história é a linha que avança; a foto acompanha a parada. Ver "Onde não há efeito" |
+| Linha e pontos do roteiro | Trilha | A linha cresce com a rolagem; o ponto da parada alcançada enche | Mostra onde o leitor está no percurso. Diferenças entre computador e toque em "Computador e iPhone" |
+| Coluna que acompanha | `.trecho__lado`, dia em `.atracoes` | `position: sticky`, com o conteúdo passando ao lado | Mantém o contexto (cidade, dia) enquanto a lista passa |
+| Título de seção | `data-revelar` | Opacidade de 0,08 a 1 enquanto o topo do título sobe de 90% a 55% da altura da janela. É função da posição atual, calculada a cada quadro em `atualizarTitulos`, sem gatilho nem estado | Marca a entrada numa seção sem mover texto. Por ser só função da posição, subir, descer ou saltar dá o mesmo resultado |
+| Bloco e cartão | `data-subir` | Sobe 30px em 0,5 s, curva `cubic-bezier(0, 0, 0.2, 1)`, quando o topo chega a 92% da janela; uma vez por página | Dá ritmo à chegada de listas e cartões. Por tempo, e não pela rolagem, para nada ficar meio apagado quando o leitor para |
+| Controle de carrossel | `.carrossel__controles` | Gota: nasce como círculo, cresce com leve excesso (460 ms, `--ease-gota`), alarga (640 ms, `--ease-alarga`, atraso de 180 ms), entram os pontos (depois de 560 ms) e as setas (depois de 700 ms). Uma vez só, quando 90% do controle está na tela | Medido na página do iPhone 18 Pro: chama a atenção para o fato de haver mais cartões ao lado |
+| Troca de página | `.entrando` | O conteúdo novo entra por esmaecimento (opacidade de 0 a 1) em 240 ms; o menu não se move | Continuidade sem tocar no menu. Nada de View Transitions da página inteira: elas capturavam o menu e o faziam piscar |
+| Aviso flutuante | `.aviso` | Surge por esmaecimento de 240 ms e some depois de 3,5 s | Confirma uma ação sem tirar o leitor do lugar |
+| Gráfico | Resumo da viagem e Orçamento | As barras crescem de zero ao valor em 900 ms (`easeOutQuart`), uma vez, quando 30% do gráfico está na tela | Mostra a proporção entre as categorias no momento em que o leitor chega a ele. Igual no computador e no iPhone |
+| Indicadores de espera | Barra azul do menu; círculo do voucher | Correm ou giram só enquanto algo carrega | São os únicos movimentos que não vêm da rolagem nem do toque, e só existem enquanto há espera real |
 
+### Onde não há efeito, e por quê
+- **Fotos do roteiro não assentam com a rolagem.** Na vertical, a parada já tem dois sinais (o ponto que enche e a foto que chega à opacidade plena) e a linha avança ao lado; um terceiro movimento na mesma área competiria com o indicador de progresso, que é o que importa ali. Medido em 15/11/2026 no iPhone emulado com processador 6× mais lento: com o efeito nas oito fotos, o trabalho de script e estilo durante a rolagem do roteiro sobe de 10 a 20%, sem ganho visível com a página parada. No palco da horizontal, a foto fica presa na tela; crescer ou encolher enquanto ela está parada pareceria a foto se mexendo sozinha.
+- **Cartões das cidades não reagem à rolagem.** Eles já correm no carrossel e respondem ao cursor e ao toque; um efeito de rolagem em sete fotos lado a lado seria só repetição.
+- **Paralaxe: não há.** Até a versão 2.0 a foto do topo da cidade tinha paralaxe. Ela exigia a foto 12% a 20% maior que a moldura, sempre: no iPhone só 70% da foto aparecia, ampliada 1,2×, em qualquer ponto da rolagem, e a foto nunca era vista inteira. Na 2.1 ela passou a assentar com a rolagem, como a da Programação, com o mesmo custo de processamento medido e a foto inteira no fim.
+- **Nada se move sozinho**, além dos indicadores de espera: sem rolagem automática nos carrosséis e sem animação contínua.
+
+### Computador e iPhone
+| Efeito | Computador (com cursor) | iPhone e telas de toque | Por que a diferença |
+| --- | --- | --- | --- |
+| Imagem clicável | `scale` 1,04× com o cursor | Recuo de 0,985× ou 85% de opacidade no toque | Não há cursor; o toque responde no próprio gesto |
+| Imagem que abre a página | 1,1× → 1× | 1,16× → 1× | Em tela estreita a foto é pequena diante da rolagem; com 1,1× o efeito quase não se percebe |
+| Roteiro | Quem decide a apresentação é a **orientação da tela**, não o aparelho (detalhes em "Roteiro"). No computador: palco preso na tela, com foto e detalhe à esquerda e a trilha à direita; o ponto enche por transição de 240 ms quando a linha passa por ele | iPhone em pé: lista vertical, com foto em cada parada, sem palco. iPhone deitado: palco com a foto em cima e a trilha deitada embaixo. iPad deitado: o palco do computador. Em todos, o ponto enche junto com a rolagem | No toque, o ponto enche **junto com a rolagem** (`--enche`), nos últimos 20px da linha até o centro dele: uma transição por tempo deixava o ponto atrás do dedo. No palco de duas colunas com toque (iPad deitado), a rolagem entre paradas cai de 34% para 16% da altura da tela, para os pontos andarem tanto por pixel rolado quanto no computador |
+| Foto do palco | Troca em 500 ms | Troca em 240 ms, com o texto esperando até 120 ms | Um gesto rápido atravessa várias paradas; a troca longa ficava para trás |
+| Menu sobre fotos e palco | Vidro com desfoque | Fundo sólido sobre as fotos da vertical; sem desfoque sobre o palco | Desfocar fotos em movimento a cada quadro pesava no iPhone; sobre o palco o fundo é liso e o desfoque não muda nada |
+| Setas dos carrosséis | Visíveis a partir de 834px | Só pontos e arrasto | No toque, arrastar é o gesto natural |
+
+### Regras de implementação
 - **Cursor e rolagem não se misturam:** o cursor usa a propriedade CSS `scale`, e o GSAP usa `transform`. Transição em `transform` numa foto com rolagem faz a imagem arrastar atrás do dedo.
-- **Celular:** nenhum efeito depende de cursor para existir. Foto já visível ao abrir percorre o efeito inteiro, a partir do topo da página.
+- **Celular:** nenhum efeito depende de cursor para existir.
 - **Transições de interface:** curva `--ease-apple` e durações `--dur-curta` (240 ms), `--dur-link` (320 ms) e `--dur-longa` (500 ms).
 - **Carrosséis:** rolagem nativa com encaixe, sem rolagem automática.
 - **Gráficos:** animação de entrada quando ficam visíveis.
+- **Efeito novo:** antes de acrescentar, veja se uma categoria acima já resolve; se não, registre a categoria, o porquê e a diferença entre computador e iPhone nesta seção.
 - **Movimento reduzido** (`prefers-reduced-motion: reduce`):
-  - somem o palco fixo (o roteiro vira a lista completa, com todas as paradas marcadas, nas duas orientações), a gota, o zoom e a paralaxe das fotos, o clarear dos títulos, a subida dos blocos, a entrada de página e do aviso, a resposta ao toque em escala e a animação dos gráficos, da barra azul e do indicador do voucher;
-  - ficam as colunas que acompanham a rolagem (`position: sticky`), que não são animação.
-- **Indicadores de espera:** só giram ou correm enquanto algo carrega. São dois: a barra azul do menu e o círculo do voucher (`.carregando__ponto`). Fora isso, nada se move sozinho.
+  - somem: o palco fixo e a troca de foto dele (o roteiro vira a lista completa, com todas as paradas marcadas e as fotos a 100%); o assentar das fotos com a rolagem; o `scale` do cursor e o recuo no toque; a gota; o clarear dos títulos; a subida dos blocos; a entrada de página e do aviso; a animação dos gráficos, da barra azul e do indicador do voucher;
+  - ficam: as colunas que acompanham a rolagem (`position: sticky`) e os 85% de opacidade da galeria ao toque, que não são movimento.
 
 ### Desempenho no celular
 - **Fotos do Roteiro:** o carregamento é por orientação (ver "Roteiro"). Resolução e qualidade dos arquivos não mudam.
@@ -223,6 +290,17 @@ Para testar em `http://localhost:4173/?amostra`, o portal usa `data/amostra.json
   - o estado continua enquanto o diálogo do código de acesso está aberto e quando a leitura falha sem cópia no aparelho;
   - depois da primeira abertura, o site abre com a cópia do aparelho e este estado mal chega a ser visto;
   - a estrutura (linhas de texto de larguras diferentes e bloco de mídia) foi adaptada dos componentes Skeleton e Card Skeleton do catálogo 21st.dev, reescrita em CSS com os tokens do portal.
+
+## Rodapé
+Igual em todas as páginas, sobre a faixa (`--cor-faixa`), em texto de legenda.
+Ordem, de cima para baixo: notas; linha de sincronização; linha fina; identificação.
+- **Notas:** "Dados de pesquisa verificados em … · Cotação R$ … por £1" e, abaixo, "Itens com ⚠️ ainda precisam ser confirmados ou reservados." Aparecem quando os dados chegam.
+- **Linha de sincronização:** a hora da última leitura e a ação "Buscar novidades", juntas numa só linha: "Atualizado em dd/mm/aaaa, às hh:mm · Buscar novidades".
+  - Sem sinal, o começo da linha vira "Sem conexão: cópia salva em dd/mm/aaaa, às hh:mm", e "Buscar novidades" continua no fim, para tentar de novo.
+  - Com gravações esperando, entra antes da ação "1 alteração aguardando sinal" ou "N alterações aguardando sinal".
+  - "Buscar novidades" é uma ação em forma de link, logo depois da hora: azul (`--cor-link`), como tudo o que reage no portal, sublinhada ao passar o cursor e com alvo de toque de 44px sem mudar a altura da linha. Enquanto busca, vira "Buscando…" em cinza; o resultado sai no aviso flutuante.
+  - A linha só quebra antes do " · Buscar novidades", nunca no meio da ação.
+- **Identificação:** "Portal Escócia 2027 · versão X.Y", abaixo de uma linha fina (`--cor-divisoria`) que a separa das notas e da sincronização, como o rodapé da referência.
 
 ## Painel superior e navegação
 - **Forma:** no alto da página, faixa quadrada integrada ao topo; a partir de 24px de rolagem, cápsula suspensa com raio de 20px; volta à faixa abaixo de 8px. Vale para computador e celular, nas duas orientações. Os dois limites evitam oscilação.
