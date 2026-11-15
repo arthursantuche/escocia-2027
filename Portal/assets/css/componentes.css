@@ -76,6 +76,15 @@ button.pill { -webkit-appearance: none; appearance: none; border: 0; cursor: poi
   .proximo { grid-template-columns: 1fr auto; align-items: center; gap: var(--spacing-32); }
 }
 
+/* Alvo de toque mínimo (DESIGN.md, "Toque"): links soltos com menos de 44px de altura ou de largura
+   ganham uma área invisível de 44 × 44px centrada neles, sem mudar a linha nem o layout. Onde o link
+   já passa de 44px, o min() deixa a área igual à caixa. Links dentro de texto corrido e créditos de
+   foto ficam de fora. "Buscar novidades" tem regra própria (paginas.css), com folga também dos lados. */
+:is(.barra__titulo, .destaques__cabecalho a, .trecho__link, .estadia__endereco, .estadia__rodape > a, .registro__links a, .lista > li > a) { position: relative; }
+:is(.barra__titulo, .destaques__cabecalho a, .trecho__link, .estadia__endereco, .estadia__rodape > a, .registro__links a, .lista > li > a)::after {
+  content: ''; position: absolute; inset: min(0px, calc(50% - var(--spacing-24) + var(--spacing-2)));
+}
+
 /* Destaques: cabeçalho com título e link ("Highlights Stage") */
 .destaques__cabecalho {
   display: flex; align-items: baseline; justify-content: space-between; gap: var(--element-gap);

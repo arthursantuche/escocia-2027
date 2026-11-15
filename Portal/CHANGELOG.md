@@ -2,6 +2,14 @@
 
 Regra de numeração em `DESIGN.md`, seção "Versão". Só versões numeradas entram aqui. Cada uma tem uma etiqueta `v<versão>` no Git, que identifica o commit publicado. Datas em dd/mm/aaaa.
 
+## 2.2 — 15/11/2026
+Conformidade com as diretrizes da Apple (Human Interface Guidelines): áreas de toque e folga da barra no celular deitado.
+
+- **Áreas de toque:** links soltos que tinham de 18 a 25px de altura passam a ter alvo de 44 × 44px, por uma área invisível que não muda a linha nem o layout: título "Escócia 2027" na barra, "Ver orçamento" e "Ver roteiro" no Painel, nome da cidade no título de cada trecho da Programação, endereço e "Página do hotel no Booking" na estadia, "Abrir no Google Maps", "Ver reserva e como chegar" e "Editar" nas páginas de cidade. Os itens do menu, que tinham 41px no computador e no iPad e 37px no celular deitado, passam a 44px sem a barra crescer.
+- **Barra no celular pequeno deitado** (iPhone SE e mini): a cápsula do menu ficava a 2px da borda da tela; agora fica a 4px, como no celular em pé. A barra cresce 4px nessas telas.
+- `checar-layout.js` passa a medir links e a área invisível dos alvos, e a avisar quando qualquer das duas medidas fica abaixo de 44px.
+- Revisão do cache: `rev16`.
+
 ## 2.1 — 15/11/2026
 Animações revistas, rodapé reorganizado, sistema de espaçamento e regra de versões.
 

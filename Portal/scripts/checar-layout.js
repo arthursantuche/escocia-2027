@@ -154,14 +154,23 @@ export function checarLayout() {
     if (visivel(c) && px(getComputedStyle(c).fontSize) < 16) problemas.push(`Campo ${c.name || c.getAttribute('aria-label') || nome(c)} com ${getComputedStyle(c).fontSize}: o iOS dá zoom`);
   });
 
-  // 8. Áreas de toque menores que 44px (aviso, só em telas de toque).
+  // 8. Áreas de toque menores que 44 × 44px (aviso, só em telas de toque), em qualquer das duas medidas.
+  //    Conta o ::after posicionado que estende o alvo sem mudar a linha (regra de alvo mínimo, em
+  //    componentes.css, e "Buscar novidades"). Fora da conta: links dentro de texto corrido ou de legenda
+  //    (créditos de foto) e os pontos dos carrosséis (24 × 44px, exceção do DESIGN.md, "Toque").
   if (matchMedia('(pointer: coarse)').matches) {
-    document.querySelectorAll('button, .pill, select, input[type=checkbox]').forEach((b) => {
+    document.querySelectorAll('a[href], button, .pill, select, input[type=checkbox]').forEach((b) => {
+      if (!visivel(b) || b.closest('.carrossel__pontos') || (getComputedStyle(b).display === 'inline' && b.closest('p, li, dd, td, figcaption'))) return;
       const r = b.getBoundingClientRect();
+      if (!r.height) return;
       // A caixa de seleção e o rótulo formam um alvo só (o rótulo estende a área de toque sobre ela).
       const rotulo = b.type === 'checkbox' && b.labels && b.labels[0] ? b.labels[0].getBoundingClientRect() : null;
       if (rotulo && rotulo.height >= 44) return;
-      if (visivel(b) && r.height && r.height < 44 && r.width < 44) avisos.push(`Área de toque de ${Math.round(r.width)}×${Math.round(r.height)}px em ${nome(b)} "${texto(b)}"`);
+      const d = getComputedStyle(b, '::after');
+      const estende = d.content !== 'none' && d.position === 'absolute';
+      const alto = estende ? Math.max(r.height, r.height - px(d.top) - px(d.bottom)) : r.height;
+      const largo = estende ? Math.max(r.width, r.width - px(d.left) - px(d.right)) : r.width;
+      if (alto < 43.5 || largo < 43.5) avisos.push(`Área de toque de ${Math.round(largo)}×${Math.round(alto)}px em ${nome(b)} "${texto(b)}"`);
     });
   }
 

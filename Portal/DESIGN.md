@@ -1,6 +1,6 @@
 # DESIGN — Portal Escócia 2027
 
-Fonte da verdade: `x/Documentação/Identidade Visual - Apple.md` (vault Arthur's Ideaverse): modo claro pela parte "iPhone Duo - Modo claro", modo escuro pela parte "iPhone 18 Pro - Modo escuro" e movimento pela parte "Animações e comportamento visual - Apple". Como aplicar: `x/Documentação/Diretório - Identidade Visual - Apple.md`. Os tokens estão transcritos em `assets/css/tokens.css`.
+Fonte da verdade: `x/Documentação/Identidade Visual - Apple/Identidade Visual - Apple.md` (vault Arthur's Ideaverse): modo claro pela parte "iPhone Duo - Modo claro", modo escuro pela parte "iPhone 18 Pro - Modo escuro" e movimento pela parte "Animações e comportamento visual - Apple". Como aplicar: `x/Documentação/Identidade Visual - Apple/Diretório - Identidade Visual - Apple.md`. Os tokens estão transcritos em `assets/css/tokens.css`.
 
 Neste texto, "o documento" e "a identidade" são sempre a Identidade Visual - Apple, que fica no vault, fora do repositório. Se este arquivo e o código divergirem, vale o código: corrija o arquivo.
 
@@ -12,7 +12,7 @@ Neste texto, "o documento" e "a identidade" são sempre a Identidade Visual - Ap
 - **Computador:** a partir de 834px de largura. **Celular** ou **tela estreita:** abaixo disso. **Celular deitado:** `orientation: landscape` com altura até 500px.
 
 ## Versão
-Versão atual: **2.1** (`VERSAO_SITE`, em `assets/js/config.js`), mostrada no rodapé como "Portal Escócia 2027 · versão 2.1". O histórico fica em `CHANGELOG.md`.
+A versão do código está em `VERSAO_SITE` (`assets/js/config.js`) e aparece no rodapé como "Portal Escócia 2027 · versão X.Y"; a que está publicada fica registrada no vault, no Diretório - Portal Escócia 2027, seção 2.1. O histórico fica em `CHANGELOG.md`.
 
 | O que mudou | Número | Exemplo |
 | --- | --- | --- |
@@ -25,7 +25,7 @@ Versão atual: **2.1** (`VERSAO_SITE`, em `assets/js/config.js`), mostrada no ro
 - **A cada versão numerada:**
   - uma entrada em `CHANGELOG.md`, com data e o que mudou (só versões numeradas entram lá);
   - uma etiqueta `v<versão>` no commit publicado, que é quem identifica o commit (`v2.0` marca o `d4b49df`);
-  - o número novo no cabeçalho de cinco documentos do vault: Diretório - Portal Escócia 2027, Guia do Projeto, Guia de Manutenção, Documentação e Referência técnica.
+  - o número novo no Diretório - Portal Escócia 2027, seção 2.1, no vault: é o único documento do vault que registra a versão.
 
 ## Tokens
 - **Paleta** (`--color-*`): os valores literais do documento. Só `tokens.css` usa a paleta diretamente.
@@ -70,6 +70,7 @@ Versão atual: **2.1** (`VERSAO_SITE`, em `assets/js/config.js`), mostrada no ro
   - títulos que quebram linha usam altura de linha 1,08 e `text-wrap: balance`, para nenhuma palavra ficar sozinha na última linha;
   - o kicker tem altura de linha 1,0 e serve a textos de uma linha. Onde ele sempre quebra (o título do próximo compromisso), usa 1,21 (`--leading-product-nav-title`).
 - **Escala móvel:** o display vai de `--text-feature-heading` (40px) a `--text-hero-display` (80px) com `clamp`, sem criar tamanhos novos.
+- **Celular:** adapte, não reproduza a disposição do computador; a mesma lógica e a mesma qualidade, com a composição que cabe na tela. A orientação escolhe a apresentação do Roteiro e, na horizontal, o espaço disponível escolhe a composição. Sem modos nem seletores para o leitor. Altura de tela em `svh`; margens nunca menores que a área segura (`--gutter-e`, `--gutter-d`, `env(safe-area-inset-*)`).
 
 ## Tema escuro
 - Segue o sistema (`prefers-color-scheme`), sem seletor manual.
@@ -140,7 +141,13 @@ O sistema completo (filosofia, definições, como decidir um caso novo, celular 
   - campos a 20px um do outro (`--element-gap`), também quando empilham abaixo de 380px;
   - dois campos na mesma linha (`.linha-campos`): rótulo, campo e mensagem ficam em linhas comuns (`subgrid`), então a mensagem de erro de um não desalinha o vizinho; a segunda coluna nunca fica menor que o próprio conteúdo;
   - "obrigatório" em `--cor-link` e "opcional" em `--cor-texto-2`, sem opacidade.
-- **Toque:** área de pelo menos 44×44px. Exceção: os pontos dos carrosséis são alvos de 24 × 44px (ponto de 8px com folga), a medida da referência, porque ficam lado a lado numa cápsula. No Checklist, o rótulo estende a área da caixa de 24px a 44px de largura e à altura da linha.
+- **Toque:** área de pelo menos 44×44px, o tamanho padrão de controle da HIG (o mínimo dela é 28×28pt). Como cada caso chega lá:
+  - pílulas, campos, link de voltar, ação em forma de link e itens do menu têm 44px de altura própria (o menu, com `min-height`, também no computador e no celular deitado);
+  - links soltos com menos de 44px (título da barra, "Ver …" na linha do título, nome da cidade no título do trecho, endereço e "Página do hotel" na estadia, links de item de lista e de registro) ganham uma área invisível de 44×44px centrada neles, pela regra de alvo mínimo em `componentes.css`, sem mudar a linha nem o layout. "Buscar novidades" tem regra própria, com folga também dos lados;
+  - no Checklist, o rótulo estende a área da caixa de 24px a 44px de largura e à altura da linha;
+  - ficam de fora links dentro de texto corrido ou de legenda (créditos de foto), como permite o critério de alvos do WCAG;
+  - exceção: os pontos dos carrosséis são alvos de 24 × 44px (ponto de 8px com folga), a medida de apple.com, porque ficam lado a lado numa cápsula. Ficam 4px abaixo do mínimo da HIG na largura; o desvio é aceito porque os alvos são contíguos (sem área morta entre eles), têm 44px de altura e o carrossel também se move ao deslizar e, no computador, pelas setas.
+  - A comparação completa com a HIG está no Diretório - Identidade Visual - Apple, seção 7.1, "Relação com as diretrizes da Apple (HIG)".
 - **Ação em forma de link** (`.link-botao`, o "Remover" de Registrar): sem moldura, texto de 14px, altura de 44px; em `--cor-alerta` quando apaga algo.
 - **Item de lista com seletor de status:** texto à esquerda e seletor à direita. Com texto longo (trem e carro, em Viagem), abaixo de 600px o seletor vai para baixo do texto (`.atracao--empilha`).
 - **Formulário depois de lista ou do texto de lista vazia** (`.lista + .formulario`, `.legenda + .formulario`): 32px de espaço.
@@ -150,9 +157,9 @@ O sistema completo (filosofia, definições, como decidir um caso novo, celular 
 - **Abertura:** a bandeira em 5:3, sem corte, com até 1000px de largura e no máximo 70% da altura da tela; sob ela, números-chave (`.numeros`: dias para o embarque, noites, cidades) em `clamp(40px, 7vw, 80px)`, sem cartão; depois o próximo compromisso como chamada com a pílula "Ver checklist". Nada pequeno e isolado sob a imagem grande.
 - **Celular deitado** (`orientation: landscape` e altura até 500px):
   - a foto da cidade fica em 3:1, para não passar da área visível;
-  - abaixo de 834px, a barra fica numa linha só (52px em vez de 101px);
+  - abaixo de 834px, a barra fica numa linha só (52px em vez de 101px), com 4px acima e abaixo da cápsula, como no celular em pé;
 - **Margem lateral:** `--gutter-e` e `--gutter-d`, nunca menores que a área segura do iPhone deitado.
-- **Validação:** conferir as orientações vertical e horizontal (por exemplo 390×844, 844×390, 1024×768 e 1280×800).
+- **Validação:** conferir as orientações vertical e horizontal, nos tamanhos e temas da Referência técnica - Portal Escócia 2027, seção 10, no vault.
 
 - **Programação:** dias agrupados por trecho. A partir de 834px de largura e com mais de 700px de altura, a foto e a cidade acompanham a rolagem numa coluna de 280px; o trecho de duas cidades não acompanha.
 - **Hospedagens:** um cartão por estadia, na ordem da viagem, com a galeria de fotos do hotel à esquerda a partir de 834px e acima do texto no celular (sem fotos cadastradas, entra a foto da cidade, que não abre nada); datas, quarto, camas e café em campos separados.
@@ -186,6 +193,8 @@ Todo efeito tem uma função. A escolha depende do que o elemento faz, não de o
 | Troca de página | `.entrando` | O conteúdo novo entra por esmaecimento (opacidade de 0 a 1) em 240 ms; o menu não se move | Continuidade sem tocar no menu. Nada de View Transitions da página inteira: elas capturavam o menu e o faziam piscar |
 | Aviso flutuante | `.aviso` | Surge por esmaecimento de 240 ms e some depois de 3,5 s | Confirma uma ação sem tirar o leitor do lugar |
 | Gráfico | Resumo da viagem e Orçamento | As barras crescem de zero ao valor em 900 ms (`easeOutQuart`), uma vez, quando 30% do gráfico está na tela | Mostra a proporção entre as categorias no momento em que o leitor chega a ele. Igual no computador e no iPhone |
+| Foto que surge | Toda foto ao terminar de carregar (`img.carregada`) | Esmaecimento de 500 ms | Evita a foto aparecendo de repente |
+| Toque em controles | Pílulas (0,97×), cartões de escolha (0,98×), cartões e fotos clicáveis (0,985×), em `:active` | Recuo enquanto o dedo está na tela | Substitui o hover no toque: confirma que o toque foi recebido |
 | Indicadores de espera | Barra azul do menu; círculo do voucher | Correm ou giram só enquanto algo carrega | São os únicos movimentos que não vêm da rolagem nem do toque, e só existem enquanto há espera real |
 
 ### Onde não há efeito, e por quê
@@ -220,6 +229,10 @@ Todo efeito tem uma função. A escolha depende do que o elemento faz, não de o
 - **Quadro de rolagem:** o que depende de medida é medido uma vez (`medirRoteiro`), e cada quadro só escreve o que mudou. Não leia layout nem reescreva o mesmo estilo a cada quadro.
 - **Efeitos caros:** sem `mask-image` em conteúdo que se move (use degradês por cima) e sem desfoque quando o fundo é liso (`.topo--sobre-palco`).
 - **Barra do Safari:** dispara `resize` durante a rolagem. Só mudança de largura pede nova medição.
+- **Imagens:** não desenhe várias imagens grandes ao mesmo tempo, nem com opacidade zero; antes de trocar para uma imagem ainda não decodificada, use `img.decode()`. Esconder uma imagem com CSS não evita o download: atribua o arquivo só quando ela for aparecer. Nunca reduza a qualidade dos arquivos: o `srcset` escolhe o tamanho adequado à tela.
+- **Um problema, uma apresentação:** não altere a horizontal para resolver um problema da vertical ou do toque. Use `@media (orientation: portrait)`, `.roteiro--vertical` e `.roteiro--toque`.
+- **Indicadores ligados à rolagem:** valor calculado pela posição, não transição por tempo; confira quantos pixels o indicador anda por pixel rolado, com `scripts/medir-roteiro.cjs`.
+- O iPhone sofre mais que o computador, e o teste no Mac não mostra isso.
 
 ### Roteiro
 A orientação da tela decide a apresentação (`HORIZONTAL`, em `movimento.js`), em qualquer aparelho, e a troca acontece sem recarregar a página, mantendo a parada do leitor. Não há seletor de modos.
@@ -271,10 +284,10 @@ A orientação da tela decide a apresentação (`HORIZONTAL`, em `movimento.js`)
 - paradas do roteiro marcadas fora de hora;
 - cápsula do menu encostada no topo (medida no pseudo-elemento `.topo::before`);
 - campos com menos de 16px;
-- áreas de toque menores que 44px, em telas de toque (aviso);
+- áreas de toque com menos de 44px de altura ou de largura, em telas de toque, contando a área invisível do `::after` (aviso; ficam fora os links em texto corrido ou legenda e os pontos dos carrosséis);
 - contraste dos tokens de papel.
 
-Para testar em `http://localhost:4173/?amostra`, o portal usa `data/amostra.json` em vez da planilha.
+Com `?amostra` em `127.0.0.1` ou `localhost`, o portal usa `data/amostra.json` em vez da planilha. Servidor, tamanhos de tela e como rodar em lote: Referência técnica - Portal Escócia 2027, seção 10, no vault (servidor `portal-sem-cache`, de `.claude/launch.json`).
 
 ## Telas sobrepostas e galerias
 - **Voucher e fotos ampliadas:** tela cheia, em `dialog`, com entrada por esmaecimento curto (`--dur-curta`).
@@ -307,12 +320,13 @@ Ordem, de cima para baixo: notas; linha de sincronização; linha fina; identifi
 - **Como se transforma:** só o fundo (`.topo::before`) muda, com `--ease-capsula` (560 ms, leve excesso) na ida e `--ease-alarga` (420 ms) na volta. Textos, botões e altura do painel não se mexem.
 - **Itens:** marca (leva ao Painel), Programação, Hospedagens, Viagem, Checklist e a ação Registrar. Um item novo só entra se for destino frequente; o resto vai para atalhos internos (`.atalhos`).
 - **Orçamento fora do painel:** é informação mais particular. Abre pelo Resumo da viagem, no Painel, e por Viagem. Nenhum item fica marcado nessa página.
-- **Estabilidade:** troca de página não pode tocar no painel. Nada de View Transitions da página inteira, e o painel nunca é remontado.
+- **Estabilidade:** troca de página não pode tocar no painel. Nada de View Transitions da página inteira, e o painel nunca é remontado. A página nova começa no topo.
 - **Âncoras:** a seção começa no topo da tela, e o `padding-top` reserva a altura do painel.
-- **Carregamento:** a barra azul (`.carregamento`) ocupa toda a largura, na base de `.topo`, e indica leitura ou gravação real na planilha.
+- **Folga da cápsula:** 4px entre a cápsula e o topo da tela abaixo de 834px de largura (em pé e deitado) e 6px a partir de 834px, somados à área segura; nas laterais, 8px mais a área segura abaixo de 834px, 12px a partir de 834px e, a partir de 1048px, alinhada à coluna de 1024px. `checar-layout.js` reprova menos de 4px do topo.
+- **Carregamento:** a barra azul (`.carregamento`) ocupa toda a largura, na base de `.topo`, nunca dentro da cápsula, e indica leitura ou gravação real na planilha.
 - **Ícone:** a bandeira da Escócia, plana, sem texto nem efeitos: azul `#005eb8` (Pantone 300) e cruz branca de canto a canto, com largura de 1/5 do lado. É a mesma em todos os contextos e nos dois temas; os arquivos saem de `scripts/gerar-icones.py`.
   - **Aba e favoritos** (`bandeira-16`, `-32`, `-48`, `-192`); **tela inicial do iPhone e do iPad e favoritos do Safari** (`bandeira-180`); **instalação no Android e no computador** (`bandeira-192`, `-512`, este também como `maskable`).
   - A imagem é opaca e vai até as bordas: cantos e máscaras do sistema não deixam fundo aparecendo.
   - Ao mudar o desenho, troque o nome dos arquivos: os navegadores guardam o ícone pelo endereço.
-- **Programação:** o texto de cada trecho começa no topo da foto, sempre.
-- **Todas as cidades:** a faixa cinza é o painel da seção. Ocupa ao menos uma tela (`min-height: 100svh`, exceto em telas muito baixas), com coluna de até 1200px e cartões de 340 a 440px.
+- **Programação:** o texto de cada trecho começa no topo da foto, sempre. A foto de Edimburgo acompanhando a rolagem é a referência de qualidade da página.
+- **Todas as cidades:** a faixa cinza é o painel da seção. Ocupa ao menos uma tela (`min-height: 100svh`, exceto em telas muito baixas), com coluna de até 1200px e cartões de 340 a 440px. A borda preta inferior ao chegar pela âncora é aceita: não mexa por causa dela.
