@@ -12,7 +12,7 @@ Esta pasta, `Portal/`, é o site. Na raiz do repositório ficam só `.github/` (
 - `index.html`, `assets/`, `manifest.webmanifest`, `sw.js`: o site.
 - `data/amostra.json`: dados de exemplo, sem informações pessoais, para testar com `?amostra`.
 - `apps-script/Api.gs`: a API, colada no projeto do Apps Script da planilha.
-- `scripts/`: testes (`testar-telas.js`, `testar-trilha.js`, `checar-layout.js`, `medir-roteiro.cjs`, `visualizador-webkit.swift`), fotos (`baixar-fotos.py`) e ícones (`gerar-icones.py`). Não são publicados.
+- `scripts/`: testes (`testar-telas.js`, `testar-trilha.js`, `checar-layout.js`, `checar-indicadores.cjs`, `medir-roteiro.cjs`, `visualizador-webkit.swift`), fotos (`baixar-fotos.py`) e ícones (`gerar-icones.py`). Não são publicados.
 - `DESIGN.md`: regras de design e de movimento do portal, com o porquê de cada efeito e a regra de versões.
 - `CHANGELOG.md`: histórico de versões.
 
@@ -26,6 +26,7 @@ Abra http://localhost:4173/?amostra para usar os dados de exemplo, sem código d
 const { testarTelas } = await import('/scripts/testar-telas.js'); await testarTelas();
 const { testarTrilha } = await import('/scripts/testar-trilha.js'); await testarTrilha();
 ```
+Indicadores de cursor e de foco cortados, no terminal, com o servidor `portal-sem-cache` no ar: `node Portal/scripts/checar-indicadores.cjs`.
 
 ## Publicar
 Cada push na `main` publica pelo workflow `.github/workflows/pages.yml`, na raiz do repositório. Ao mudar arquivos do site, altere a revisão em `VERSAO`, em `sw.js`, para os aparelhos baixarem a versão nova; se a mudança for visível, suba também `VERSAO_SITE` (regra em `DESIGN.md`, "Versão"), registre-a em `CHANGELOG.md` e crie a etiqueta `v<versão>`.

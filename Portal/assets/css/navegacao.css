@@ -82,6 +82,9 @@
 @media (min-width: 1048px) {
   .topo { --capsula-esq: calc((100% - 1024px) / 2); --capsula-dir: calc((100% - 1024px) / 2); }
 }
+/* A lista rola na horizontal e, por isso, corta também em cima e embaixo: 4px de respiro para o anel
+   de foco (2px a 2px de distância) dos itens, devolvidos pela margem negativa, sem mexer na altura
+   da barra. Vale em todas as larguras, por isso vem depois das regras de 834px. */
 /* Celular deitado e estreito: as duas linhas tomariam mais de um quarto da altura;
    título, seções e ação ficam numa linha só. */
 @media (max-width: 833px) and (orientation: landscape) and (max-height: 500px) {
@@ -115,3 +118,4 @@
   animation: carregando 1.4s var(--ease-apple) infinite;
 }
 .carregamento[data-ativo] { opacity: 1; }
+.barra__secoes { padding-block: var(--spacing-4); margin-block: calc(var(--spacing-4) * -1); }

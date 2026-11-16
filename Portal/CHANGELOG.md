@@ -1,8 +1,31 @@
 # Histórico de versões — Portal Escócia 2027
 
-Regra de numeração em `DESIGN.md`, seção "Versão". Só versões numeradas entram aqui. Cada uma tem uma etiqueta `v<versão>` no Git, que identifica o commit publicado. Datas em dd/mm/aaaa.
+Regra de numeração em `DESIGN.md`, seção "Versão". Só versões numeradas entram aqui. Cada uma tem uma etiqueta `v<versão>` no Git, que identifica o commit publicado. Datas em dd/mm/aaaa. O detalhe de cada intervenção (diagnóstico, decisões, testes) fica no vault, na Auditoria de qualidade - Portal Escócia 2027.
 
-## 2.2 — 15/11/2026
+## Visão geral
+| Versão | Publicada em | Commit | Etiqueta | Revisão do cache | Em uma linha |
+| --- | --- | --- | --- | --- | --- |
+| Antes da 2.0 | até 08/11/2026 | — | — | `rev1` a `rev12` | Sem registro (seção "Antes da 2.0", no fim) |
+| 2.0 | 08/11/2026 | `d4b49df` | `v2.0` | `rev13` | Primeira versão no repositório |
+| 2.0, revisão 14 | 14/11/2026 | `7f62136` | — | `rev14` | Auditoria de qualidade, publicada sem número próprio |
+| 2.1 | 15/11/2026 | `45b5563` | `v2.1` | `rev15` | Animações, rodapé, sistema de espaçamento, regra de versões |
+| 2.2 | 15/11/2026 | `ed8feba` | `v2.2` | `rev16` | Áreas de toque pelas diretrizes da Apple; folga da cápsula |
+| 2.3 | 16/11/2026 | ver etiqueta | `v2.3` | `rev17` | Indicadores de cursor e de foco inteiros; zoom das fotos com rolagem |
+
+Até aqui, cinco versões publicadas (2.0, a revisão 14 da 2.0, que pela regra atual seria secundária, 2.1, 2.2 e 2.3), mais as revisões sem registro de antes do repositório.
+
+## 2.3 — 16/11/2026
+Auditoria dos estados de interação (cursor, foco e toque) em todas as páginas.
+
+- **Cartões do Resumo da viagem:** o contorno que aparece ao passar o cursor perdia o lado de cima. O trilho do carrossel rola na horizontal e, por isso, recorta também em cima e embaixo; não havia respiro em cima. Agora tem 4px, devolvidos com margem negativa (nada sai do lugar).
+- **Anel de foco do teclado** inteiro também nos cartões do Resumo e das Sete cidades, nos itens do menu (a lista também rola na horizontal) e nas fotos da galeria das estadias (o cartão recorta as fotos; o anel vem para dentro e acompanha o canto arredondado).
+- **Zoom do cursor** volta a funcionar na foto de cada trecho da Programação e na capa da galeria: o GSAP, que faz a foto assentar com a rolagem, escrevia `scale: none` na imagem e apagava o zoom. Com movimento reduzido, continua sem zoom.
+- **"Pagamento, cancelamento e contato"** sublinha ao passar o cursor, como as outras ações em forma de link.
+- `scripts/checar-indicadores.cjs`: força os estados de cursor e de foco e aponta indicador cortado.
+- Revisão do cache: `rev17`.
+
+
+## 2.2 — 15/11/2026 · `ed8feba`
 Conformidade com as diretrizes da Apple (Human Interface Guidelines): áreas de toque e folga da barra no celular deitado.
 
 - **Áreas de toque:** links soltos que tinham de 18 a 25px de altura passam a ter alvo de 44 × 44px, por uma área invisível que não muda a linha nem o layout: título "Escócia 2027" na barra, "Ver orçamento" e "Ver roteiro" no Painel, nome da cidade no título de cada trecho da Programação, endereço e "Página do hotel no Booking" na estadia, "Abrir no Google Maps", "Ver reserva e como chegar" e "Editar" nas páginas de cidade. Os itens do menu, que tinham 41px no computador e no iPad e 37px no celular deitado, passam a 44px sem a barra crescer.
@@ -10,7 +33,7 @@ Conformidade com as diretrizes da Apple (Human Interface Guidelines): áreas de 
 - `checar-layout.js` passa a medir links e a área invisível dos alvos, e a avisar quando qualquer das duas medidas fica abaixo de 44px.
 - Revisão do cache: `rev16`.
 
-## 2.1 — 15/11/2026
+## 2.1 — 15/11/2026 · `45b5563`
 Animações revistas, rodapé reorganizado, sistema de espaçamento e regra de versões.
 
 - **Sistema de espaçamento:** papéis de espaço (`--espaco-junto` a `--espaco-secao`), padding de cartões em dois níveis, coluna e medida de leitura como tokens em `tokens.css`, aplicados às regras compartilhadas. Corrigidos: lista colada no gráfico do Orçamento e na nota de créditos da Viagem; "⚠️ pendente" colado no item, no Painel; datas das estadias sem os 4px entre as linhas; kicker a 8px do título no Roteiro (12px nas demais); dois links de voltar com espaços diferentes; campos empilhados a 12px em telas estreitas; introduções e notas com até 136 caracteres por linha no computador (agora até ~85). `checar-layout.js` passa a apontar divisórias e linhas encostadas e linhas longas demais.
@@ -32,4 +55,13 @@ Auditoria de qualidade, publicada ainda como "versão 2.0", antes da regra de ve
 - `checar-layout.js` mais confiável; configuração `portal-sem-cache`.
 
 ## 2.0 — 08/11/2026 · `d4b49df`
-Primeira versão no repositório: portal completo, com Painel, Programação, Hospedagens, Viagem, Checklist, Orçamento, Registrar e páginas das cidades, lendo e gravando na planilha. O histórico anterior não foi registrado.
+Primeira versão no repositório: portal completo, com Painel, Programação, Hospedagens, Viagem, Checklist, Orçamento, Registrar e páginas das cidades, lendo e gravando na planilha. O que veio antes está na seção abaixo.
+
+## Antes da 2.0
+Houve versões do portal antes do repositório, mas não há registro delas: o conteúdo sobre versões anteriores à 2.0 foi descartado a pedido do Arthur, e o repositório começa na 2.0. O que se pode comprovar:
+- a 2.0 já foi publicada com a revisão de cache `rev13`, então houve 12 revisões publicadas antes dela (`rev1` a `rev12`), sem data nem conteúdo conhecidos;
+- a API em uso é a implantação "Portal 2.0", na versão 7 do Apps Script (numeração do Google, sem relação com a versão do site); as versões 1 a 6 da implantação também não têm registro;
+- o Guia de Manutenção, no vault, registra o portal já em funcionamento em 03/11/2026.
+
+Não se sabe quantas versões numeradas houve antes da 2.0, nem quais foram as datas e mudanças. Se aparecer um registro confiável, ele entra aqui, em ordem cronológica.
+

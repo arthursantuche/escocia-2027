@@ -198,6 +198,10 @@ a.card:active { transform: scale(0.985); }
   display: flex; gap: var(--element-gap);
   overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
   padding: 0 var(--margem) var(--spacing-8); scroll-padding-inline: var(--margem);
+  /* Quem rola na horizontal corta também na vertical: sem estes 4px em cima, o contorno do cartão
+     ao passar o cursor (1px) e o anel de foco (4px) perdiam o lado de cima. A margem negativa
+     devolve os 4px, e os cartões ficam no mesmo lugar. A base já tem 8px. */
+  padding-top: var(--spacing-4); margin-top: calc(var(--spacing-4) * -1);
   scrollbar-width: none;
 }
 .carrossel__trilho::-webkit-scrollbar { display: none; }

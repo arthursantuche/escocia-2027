@@ -4,4 +4,4 @@ export const API_URL = 'https://script.google.com/macros/s/AKfycbxi_0Cq3NhiYKVGl
 
 // Versão do site, mostrada no rodapé. Regra em DESIGN.md ("Versão") e histórico em CHANGELOG.md;
 // a revisão interna do cache fica em VERSAO, em sw.js, e muda a cada publicação.
-export const VERSAO_SITE = '2.2';
+export const VERSAO_SITE = '2.3';

@@ -183,6 +183,8 @@ Todo efeito tem uma função. A escolha depende do que o elemento faz, não de o
 | Categoria | Onde | Comportamento | Por quê |
 | --- | --- | --- | --- |
 | Imagem que abre a página ou o trecho (`data-rolagem`) | Bandeira da Abertura, foto do topo da cidade, fotos da Programação, capa da galeria do hotel | Assenta de 1,1× (1,16× em tela estreita) para 1× com a rolagem e termina quando o centro da foto chega a 40% da altura da janela. O efeito dura no mínimo 35% da altura da janela de rolagem; foto já visível ao abrir a página começa no topo dela, em qualquer aparelho | Dá profundidade à chegada da imagem principal, como nas páginas da referência, e termina com a foto **inteira** e em 1×: o leitor vê a composição completa quando para de rolar. É o único efeito de **escala** ligado à rolagem em fotos (a foto do roteiro só muda de opacidade); a mesma categoria tem o mesmo comportamento em todas as páginas |
+| Cartão de texto clicável | Cartões do Resumo da viagem | Cursor: contorno de 1px em `--cor-contorno` (`--contorno-forte`), nos quatro lados. Toque: recuo para 0,985× | Sem foto para aproximar, o contorno indica que o cartão abre uma página. O trilho do carrossel tem 4px de respiro em cima para o contorno não ser cortado |
+| Cartão de escolha | Tipos de registro, em Registrar | Cursor: a seta desliza 4px. Toque: recuo para 0,98× | A seta já diz "seguir"; movê-la é o sinal natural |
 | Imagem clicável | Cartão de cidade, vizinhas, foto do trecho, galeria do hotel | Cursor sobre ela: `scale` até 1,04×. Toque: em `:active`, o cartão recua para 0,985×; na galeria, cujas fotos encostam nas bordas do cartão, a foto vai a 85% de opacidade | Indica que a foto abre algo. Só reage quem abre algo. Uma foto pode somar categorias: a do trecho abre a cidade e também assenta com a rolagem |
 | Foto do roteiro (narrativa) | Paradas na vertical; palco na horizontal | Na vertical, a parada ainda não alcançada fica a 45% de opacidade e chega à plena quando a linha a alcança. No palco, a foto troca por esmaecimento (500 ms no computador, 240 ms no toque) | Quem conta a história é a linha que avança; a foto acompanha a parada. Ver "Onde não há efeito" |
 | Linha e pontos do roteiro | Trilha | A linha cresce com a rolagem; o ponto da parada alcançada enche | Mostra onde o leitor está no percurso. Diferenças entre computador e toque em "Computador e iPhone" |
@@ -214,7 +216,9 @@ Todo efeito tem uma função. A escolha depende do que o elemento faz, não de o
 | Setas dos carrosséis | Visíveis a partir de 834px | Só pontos e arrasto | No toque, arrastar é o gesto natural |
 
 ### Regras de implementação
-- **Cursor e rolagem não se misturam:** o cursor usa a propriedade CSS `scale`, e o GSAP usa `transform`. Transição em `transform` numa foto com rolagem faz a imagem arrastar atrás do dedo.
+- **Cursor e rolagem não se misturam:** o cursor usa a propriedade CSS `scale`, e o GSAP usa `transform`. Transição em `transform` numa foto com rolagem faz a imagem arrastar atrás do dedo. O GSAP escreve `scale: none` no estilo das imagens que anima: na foto do trecho e na capa da galeria, a regra do cursor tem `!important`, só sem movimento reduzido (`paginas.css`). Até a 2.2 o zoom do cursor não acontecia nessas duas fotos.
+- **Indicadores inteiros:** contorno de cursor e anel de foco (2px, a 2px do elemento) aparecem nos quatro lados. Contêiner que recorta (o trilho dos carrosséis e a lista do menu, que rolam na horizontal) tem respiro de 4px devolvido com margem negativa; nas fotos da estadia, que o cartão recorta, o anel vem para dentro, e a capa tem o raio do cartão no canto que coincide com ele. Regra geral no Diretório - Identidade Visual - Apple, seção 10.1.
+- **Ação em forma de link** ("Remover", "Buscar novidades", "Pagamento, cancelamento e contato"): sublinha com o cursor.
 - **Celular:** nenhum efeito depende de cursor para existir.
 - **Transições de interface:** curva `--ease-apple` e durações `--dur-curta` (240 ms), `--dur-link` (320 ms) e `--dur-longa` (500 ms).
 - **Carrosséis:** rolagem nativa com encaixe, sem rolagem automática.
@@ -286,6 +290,8 @@ A orientação da tela decide a apresentação (`HORIZONTAL`, em `movimento.js`)
 - campos com menos de 16px;
 - áreas de toque com menos de 44px de altura ou de largura, em telas de toque, contando a área invisível do `::after` (aviso; ficam fora os links em texto corrido ou legenda e os pontos dos carrosséis);
 - contraste dos tokens de papel.
+
+`scripts/checar-indicadores.cjs` roda no terminal (`node`, com o Playwright do computador) e força `:hover` e `:focus-visible` em cada elemento interativo, apontando contorno, sombra ou anel de foco cortado por um contêiner que recorta. Deve terminar com "Nenhum indicador cortado".
 
 Com `?amostra` em `127.0.0.1` ou `localhost`, o portal usa `data/amostra.json` em vez da planilha. Servidor, tamanhos de tela e como rodar em lote: Referência técnica - Portal Escócia 2027, seção 10, no vault (servidor `portal-sem-cache`, de `.claude/launch.json`).
 

@@ -274,6 +274,20 @@ button.galeria__capa:active, .galeria__miniatura:active { opacity: 0.85; }
 @media (hover: hover) {
   button.galeria__capa:hover img, .galeria__miniatura:hover img { scale: 1.04; }
 }
+/* Foto do trecho e capa da galeria também assentam com a rolagem: o GSAP escreve `scale: none` no estilo
+   da própria imagem, que venceria as regras acima e apagaria o zoom do cursor. O !important devolve o
+   zoom; a rolagem continua no `transform`, e os dois se somam (DESIGN.md, "Regras de implementação").
+   Só sem movimento reduzido, para não vencer o `scale: none !important` de movimento.css. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .trecho__foto:hover img, button.galeria__capa:hover img { scale: 1.04 !important; }
+}
+/* O cartão da estadia recorta as fotos (overflow: hidden, cantos de 28px), e o anel de foco de fora
+   seria cortado nas bordas. Nas fotos, ele vem para dentro, a 2px da borda. A capa repete o raio do
+   cartão no canto que coincide com ele (o de cima à esquerda; no celular, os dois de cima), o que não
+   muda nada na tela e faz o anel acompanhar a curva. */
+.estadia .galeria__capa { border-top-left-radius: var(--radius-cards); }
+@media (max-width: 833px) { .estadia .galeria__capa { border-top-right-radius: var(--radius-cards); } }
+.estadia :is(button.galeria__capa, .galeria__miniatura):focus-visible { outline-offset: calc(var(--spacing-4) * -1); }
 .estadia__endereco { display: block; margin-top: var(--spacing-4); font-size: var(--text-body-small); line-height: var(--leading-body-small); }
 .estadia__valor { display: grid; gap: var(--spacing-4); }
 .estadia__mais summary {
@@ -281,6 +295,8 @@ button.galeria__capa:active, .galeria__miniatura:active { opacity: 0.85; }
   cursor: pointer; color: var(--cor-link); font-size: var(--text-body-small); list-style: none;
 }
 .estadia__mais summary::-webkit-details-marker { display: none; }
+/* Ação em forma de link, como "Remover" e "Buscar novidades": sublinha ao passar o cursor. */
+@media (hover: hover) { .estadia__mais summary:hover { text-decoration: underline; } }
 .estadia__mais summary::after { content: ''; width: 8px; height: 8px; margin-left: var(--spacing-8); border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform var(--dur-curta) var(--ease-apple); }
 .estadia__mais[open] summary::after { transform: translateY(2px) rotate(-135deg); }
 .estadia__mais .estadia__fatos { border-top: 0; }
