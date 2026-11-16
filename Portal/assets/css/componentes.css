@@ -260,7 +260,8 @@ a.card:active { transform: scale(0.985); }
   transition: transform 460ms var(--ease-gota), clip-path 640ms var(--ease-alarga) 180ms, opacity 120ms linear;
 }
 .movimento .carrossel__controles.aberto .carrossel__pontos button { transition: opacity 180ms linear 560ms, scale 280ms var(--ease-entrada) 560ms; }
-.movimento .carrossel__controles.aberto .carrossel__seta { transition: opacity 180ms linear 700ms, scale 420ms var(--ease-gota) 700ms; }
+/* A transição da gota substitui a da seta: o fundo do cursor precisa constar aqui também. */
+.movimento .carrossel__controles.aberto .carrossel__seta { transition: opacity 180ms linear 700ms, scale 420ms var(--ease-gota) 700ms, background-color var(--dur-seta) linear; }
 .movimento .carrossel__controles:not(.aberto) .carrossel__pontos {
   opacity: 0; transform: scale(0.01); clip-path: inset(0.5px calc(50% - 21.5px) round var(--radius-pills));
 }
@@ -276,6 +277,7 @@ a.card:active { transform: scale(0.985); }
   width: calc(var(--spacing-40) + var(--spacing-4)); height: calc(var(--spacing-40) + var(--spacing-4));
   border-radius: var(--radius-buttons); background: var(--cor-controle);
   display: grid; place-items: center;
+  transition: background-color var(--dur-seta) linear;
 }
 .carrossel__seta::before {
   content: ''; width: var(--spacing-12); height: var(--spacing-8); background: var(--cor-texto);
@@ -285,6 +287,17 @@ a.card:active { transform: scale(0.985); }
 }
 .carrossel__seta--proxima::before { transform: rotate(-90deg); }
 .carrossel__seta:disabled { cursor: default; opacity: 0.4; }
+/* Cursor e toque nos controles, como nas setas e pontos de apple.com (valores em tokens.css): a seta clareia
+   com o cursor e escurece ao ser pressionada; o ponto que não é o atual fica mais escuro com o cursor, mais
+   depressa ao entrar (120 ms) do que ao sair (a transição normal do ponto, 320 ms). Nada muda de tamanho nem
+   de lugar. Em tela de toque não há cursor: só o pressionar da seta. */
+@media (hover: hover) {
+  .carrossel__seta:not(:disabled):hover { background-color: var(--cor-controle-hover); }
+  .carrossel__pontos button:not([aria-current="true"]):hover::before {
+    background-color: var(--cor-glifo-hover); transition-duration: var(--dur-ponto); transition-timing-function: linear;
+  }
+}
+.carrossel__seta:not(:disabled):active { background-color: var(--cor-controle-ativo); }
 
 /* Roteiro sem movimento: sem foto trocando nem detalhe à parte. */
 .roteiro__midia, .roteiro__atual { display: none; }

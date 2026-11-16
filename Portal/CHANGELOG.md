@@ -10,11 +10,21 @@ Regra de numeração em `DESIGN.md`, seção "Versão". Só versões numeradas e
 | 2.0, revisão 14 | 14/11/2026 | `7f62136` | — | `rev14` | Auditoria de qualidade, publicada sem número próprio |
 | 2.1 | 15/11/2026 | `45b5563` | `v2.1` | `rev15` | Animações, rodapé, sistema de espaçamento, regra de versões |
 | 2.2 | 15/11/2026 | `ed8feba` | `v2.2` | `rev16` | Áreas de toque pelas diretrizes da Apple; folga da cápsula |
-| 2.3 | 16/11/2026 | ver etiqueta | `v2.3` | `rev17` | Indicadores de cursor e de foco inteiros; zoom das fotos com rolagem |
+| 2.3 | 16/11/2026 | `29389a4` | `v2.3` | `rev17` | Indicadores de cursor e de foco inteiros; zoom das fotos com rolagem |
+| 2.4 | 16/11/2026 | ver etiqueta | `v2.4` | `rev18` | Setas e pontos dos carrosséis reagem ao cursor e ao toque |
 
-Até aqui, cinco versões publicadas (2.0, a revisão 14 da 2.0, que pela regra atual seria secundária, 2.1, 2.2 e 2.3), mais as revisões sem registro de antes do repositório.
+Até aqui, seis versões publicadas (2.0, a revisão 14 da 2.0, que pela regra atual seria secundária, 2.1, 2.2, 2.3 e 2.4), mais as revisões sem registro de antes do repositório.
 
-## 2.3 — 16/11/2026
+## 2.4 — 16/11/2026
+Controles dos carrosséis com estado de cursor e de toque, medidos em apple.com.
+
+- **Setas** (computador): o fundo clareia com o cursor e escurece ao ser pressionado, nos valores das setas translúcidas de apple.com (`rgba(223,223,227,0.6976)` e `rgba(193,193,198,0.6544)` no claro; `rgba(73,73,76,0.7256)` e `rgba(57,57,60,0.7424)` no escuro), em 100 ms lineares. Desativada, a seta não reage.
+- **Pontos:** o ponto que não é o atual escurece com o cursor, no mesmo passo de opacidade que a Apple usa (+0,12), em 120 ms ao entrar.
+- Em tela de toque não há cursor: só a seta pressionada responde. Nada muda de tamanho nem de lugar, e a gota de entrada continua igual.
+- Commit da 2.3 completado na tabela acima (antes, só a etiqueta).
+- Revisão do cache: `rev18`.
+
+## 2.3 — 16/11/2026 · `29389a4`
 Auditoria dos estados de interação (cursor, foco e toque) em todas as páginas.
 
 - **Cartões do Resumo da viagem:** o contorno que aparece ao passar o cursor perdia o lado de cima. O trilho do carrossel rola na horizontal e, por isso, recorta também em cima e embaixo; não havia respiro em cima. Agora tem 4px, devolvidos com margem negativa (nada sai do lugar).

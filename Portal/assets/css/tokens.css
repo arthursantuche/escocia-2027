@@ -115,6 +115,12 @@
   /* Controle translúcido do carrossel (componente "Carousel Playback Control") */
   --carousel-track: rgba(210, 210, 215, 0.64);
   --carousel-glyph: rgba(0, 0, 0, 0.56);
+  /* Cursor e toque no controle, medidos em apple.com/iphone-18-pro em 16/11/2026 (setas "paddlenav-alpha":
+     fundo com o cursor e pressionado). O ponto com o cursor é derivado: a Apple sobe a opacidade do ponto em
+     0,12 (de 0,42 para 0,54), e o portal aplica o mesmo passo aos seus 0,56. */
+  --carousel-track-hover: rgba(223, 223, 227, 0.6976);
+  --carousel-track-active: rgba(193, 193, 198, 0.6544);
+  --carousel-glyph-hover: rgba(0, 0, 0, 0.68);
   --nav-label: rgba(0, 0, 0, 0.8);
 
   /* Movimento (Identidade Visual - Apple, "Animações e comportamento visual - Apple";
@@ -123,6 +129,9 @@
   --ease-entrada: cubic-bezier(0, 0, 0.2, 1);
   --dur-curta: 240ms;
   --dur-link: 320ms;
+  /* Cursor nos controles do carrossel (apple.com, 16/11/2026): setas em 100 ms e pontos em 120 ms, lineares. */
+  --dur-seta: 100ms;
+  --dur-ponto: 120ms;
   --dur-longa: 500ms;
   /* Gota dos controles (medida em apple.com/iphone-18-pro em 02/11/2026): círculo que cresce,
      cápsula que alarga, depois os pontos. */
@@ -152,6 +161,9 @@
   --cor-trilho: var(--color-control-gray);
   --cor-controle: var(--carousel-track);
   --cor-glifo: var(--carousel-glyph);
+  --cor-controle-hover: var(--carousel-track-hover);
+  --cor-controle-ativo: var(--carousel-track-active);
+  --cor-glifo-hover: var(--carousel-glyph-hover);
   --cor-grafico-previsto: var(--color-steel);
 
   /* Contornos de 1px (o documento não usa sombras projetadas) */
@@ -183,5 +195,8 @@
     --cor-trilho: #333336;
     --cor-controle: rgba(66, 66, 69, 0.72);
     --cor-glifo: rgba(255, 255, 255, 0.56);
+    --cor-controle-hover: rgba(73, 73, 76, 0.7256);
+    --cor-controle-ativo: rgba(57, 57, 60, 0.7424);
+    --cor-glifo-hover: rgba(255, 255, 255, 0.68);
   }
 }
