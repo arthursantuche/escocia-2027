@@ -185,7 +185,6 @@ a.card:active { transform: scale(0.985); }
    âncora, sem sobrar a seção preta seguinte, e os cartões crescem junto com a tela larga. */
 #cidades { --largura-faixa: 1200px; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
 #cidades > .conteudo { box-sizing: border-box; width: 100%; max-width: calc(var(--largura-faixa) + var(--spacing-40)); }
-@media (min-width: 834px) { #cidades .cartao-cidade { flex-basis: clamp(340px, 30vw, 440px); } }
 /* Tela baixa: a altura da tela não é meta; o conteúdo manda. */
 @media (max-height: 560px) { #cidades { min-height: 0; } }
 
@@ -193,7 +192,11 @@ a.card:active { transform: scale(0.985); }
    O trilho ocupa a largura da tela e alinha o primeiro cartão à coluna de conteúdo. */
 .faixa-carrossel { padding-left: 0; padding-right: 0; }
 .faixa-carrossel > .conteudo { padding: 0 var(--gutter-d) 0 var(--gutter-e); box-sizing: content-box; }
+/* --cartao: largura de um cartão do trilho, usada pelo cartão e pelo espaço do fim (abaixo). */
 .carrossel { --margem: max(var(--gutter-e), calc((100% - var(--largura-faixa, 980px)) / 2)); }
+.carrossel__trilho { --cartao: min(84vw, 400px); }
+#cidades .carrossel__trilho { --cartao: min(84vw, 380px); }
+@media (min-width: 834px) { #cidades .carrossel__trilho { --cartao: clamp(340px, 30vw, 440px); } }
 .carrossel__trilho {
   display: flex; gap: var(--element-gap);
   overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
@@ -202,14 +205,18 @@ a.card:active { transform: scale(0.985); }
      ao passar o cursor (1px) e o anel de foco (4px) perdiam o lado de cima. A margem negativa
      devolve os 4px, e os cartões ficam no mesmo lugar. A base já tem 8px. */
   padding-top: var(--spacing-4); margin-top: calc(var(--spacing-4) * -1);
+  /* Espaço no fim: o bastante para o último cartão chegar à borda de encaixe, como os outros. Sem ele, os
+     últimos cartões tinham a mesma posição final, e setas e pontos pulavam (do 4º para o 7º nas cidades) ou
+     voltavam ao início (no Resumo). Cada ponto passa a ter uma posição própria, como nas galerias da Apple. */
+  padding-inline-end: max(var(--margem), calc(100% - var(--margem) - var(--cartao)));
   scrollbar-width: none;
 }
 .carrossel__trilho::-webkit-scrollbar { display: none; }
 /* Cartões do Resumo da viagem dentro do carrossel. */
-.carrossel__trilho > .card { flex: 0 0 min(84vw, 400px); }
+.carrossel__trilho > .card { flex: 0 0 var(--cartao); }
 .cartao-cidade {
   isolation: isolate;
-  flex: 0 0 min(84vw, 380px); scroll-snap-align: start;
+  flex: 0 0 var(--cartao); scroll-snap-align: start;
   display: flex; flex-direction: column;
   background: var(--cor-cartao); border-radius: var(--radius-cards); overflow: hidden;
   color: inherit;
@@ -373,8 +380,21 @@ section.roteiro--fixo.secao[id] { padding: 0; height: calc(100svh + (var(--parad
 }
 /* Só a foto atual e a que está saindo são desenhadas: empilhar sete fotos grandes visíveis ao mesmo
    tempo pesava na memória do iPhone. Nada muda no que se vê: a troca continua por esmaecimento. */
-.roteiro--fixo .roteiro__midia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; visibility: hidden; transition: opacity var(--dur-longa) var(--ease-apple), visibility 0s linear var(--dur-longa); }
-.roteiro--fixo .roteiro__midia img.ativa { opacity: 1; visibility: visible; transition: opacity var(--dur-longa) var(--ease-apple), visibility 0s; }
+.roteiro--fixo .roteiro__midia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; visibility: hidden; transition: opacity var(--dur-longa) var(--ease-apple), visibility 0s linear var(--dur-longa), scale var(--dur-longa) var(--ease-entrada); }
+.roteiro--fixo .roteiro__midia img.ativa { opacity: 1; visibility: visible; transition: opacity var(--dur-longa) var(--ease-apple), visibility 0s, scale var(--dur-longa) var(--ease-entrada); }
+/* Foto e nome da parada atual levam à cidade, como os cartões das Sete cidades: com o cursor sobre
+   qualquer um dos dois, a foto aproxima dentro da moldura e o nome fica azul; ao toque, a foto recua.
+   O nome não ganha a área de toque extra de 44px: no palco estreito ela passaria do bloco de altura fixa
+   e cobriria as linhas de baixo. No toque, o alvo é a foto logo acima, que leva ao mesmo lugar; o nome é
+   o link do teclado e dos leitores de tela (DESIGN.md, "Toque"). */
+.roteiro__nome { color: var(--cor-texto); }
+.roteiro__nome:hover { text-decoration: none; }
+.roteiro--fixo a.roteiro__midia { transition: transform var(--dur-curta) var(--ease-apple); -webkit-tap-highlight-color: transparent; }
+.roteiro--fixo a.roteiro__midia:active { transform: scale(0.985); }
+@media (hover: hover) {
+  .roteiro--fixo .roteiro__texto:has(.roteiro__midia:hover, .roteiro__nome:hover) .roteiro__midia img.ativa { scale: 1.04; }
+  .roteiro--fixo .roteiro__texto:has(.roteiro__midia:hover, .roteiro__nome:hover) .roteiro__nome { color: var(--cor-link); }
+}
 /* Altura reservada para o detalhe da parada: trocar de parada não mexe em mais nada. */
 .roteiro--fixo .roteiro__atual { display: grid; gap: var(--spacing-4); align-content: start; margin-top: var(--spacing-12); height: 88px; }
 .roteiro--fixo .roteiro__atual .kicker { font-size: var(--text-feature-copy); line-height: var(--leading-feature-copy); }
@@ -406,7 +426,7 @@ section.roteiro--fixo.secao[id] { padding: 0; height: calc(100svh + (var(--parad
   .roteiro__palco > * { flex: 1; }
   .roteiro__trilha { margin-top: 0; }
   .carrossel__setas { display: flex; }
-  .carrossel__trilho > .card { flex-basis: min(60vw, 560px); }
+  .carrossel__trilho { --cartao: min(60vw, 560px); }
   .parada { padding: var(--spacing-16) 0; }
   /* Fixo, em duas colunas: foto e detalhe à esquerda, trilha inteira à direita. */
   .roteiro--fixo .roteiro__palco {
@@ -474,7 +494,9 @@ section.roteiro--fixo.secao[id] { padding: 0; height: calc(100svh + (var(--parad
     border-radius: var(--radius-images); background: var(--cor-faixa); content-visibility: auto;
     transition: transform var(--dur-curta) var(--ease-apple);
   }
-  .parada__foto img { display: block; width: 100%; height: 100%; object-fit: cover; transition: opacity var(--dur-longa) var(--ease-entrada); }
+  .parada__foto img { display: block; width: 100%; height: 100%; object-fit: cover; transition: opacity var(--dur-longa) var(--ease-entrada), scale var(--dur-longa) var(--ease-entrada); }
+  /* A parada é um link para a cidade: com o cursor, a foto aproxima dentro da moldura, como nos cartões. */
+  @media (hover: hover) { a.parada:hover .parada__foto img { scale: 1.04; } }
   .parada__foto img:not(.carregada) { opacity: 0; }
   .parada:active .parada__foto { transform: scale(0.985); }
   .roteiro--vertical .parada__ponto, .roteiro--vertical .parada.ativa .parada__ponto { background: var(--cor-fundo); box-shadow: var(--contorno-forte); transition: none; }

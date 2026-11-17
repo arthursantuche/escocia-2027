@@ -11,11 +11,22 @@ Regra de numeração em `DESIGN.md`, seção "Versão". Só versões numeradas e
 | 2.1 | 15/11/2026 | `45b5563` | `v2.1` | `rev15` | Animações, rodapé, sistema de espaçamento, regra de versões |
 | 2.2 | 15/11/2026 | `ed8feba` | `v2.2` | `rev16` | Áreas de toque pelas diretrizes da Apple; folga da cápsula |
 | 2.3 | 16/11/2026 | `29389a4` | `v2.3` | `rev17` | Indicadores de cursor e de foco inteiros; zoom das fotos com rolagem |
-| 2.4 | 16/11/2026 | ver etiqueta | `v2.4` | `rev18` | Setas e pontos dos carrosséis reagem ao cursor e ao toque |
+| 2.4 | 16/11/2026 | `d360860` | `v2.4` | `rev18` | Setas e pontos dos carrosséis reagem ao cursor e ao toque |
+| **2.5** | 16/11/2026 | ver etiqueta | `v2.5` | `rev19` | **Consolidação final:** carrosséis sem saltos, roteiro clicável, estados de interação revistos, armazenamento documentado, testes em lote |
 
-Até aqui, seis versões publicadas (2.0, a revisão 14 da 2.0, que pela regra atual seria secundária, 2.1, 2.2, 2.3 e 2.4), mais as revisões sem registro de antes do repositório.
+Até aqui, sete versões publicadas no repositório (2.0, a revisão 14 da 2.0, que pela regra atual seria secundária, 2.1, 2.2, 2.3 e 2.4) e a 2.5, de consolidação, mais as revisões sem registro de antes do repositório.
 
-## 2.4 — 16/11/2026
+## 2.5 — 16/11/2026 · consolidação
+Marco de consolidação do portal, como a 1.0 e a 2.0 foram marcos de desenvolvimento: revisão completa, correção do que estava acumulado e fechamento das pendências que dependiam de trabalho no computador. Depois dela, só correções de defeitos reais e ajustes de compatibilidade.
+
+- **Carrosséis:** cada cartão passa a ter uma posição de encaixe própria (espaço no fim do trilho, `--cartao`). Antes, os últimos cartões dividiam a mesma posição: nas Sete cidades, as setas pulavam do 4º para o 7º e voltavam do 7º para o 4º; no Resumo, a seta de voltar, no fim, ia direto ao início. Setas, pontos e indicador agora usam a mesma conta, e cliques rápidos contam a partir do destino anterior. No computador, no fim do trilho, o último cartão fica à esquerda, como os outros.
+- **Galeria ampliada das fotos de hotel:** setas desativadas no começo e no fim; cliques rápidos e teclado andam uma foto por vez.
+- **Título "Escócia 2027"** fica azul com o cursor, como os itens do menu.
+- **Roteiro:** no palco (computador e telas deitadas), a foto e o nome da parada atual levam à página da cidade; com o cursor, a foto aproxima e o nome fica azul, como nos cartões das Sete cidades; ao toque, a foto recua. Na vertical, a foto de cada parada também aproxima com o cursor.
+- `scripts/testar-lote.cjs`: a bateria completa de testes, no Chrome ou no WebKit. `CLAUDE.md` na raiz do repositório, com os caminhos da documentação.
+- Revisão do cache: `rev19`.
+
+## 2.4 — 16/11/2026 · `d360860`
 Controles dos carrosséis com estado de cursor e de toque, medidos em apple.com.
 
 - **Setas** (computador): o fundo clareia com o cursor e escurece ao ser pressionado, nos valores das setas translúcidas de apple.com (`rgba(223,223,227,0.6976)` e `rgba(193,193,198,0.6544)` no claro; `rgba(73,73,76,0.7256)` e `rgba(57,57,60,0.7424)` no escuro), em 100 ms lineares. Desativada, a seta não reage.
@@ -73,5 +84,5 @@ Houve versões do portal antes do repositório, mas não há registro delas: o c
 - a API em uso é a implantação "Portal 2.0", na versão 7 do Apps Script (numeração do Google, sem relação com a versão do site); as versões 1 a 6 da implantação também não têm registro;
 - o Guia de Manutenção, no vault, registra o portal já em funcionamento em 03/11/2026.
 
-Não se sabe quantas versões numeradas houve antes da 2.0, nem quais foram as datas e mudanças. Se aparecer um registro confiável, ele entra aqui, em ordem cronológica.
+O Arthur informou, em 16/11/2026, que houve uma versão 1.0, marco de desenvolvimento como a 2.0. Não há registro da data nem do que ela continha, nem de outras versões numeradas antes da 2.0. Se aparecer um registro confiável, ele entra aqui, em ordem cronológica.
 

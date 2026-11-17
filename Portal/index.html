@@ -125,9 +125,11 @@
           <p class="kicker">Roteiro</p>
           <h2 class="titulo" id="roteiro-titulo">De Edimburgo às Highlands, e de volta.</h2>
           <p class="copy introducao" id="roteiro-resumo"></p>
-          <div class="roteiro__midia" id="roteiro-midia" aria-hidden="true"></div>
+          <!-- Foto e nome da parada atual levam à página da cidade (movimento.js troca o href). A foto repete
+               o link do nome: fica fora do Tab e dos leitores de tela. -->
+          <a class="roteiro__midia" id="roteiro-midia" href="#roteiro" tabindex="-1" aria-hidden="true"></a>
           <div class="roteiro__atual" id="roteiro-atual" aria-live="off">
-            <p class="kicker" id="roteiro-atual-nome"></p>
+            <a class="kicker roteiro__nome" id="roteiro-atual-nome" href="#roteiro"></a>
             <p class="legenda" id="roteiro-atual-resumo"></p>
             <p class="legenda" id="roteiro-atual-luz"></p>
           </div>

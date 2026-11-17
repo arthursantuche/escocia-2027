@@ -157,10 +157,11 @@ export function checarLayout() {
   // 8. Áreas de toque menores que 44 × 44px (aviso, só em telas de toque), em qualquer das duas medidas.
   //    Conta o ::after posicionado que estende o alvo sem mudar a linha (regra de alvo mínimo, em
   //    componentes.css, e "Buscar novidades"). Fora da conta: links dentro de texto corrido ou de legenda
-  //    (créditos de foto) e os pontos dos carrosséis (24 × 44px, exceção do DESIGN.md, "Toque").
+  //    (créditos de foto), os pontos dos carrosséis (24 × 44px) e o nome da parada no palco do Roteiro, cujo alvo
+  //    de toque é a foto logo acima (exceções do DESIGN.md, "Toque").
   if (matchMedia('(pointer: coarse)').matches) {
     document.querySelectorAll('a[href], button, .pill, select, input[type=checkbox]').forEach((b) => {
-      if (!visivel(b) || b.closest('.carrossel__pontos') || (getComputedStyle(b).display === 'inline' && b.closest('p, li, dd, td, figcaption'))) return;
+      if (!visivel(b) || b.closest('.carrossel__pontos') || b.matches('.roteiro__nome') || (getComputedStyle(b).display === 'inline' && b.closest('p, li, dd, td, figcaption'))) return;
       const r = b.getBoundingClientRect();
       if (!r.height) return;
       // A caixa de seleção e o rótulo formam um alvo só (o rótulo estende a área de toque sobre ela).

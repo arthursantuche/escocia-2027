@@ -27,13 +27,28 @@ function abrirTelaCheia(fotos, titulo, inicio) {
     el('figcaption', { class: 'legenda' }, x.t || ''))));
   const atual = () => Math.round(trilho.scrollLeft / Math.max(trilho.clientWidth, 1));
   const ir = (i, suave = true) => trilho.scrollTo({ left: i * trilho.clientWidth, behavior: suave && !matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto' });
-  const marcar = () => { contador.textContent = `${Math.min(atual() + 1, fotos.length)} de ${fotos.length}`; };
+  // Setas e teclado andam uma foto por vez a partir do destino anterior, mesmo durante a rolagem suave
+  // (como os carrosséis, carrossel.js), e as setas ficam desativadas no começo e no fim.
+  let destino = null;
+  let soltar = 0;
+  const passo = (direcao) => {
+    destino = Math.max(0, Math.min((destino ?? atual()) + direcao, fotos.length - 1));
+    ir(destino);
+    clearTimeout(soltar);
+    soltar = setTimeout(() => { destino = null; }, 700);
+  };
+  const setas = [];
+  const marcar = () => {
+    const i = Math.min(atual(), fotos.length - 1);
+    contador.textContent = `${i + 1} de ${fotos.length}`;
+    setas.forEach((s) => { s.disabled = Number(s.dataset.direcao) < 0 ? i === 0 : i === fotos.length - 1; });
+  };
   trilho.addEventListener('scroll', marcar, { passive: true });
-  const seta = (direcao, rotulo, classe) => el('button', { class: `carrossel__seta ${classe}`, type: 'button', 'aria-label': rotulo, onclick: () => ir(atual() + direcao) });
+  const seta = (direcao, rotulo, classe) => { const s = el('button', { class: `carrossel__seta ${classe}`, type: 'button', 'aria-label': rotulo, 'data-direcao': String(direcao), onclick: () => passo(direcao) }); setas.push(s); return s; };
   const dialogo = el('dialog', { class: 'ampliada', 'aria-label': `Fotos de ${titulo}`, onclose: () => dialogo.remove(),
     onkeydown: (e) => {
-      if (e.key === 'ArrowRight') { e.preventDefault(); ir(atual() + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); ir(atual() - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); passo(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); passo(-1); }
     },
     onclick: (e) => { if (e.target === dialogo) dialogo.close(); } },
     el('header', { class: 'ampliada__topo' },

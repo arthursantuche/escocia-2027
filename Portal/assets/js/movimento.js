@@ -316,7 +316,9 @@ function mostrarParada(parada) {
   parada.setAttribute('aria-current', 'step');
   const mostrarTexto = () => {
     if (paradaMostrada !== parada) return;
-    document.getElementById('roteiro-atual-nome').textContent = parada.dataset.nome;
+    const nome = document.getElementById('roteiro-atual-nome');
+    nome.textContent = parada.dataset.nome;
+    nome.href = document.getElementById('roteiro-midia').href = parada.getAttribute('href');
     document.getElementById('roteiro-atual-resumo').textContent = parada.dataset.resumo;
     document.getElementById('roteiro-atual-luz').textContent = parada.dataset.luz;
   };

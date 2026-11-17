@@ -15,7 +15,7 @@
   .escolha, .escolha__seta { transition: none; }
   .entrando, .carregamento::after { animation: none !important; }
   .cartao-cidade, a.card, .pill { transition: none; transform: none !important; }
-  .galeria img, .trecho__foto img, .cartao-cidade__foto img, .vizinha__foto img, a.parada .parada__ponto { transition: none; transform: none !important; scale: none !important; }
+  .galeria img, .trecho__foto img, .cartao-cidade__foto img, .vizinha__foto img, .parada__foto img, .roteiro__midia img, a.parada .parada__ponto { transition: none; transform: none !important; scale: none !important; }
 }
 
 /* Troca de página: só o conteúdo entra por esmaecimento; o painel superior não participa. */

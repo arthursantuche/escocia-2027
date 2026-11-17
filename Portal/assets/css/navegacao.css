@@ -41,7 +41,9 @@
   line-height: var(--leading-product-nav-title); letter-spacing: var(--tracking-product-nav-title);
   font-weight: var(--font-weight-semibold);
 }
+/* Como os itens do menu: azul com o cursor, sem sublinhado (a cor muda pela transição dos links). */
 .barra__titulo:hover { text-decoration: none; }
+@media (hover: hover) { .barra__titulo:hover { color: var(--cor-link); } }
 .barra__acao { grid-area: acao; }
 .barra__secoes {
   grid-area: secoes; display: flex; gap: var(--spacing-16);
